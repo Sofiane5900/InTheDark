@@ -25,8 +25,25 @@ public partial class Character : CharacterBody2D
 
     private void HandleInput()
     {
-        currentVelocity = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+        currentVelocity = Vector2.Zero;
+        if (Input.IsActionPressed("ui_up"))
+        {
+            currentVelocity.Y -= 1;
+        }
+        else if (Input.IsActionPressed("ui_down"))
+        {
+            currentVelocity.Y += 1;
+        }
+        else if (Input.IsActionPressed("ui_left"))
+        {
+            currentVelocity.X -= 1;
+        }
+        else if (Input.IsActionPressed("ui_right"))
+        {
+            currentVelocity.X += 1;
+        }
         currentVelocity *= speed;
+
         PlayAnimations();
         Console.WriteLine(Vector2.Axis.X);
         Console.WriteLine(Vector2.Axis.Y);
