@@ -11,9 +11,21 @@ config_version=5
 [application]
 
 config/name="DonjonEtHeros"
+run/main_scene="res://valombre.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/scale_mode="integer"
 
 [dotnet]
 
 project/assembly_name="Nouveau projet de jeu"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+textures/vram_compression/import_s3tc_bptc=true
+textures/lossless_compression/force_png=true

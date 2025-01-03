@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b18mu7lgcfttp"]
+
+[ext_resource type="Script" path="res://Characters.cs" id="1_j0n3y"]
+[ext_resource type="Texture2D" uid="uid://e6tkeetihhgs" path="res://Joueur.png" id="2_61ylu"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_j0n3y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(24, -25)
+texture = ExtResource("2_61ylu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
