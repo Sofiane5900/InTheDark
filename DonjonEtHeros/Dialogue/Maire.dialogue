@@ -1,0 +1,11 @@
+~ this_is_a_node_title
+Maire du Village: Bonjour, nous avons besoins de vous.
+Maire du Village: Il y un a mal qui réside dans la crypte de Valombre.
+#- First one
+#	Nathan: You picked the first one.
+#- Second one
+#	Nathan: You picked the second one.
+#- Start again => this_is_a_node_title
+#- End the conversation => END
+Nathan: For more information see the online documentation.
+=> END

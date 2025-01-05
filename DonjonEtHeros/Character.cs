@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using DialogueManagerRuntime;
 
 public partial class Character : CharacterBody2D
 {
@@ -47,6 +48,15 @@ public partial class Character : CharacterBody2D
         PlayAnimations();
         Console.WriteLine(Vector2.Axis.X);
         Console.WriteLine(Vector2.Axis.Y);
+
+        var dialogue = GD.Load<Resource>("res://Dialogue/Maire.dialogue");
+
+        if (Input.IsActionPressed("ui_accept")) {
+          DialogueManager.ShowExampleDialogueBalloon(dialogue);
+          return;
+        }
+
+        
     }
 
     private void PlayAnimations()
