@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://b18mu7lgcfttp"]
+[gd_scene load_steps=12 format=3 uid="uid://b18mu7lgcfttp"]
 
 [ext_resource type="Script" path="res://Character.cs" id="1_5y4fp"]
 [ext_resource type="Texture2D" uid="uid://dax8ls5fudfsf" path="res://characters.png" id="2_hg7ek"]
+[ext_resource type="Script" path="res://Camera2d.cs" id="3_a5jaa"]
 
 [sub_resource type="Animation" id="Animation_2tto6"]
 length = 0.001
@@ -136,3 +137,5 @@ shape = SubResource("CapsuleShape2D_7rdjt")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(6, 6)
 position_smoothing_enabled = true
+editor_draw_limits = true
+script = ExtResource("3_a5jaa")
