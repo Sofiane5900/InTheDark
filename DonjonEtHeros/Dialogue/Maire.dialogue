@@ -1,5 +1,9 @@
 ~ start
-Bonjour, nous avons besoins de vous.
-Il y un a mal qui réside dans la crypte de Valombre.
-J'ai besoin de votre aide, acceptez vous ?
+Chef du village: Bonjour, nous avons besoins de vous.
+Chef du village: Il y un a mal qui réside dans la crypte de Valombre.
+Chef du village: J'ai besoin de votre aide, acceptez vous ?
+- Non
+	D'accord, je comprend, revenez me voir plus tard..
+- Oui
+	Parfait, merci beaucoup !
 => END

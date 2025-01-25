@@ -67,9 +67,9 @@ public partial class Character : CharacterBody2D
         if (Input.IsActionJustPressed("ui_accept"))
         {
             Godot.Collections.Array<Area2D> actionnables = _actionnableFinder.GetOverlappingAreas();
-            GD.Print("Actionnable trouvé : " + actionnables.Count);
             if (actionnables.Count > 0)
             {
+                GD.Print("Actionnable trouvé : " + actionnables.Count);
                 (actionnables[0] as Actionnable).Action();
                 _currentVelocity = Vector2.Zero;
             }
