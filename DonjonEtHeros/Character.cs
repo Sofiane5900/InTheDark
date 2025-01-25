@@ -1,6 +1,6 @@
 using System;
-using Godot;
 using DialogueManagerRuntime;
+using Godot;
 
 public partial class Character : CharacterBody2D
 {
@@ -9,10 +9,13 @@ public partial class Character : CharacterBody2D
     private Vector2 currentVelocity;
     private AnimationPlayer animationPlayer;
 
+    private Area2D actionnableFinder;
+
     public override void _Ready()
     {
         base._Ready();
         animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        actionnableFinder = GetNode<Area2D>("Direction/ActionnableFinder");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -22,6 +25,11 @@ public partial class Character : CharacterBody2D
         Velocity = currentVelocity;
         // MoveAndSlide est une methode de Godot qui permet de depalcer un CharacterBody2D en utilisant sa currentVelocity
         MoveAndSlide();
+    }
+
+    public interface IDialogueProvider
+    {
+        void StartDialogue();
     }
 
     private void HandleInput()
@@ -48,15 +56,6 @@ public partial class Character : CharacterBody2D
         PlayAnimations();
         Console.WriteLine(Vector2.Axis.X);
         Console.WriteLine(Vector2.Axis.Y);
-
-        var dialogue = GD.Load<Resource>("res://Dialogue/Maire.dialogue");
-
-        if (Input.IsActionPressed("ui_accept")) {
-          DialogueManager.ShowExampleDialogueBalloon(dialogue);
-          return;
-        }
-
-        
     }
 
     private void PlayAnimations()

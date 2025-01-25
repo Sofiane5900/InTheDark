@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b18mu7lgcfttp"]
+[gd_scene load_steps=13 format=3 uid="uid://b18mu7lgcfttp"]
 
 [ext_resource type="Script" path="res://Character.cs" id="1_5y4fp"]
 [ext_resource type="Texture2D" uid="uid://dax8ls5fudfsf" path="res://characters.png" id="2_hg7ek"]
@@ -18,6 +18,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(1, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Direction:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_eydj2"]
 resource_name = "idle"
@@ -32,6 +44,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Vector2i(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Direction:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_ussga"]
@@ -50,6 +74,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(1, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Direction:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_2765e"]
 resource_name = "walk_left"
@@ -66,6 +102,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [Vector2i(2, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Direction:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5708]
 }
 
 [sub_resource type="Animation" id="Animation_5easb"]
@@ -84,6 +132,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(2, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(1, 2)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Direction:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [4.71239]
+}
 
 [sub_resource type="Animation" id="Animation_pq24a"]
 resource_name = "walk_up"
@@ -101,6 +161,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(0, 3), Vector2i(1, 3)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Direction:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.15032]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k24u3"]
 _data = {
@@ -115,6 +187,9 @@ _data = {
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7rdjt"]
 radius = 4.0
 height = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n5et5"]
+radius = 7.0
 
 [node name="Character2D" type="CharacterBody2D"]
 script = ExtResource("1_5y4fp")
@@ -140,3 +215,13 @@ zoom = Vector2(6, 6)
 position_smoothing_enabled = true
 editor_draw_limits = true
 script = ExtResource("3_a5jaa")
+
+[node name="Direction" type="Marker2D" parent="."]
+
+[node name="ActionnableFinder" type="Area2D" parent="Direction"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/ActionnableFinder"]
+position = Vector2(0, 7)
+shape = SubResource("CircleShape2D_n5et5")
