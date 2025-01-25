@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://78sgc7bngiwb"]
+[gd_scene load_steps=5 format=3 uid="uid://78sgc7bngiwb"]
 
 [ext_resource type="Texture2D" uid="uid://bx7yepl4t7juc" path="res://NPC.png" id="1_lx71w"]
+[ext_resource type="PackedScene" uid="uid://bbrf2stt2q55l" path="res://Scenes/Actionnable.tscn" id="2_74lqe"]
+[ext_resource type="Resource" uid="uid://elkvba0wou71" path="res://Dialogue/Maire.dialogue" id="3_olfig"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_02wi4"]
-radius = 15.1327
+radius = 26.6667
 
 [node name="Maire" type="StaticBody2D"]
 scale = Vector2(0.225, 0.225)
@@ -13,7 +15,10 @@ position = Vector2(0, 4)
 texture = ExtResource("1_lx71w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -14)
+position = Vector2(0, -4.44444)
 shape = SubResource("CircleShape2D_02wi4")
 
-[node name="Actionnable" type="Area2D" parent="."]
+[node name="Actionnable" parent="." instance=ExtResource("2_74lqe")]
+collision_layer = 16
+collision_mask = 0
+DialogueResource = ExtResource("3_olfig")

@@ -13,5 +13,6 @@ public partial class Actionnable : Area2D
     public void Action()
     {
         DialogueManager.ShowDialogueBalloon(DialogueResource, DialogueStart);
+        GD.Print("Actionnable, ça marche.");
     }
 }
