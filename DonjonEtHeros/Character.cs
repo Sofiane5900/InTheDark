@@ -23,7 +23,7 @@ public partial class Character : CharacterBody2D
         base._PhysicsProcess(delta);
         HandleInput();
         Velocity = currentVelocity;
-        // MoveAndSlide est une methode de Godot qui permet de depalcer un CharacterBody2D en utilisant sa currentVelocity
+        // MoveAndSlide est une methode de Godot qui permet de déplacer un CharacterBody2D en utilisant sa currentVelocity
         MoveAndSlide();
     }
 
@@ -35,6 +35,8 @@ public partial class Character : CharacterBody2D
     private void HandleInput()
     {
         currentVelocity = Vector2.Zero;
+        
+        // L'Axe Y est inversé, il commence en haut à gauche et Y augmente en descendant
         if (Input.IsActionPressed("ui_up"))
         {
             currentVelocity.Y -= 1;
@@ -60,6 +62,7 @@ public partial class Character : CharacterBody2D
 
     private void PlayAnimations()
     {
+        // Nos animations se lancent en fonction de la direction du Character
         if (currentVelocity == Vector2.Zero)
         {
             animationPlayer.Play("idle");
