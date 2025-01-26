@@ -1,11 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://cd2peswh5dtwb"]
+[gd_scene load_steps=14 format=3 uid="uid://cd2peswh5dtwb"]
 
 [ext_resource type="Texture2D" uid="uid://n75lrctbdnfx" path="res://Art/Bountiful-Bits-10x10-v-3.1/Colored/Natural.png" id="1_b7ix2"]
 [ext_resource type="Texture2D" uid="uid://5yvn3clfink6" path="res://Art/Bountiful-Bits-10x10-v-3.1/Colored/Civilized.png" id="2_e6tbu"]
 [ext_resource type="PackedScene" uid="uid://b18mu7lgcfttp" path="res://Scenes/Character.tscn" id="3_axm2n"]
 [ext_resource type="PackedScene" uid="uid://78sgc7bngiwb" path="res://Scenes/Maire.tscn" id="4_dp2yp"]
 [ext_resource type="PackedScene" uid="uid://bbrf2stt2q55l" path="res://Scenes/Actionnable.tscn" id="5_1r1js"]
-[ext_resource type="Resource" uid="uid://elkvba0wou71" path="res://Dialogue/Maire.dialogue" id="6_70q3u"]
+[ext_resource type="Resource" uid="uid://elkvba0wou71" path="res://Dialogue/Apple.dialogue" id="6_70q3u"]
+[ext_resource type="PackedScene" uid="uid://bjlfwqpih8sp1" path="res://Scenes/FruitLady.tscn" id="7_50q45"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ppxyd"]
 texture = ExtResource("1_b7ix2")
@@ -1799,5 +1800,20 @@ DialogueResource = ExtResource("6_70q3u")
 DialogueStart = "quest_apple_talk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Maire/Actionnable"]
+position = Vector2(1.90735e-06, 1.52588e-05)
+shape = SubResource("CircleShape2D_24sud")
+
+[node name="FruitLady" parent="." instance=ExtResource("7_50q45")]
+position = Vector2(273, 88)
+
+[node name="Actionnable" parent="FruitLady" instance=ExtResource("5_1r1js")]
+position = Vector2(0, 11)
+scale = Vector2(0.225, 0.225)
+collision_layer = 16
+collision_mask = 0
+DialogueResource = ExtResource("6_70q3u")
+DialogueStart = "pick_apple"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FruitLady/Actionnable"]
 position = Vector2(1.90735e-06, 1.52588e-05)
 shape = SubResource("CircleShape2D_24sud")
