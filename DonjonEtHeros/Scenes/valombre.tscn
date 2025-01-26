@@ -1799,5 +1799,5 @@ DialogueResource = ExtResource("6_70q3u")
 DialogueStart = "quest_apple_talk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Maire/Actionnable"]
-position = Vector2(0, -4.44444)
+position = Vector2(1.90735e-06, 1.52588e-05)
 shape = SubResource("CircleShape2D_24sud")
