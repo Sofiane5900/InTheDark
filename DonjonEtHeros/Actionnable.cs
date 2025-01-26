@@ -12,7 +12,17 @@ public partial class Actionnable : Area2D
 
     public void Action()
     {
-        DialogueManager.ShowDialogueBalloon(DialogueResource, DialogueStart);
-        GD.Print("Actionnable fonctionnelle.");
+        // On a défini une variable dialogue qui contient une méthode de DialogueManager
+        var dialogue = DialogueManager.ShowDialogueBalloon(DialogueResource, DialogueStart);
+        // On a défini le PROCESS MODE de notre dialogue en "always", meme si notre Tree est paused, le dialogue continuera.
+        dialogue.ProcessMode = DialogueManager.ProcessModeEnum.Always;
+        GetTree().Paused = true; // Pause du jeu
+        // Je connecte ma Méthode Unpause a l'événement DialogueEnded a DialogueEnded
+        DialogueManager.DialogueEnded += Unpause;
+    }
+
+    private void Unpause(Resource dialogueResource)
+    {
+        GetTree().Paused = false;
     }
 }

@@ -1,8 +1,8 @@
-using Godot;
-using Godot.Collections;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using Godot;
+using Godot.Collections;
 
 #nullable enable
 
@@ -13,7 +13,7 @@ namespace DialogueManagerRuntime
         None,
         Guess,
         CSV,
-        PO
+        PO,
     }
 
     public partial class DialogueManager : Node
@@ -28,7 +28,8 @@ namespace DialogueManagerRuntime
         public static MutatedEventHandler? Mutated;
         public static DialogueEndedEventHandler? DialogueEnded;
 
-        [Signal] public delegate void ResolvedEventHandler(Variant value);
+        [Signal]
+        public delegate void ResolvedEventHandler(Variant value);
 
         private static GodotObject? instance;
         public static GodotObject Instance
@@ -43,13 +44,11 @@ namespace DialogueManagerRuntime
             }
         }
 
-
         public static Godot.Collections.Array GameStates
         {
             get => (Godot.Collections.Array)Instance.Get("game_states");
             set => Instance.Set("game_states", value);
         }
-
 
         public static bool IncludeSingletons
         {
@@ -57,13 +56,11 @@ namespace DialogueManagerRuntime
             set => Instance.Set("include_singletons", value);
         }
 
-
         public static bool IncludeClasses
         {
             get => (bool)Instance.Get("include_classes");
             set => Instance.Set("include_classes", value);
         }
-
 
         public static TranslationSource TranslationSource
         {
@@ -71,19 +68,31 @@ namespace DialogueManagerRuntime
             set => Instance.Set("translation_source", (int)value);
         }
 
-
         public static Func<Node> GetCurrentScene
         {
             set => Instance.Set("get_current_scene", Callable.From(value));
         }
 
-
         public static void Prepare(GodotObject instance)
         {
-            instance.Connect("passed_title", Callable.From((string title) => PassedTitle?.Invoke(title)));
-            instance.Connect("got_dialogue", Callable.From((RefCounted line) => GotDialogue?.Invoke(new DialogueLine(line))));
-            instance.Connect("mutated", Callable.From((Dictionary mutation) => Mutated?.Invoke(mutation)));
-            instance.Connect("dialogue_ended", Callable.From((Resource dialogueResource) => DialogueEnded?.Invoke(dialogueResource)));
+            instance.Connect(
+                "passed_title",
+                Callable.From((string title) => PassedTitle?.Invoke(title))
+            );
+            instance.Connect(
+                "got_dialogue",
+                Callable.From((RefCounted line) => GotDialogue?.Invoke(new DialogueLine(line)))
+            );
+            instance.Connect(
+                "mutated",
+                Callable.From((Dictionary mutation) => Mutated?.Invoke(mutation))
+            );
+            instance.Connect(
+                "dialogue_ended",
+                Callable.From(
+                    (Resource dialogueResource) => DialogueEnded?.Invoke(dialogueResource)
+                )
+            );
         }
 
         public void Prepare()
@@ -91,10 +100,10 @@ namespace DialogueManagerRuntime
             Prepare(Instance);
         }
 
-
         public static async Task<GodotObject> GetSingleton()
         {
-            if (instance != null) return instance;
+            if (instance != null)
+                return instance;
 
             var tree = Engine.GetMainLoop();
             int x = 0;
@@ -121,67 +130,150 @@ namespace DialogueManagerRuntime
             return (Resource)Instance.Call("create_resource_from_text", text);
         }
 
-        public static async Task<DialogueLine?> GetNextDialogueLine(Resource dialogueResource, string key = "", Array<Variant>? extraGameStates = null)
+        public static async Task<DialogueLine?> GetNextDialogueLine(
+            Resource dialogueResource,
+            string key = "",
+            Array<Variant>? extraGameStates = null
+        )
         {
             var instance = (Node)Instance.Call("_bridge_get_new_instance");
             Prepare(instance);
-            instance.Call("_bridge_get_next_dialogue_line", dialogueResource, key, extraGameStates ?? new Array<Variant>());
-            var result = await instance.ToSignal(instance, "bridge_get_next_dialogue_line_completed");
+            instance.Call(
+                "_bridge_get_next_dialogue_line",
+                dialogueResource,
+                key,
+                extraGameStates ?? new Array<Variant>()
+            );
+            var result = await instance.ToSignal(
+                instance,
+                "bridge_get_next_dialogue_line_completed"
+            );
             instance.QueueFree();
 
-            if ((RefCounted)result[0] == null) return null;
+            if ((RefCounted)result[0] == null)
+                return null;
 
             return new DialogueLine((RefCounted)result[0]);
         }
 
-
-        public static CanvasLayer ShowExampleDialogueBalloon(Resource dialogueResource, string key = "", Array<Variant>? extraGameStates = null)
+        public static CanvasLayer ShowExampleDialogueBalloon(
+            Resource dialogueResource,
+            string key = "",
+            Array<Variant>? extraGameStates = null
+        )
         {
-            return (CanvasLayer)Instance.Call("show_example_dialogue_balloon", dialogueResource, key, extraGameStates ?? new Array<Variant>());
+            return (CanvasLayer)
+                Instance.Call(
+                    "show_example_dialogue_balloon",
+                    dialogueResource,
+                    key,
+                    extraGameStates ?? new Array<Variant>()
+                );
         }
 
-
-        public static Node ShowDialogueBalloonScene(string balloonScene, Resource dialogueResource, string key = "", Array<Variant>? extraGameStates = null)
+        public static Node ShowDialogueBalloonScene(
+            string balloonScene,
+            Resource dialogueResource,
+            string key = "",
+            Array<Variant>? extraGameStates = null
+        )
         {
-            return (Node)Instance.Call("show_dialogue_balloon_scene", balloonScene, dialogueResource, key, extraGameStates ?? new Array<Variant>());
+            return (Node)
+                Instance.Call(
+                    "show_dialogue_balloon_scene",
+                    balloonScene,
+                    dialogueResource,
+                    key,
+                    extraGameStates ?? new Array<Variant>()
+                );
         }
 
-        public static Node ShowDialogueBalloonScene(PackedScene balloonScene, Resource dialogueResource, string key = "", Array<Variant>? extraGameStates = null)
+        public static Node ShowDialogueBalloonScene(
+            PackedScene balloonScene,
+            Resource dialogueResource,
+            string key = "",
+            Array<Variant>? extraGameStates = null
+        )
         {
-            return (Node)Instance.Call("show_dialogue_balloon_scene", balloonScene, dialogueResource, key, extraGameStates ?? new Array<Variant>());
+            return (Node)
+                Instance.Call(
+                    "show_dialogue_balloon_scene",
+                    balloonScene,
+                    dialogueResource,
+                    key,
+                    extraGameStates ?? new Array<Variant>()
+                );
         }
 
-        public static Node ShowDialogueBalloonScene(Node balloonScene, Resource dialogueResource, string key = "", Array<Variant>? extraGameStates = null)
+        public static Node ShowDialogueBalloonScene(
+            Node balloonScene,
+            Resource dialogueResource,
+            string key = "",
+            Array<Variant>? extraGameStates = null
+        )
         {
-            return (Node)Instance.Call("show_dialogue_balloon_scene", balloonScene, dialogueResource, key, extraGameStates ?? new Array<Variant>());
+            return (Node)
+                Instance.Call(
+                    "show_dialogue_balloon_scene",
+                    balloonScene,
+                    dialogueResource,
+                    key,
+                    extraGameStates ?? new Array<Variant>()
+                );
         }
 
-
-        public static Node ShowDialogueBalloon(Resource dialogueResource, string key = "", Array<Variant>? extraGameStates = null)
+        public static Node ShowDialogueBalloon(
+            Resource dialogueResource,
+            string key = "",
+            Array<Variant>? extraGameStates = null
+        )
         {
-            return (Node)Instance.Call("show_dialogue_balloon", dialogueResource, key, extraGameStates ?? new Array<Variant>());
+            return (Node)
+                Instance.Call(
+                    "show_dialogue_balloon",
+                    dialogueResource,
+                    key,
+                    extraGameStates ?? new Array<Variant>()
+                );
         }
 
-
-        public static async void Mutate(Dictionary mutation, Array<Variant>? extraGameStates = null, bool isInlineMutation = false)
+        public static async void Mutate(
+            Dictionary mutation,
+            Array<Variant>? extraGameStates = null,
+            bool isInlineMutation = false
+        )
         {
-            Instance.Call("_bridge_mutate", mutation, extraGameStates ?? new Array<Variant>(), isInlineMutation);
+            Instance.Call(
+                "_bridge_mutate",
+                mutation,
+                extraGameStates ?? new Array<Variant>(),
+                isInlineMutation
+            );
             await Instance.ToSignal(Instance, "bridge_mutated");
         }
 
-
         public bool ThingHasMethod(GodotObject thing, string method)
         {
-            MethodInfo? info = thing.GetType().GetMethod(method, BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public);
+            MethodInfo? info = thing
+                .GetType()
+                .GetMethod(
+                    method,
+                    BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public
+                );
             return info != null;
         }
 
-
         public async void ResolveThingMethod(GodotObject thing, string method, Array<Variant> args)
         {
-            MethodInfo? info = thing.GetType().GetMethod(method, BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public);
+            MethodInfo? info = thing
+                .GetType()
+                .GetMethod(
+                    method,
+                    BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public
+                );
 
-            if (info == null) return;
+            if (info == null)
+                return;
 
 #nullable disable
             // Convert the method args to something reflection can handle
@@ -237,7 +329,6 @@ namespace DialogueManagerRuntime
         }
 #nullable enable
     }
-
 
     public partial class DialogueLine : RefCounted
     {
@@ -307,7 +398,8 @@ namespace DialogueManagerRuntime
             get => speeds;
         }
 
-        private Array<Godot.Collections.Array> inline_mutations = new Array<Godot.Collections.Array>();
+        private Array<Godot.Collections.Array> inline_mutations =
+            new Array<Godot.Collections.Array>();
         public Array<Godot.Collections.Array> InlineMutations
         {
             get => inline_mutations;
@@ -344,7 +436,6 @@ namespace DialogueManagerRuntime
             }
         }
 
-
         public string GetTagValue(string tagName)
         {
             string wrapped = $"{tagName}=";
@@ -371,7 +462,6 @@ namespace DialogueManagerRuntime
             }
         }
     }
-
 
     public partial class DialogueResponse : RefCounted
     {
@@ -437,4 +527,3 @@ namespace DialogueManagerRuntime
         }
     }
 }
-

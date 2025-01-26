@@ -34,7 +34,6 @@ public partial class Character : CharacterBody2D
     private void HandleInput()
     {
         _currentVelocity = Vector2.Zero;
-
         // L'Axe Y est inversé, il commence en haut à gauche et Y augmente en descendant
         if (Input.IsActionPressed("ui_up"))
         {
