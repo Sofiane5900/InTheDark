@@ -1,9 +1,21 @@
-~ start
-Chef du village: Bonjour, nous avons besoins de vous.
-Chef du village: Il y un a mal qui réside dans la crypte de Valombre.
-Chef du village: J'ai besoin de votre aide, acceptez vous ?
-- Non
-	D'accord, je comprend, revenez me voir plus tard..
-- Oui
-	Parfait, merci beaucoup !
+~ quest_apple_talk
+Chef du village: J'aimerais bien que tu me donnes une pomme.
+if State.AppleStatus == "has":
+	Hero: J'ai une pomme pour toi.
+	- Donner la pomme 	
+		set State.AppleStatus = "gave"
+	Hero: Tiens, voilà ta fameuse pomme.
+	Chef du village: Ah... merci bien.
+	- Garder la pomme
+		Hero: Je n'ai pas vu de pomme par ici, désolé.
+elif State.AppleStatus == "gave":
+	Chef du village: Merci encore pour cette pomme !
+else:
+	Chef du village: Il y a bien une pomme quelque part...
 => END
+
+
+~ pick_apple
+Hero: Cette pomme devrait faire l'affaire.
+set State.AppleStatus = "has"
+Hero: Je devrais lui ramener sa pomme.
