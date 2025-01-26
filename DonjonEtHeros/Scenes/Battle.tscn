@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://0ye1oqa4o4yn"]
+[gd_scene load_steps=6 format=3 uid="uid://0ye1oqa4o4yn"]
 
 [ext_resource type="Texture2D" uid="uid://byrhea24twuq0" path="res://Art/battleback10.png" id="1_2nb6p"]
 [ext_resource type="Texture2D" uid="uid://81iq22x6p43k" path="res://Art/02.png" id="2_r7are"]
@@ -17,6 +17,9 @@ border_width_top = 1
 border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jflto"]
+bg_color = Color(0, 0, 0, 0.592157)
+
 [node name="Battle" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -30,6 +33,30 @@ layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 650.0
 texture = ExtResource("1_2nb6p")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 2
+offset_left = 500.0
+offset_top = 200.0
+offset_right = 691.0
+offset_bottom = 225.0
+theme_override_styles/background = SubResource("StyleBoxFlat_xkl2h")
+theme_override_styles/fill = SubResource("StyleBoxFlat_36txv")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="ProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.035, 1.035)
+text = "PV : 50/50"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="EnemyContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -46,26 +73,6 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
 
-[node name="ProgressBar" type="ProgressBar" parent="EnemyContainer"]
-layout_mode = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_xkl2h")
-theme_override_styles/fill = SubResource("StyleBoxFlat_36txv")
-step = 1.0
-value = 50.0
-
-[node name="Label" type="Label" parent="EnemyContainer/ProgressBar"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.035, 1.035)
-text = "PV :"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Enemy" type="TextureRect" parent="EnemyContainer"]
 layout_mode = 2
 texture = ExtResource("2_r7are")
@@ -81,3 +88,4 @@ offset_top = -89.0
 offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jflto")
