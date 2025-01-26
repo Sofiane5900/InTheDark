@@ -19,6 +19,7 @@ public partial class Actionnable : Area2D
         GetTree().Paused = true; // Pause du jeu
         // Je connecte ma Méthode Unpause a l'événement DialogueEnded a DialogueEnded
         DialogueManager.DialogueEnded += Unpause;
+        GD.Print("Actionnable fonctionnelle.");
     }
 
     private void Unpause(Resource dialogueResource)
