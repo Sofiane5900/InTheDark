@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://0ye1oqa4o4yn"]
+[gd_scene load_steps=13 format=3 uid="uid://0ye1oqa4o4yn"]
 
 [ext_resource type="Texture2D" uid="uid://byrhea24twuq0" path="res://Art/battleback10.png" id="1_2nb6p"]
+[ext_resource type="Script" path="res://Scripts/Battle.cs" id="1_y8yfg"]
 [ext_resource type="FontFile" uid="uid://b6yl0xkbmiuut" path="res://Fonts/NESCyrillic.ttf" id="2_asqxe"]
 [ext_resource type="Texture2D" uid="uid://81iq22x6p43k" path="res://Art/02.png" id="2_r7are"]
+[ext_resource type="FontFile" uid="uid://dlsrghaghjq46" path="res://Fonts/Adventurer.ttf" id="4_ad1x7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xkl2h"]
 bg_color = Color(1, 0, 0.0823529, 1)
@@ -35,6 +37,14 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(1, 1, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rpq08"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
 [node name="Battle" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -42,6 +52,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.998106, 1.0102)
+script = ExtResource("1_y8yfg")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
@@ -57,8 +69,8 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -200.0
-offset_top = -153.21
-offset_bottom = 75.79
+offset_top = -130.045
+offset_bottom = 98.955
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
@@ -216,3 +228,49 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_2uu43")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_2uu43")
 theme_override_styles/normal = SubResource("StyleBoxFlat_lfptc")
 text = "FUIR"
+
+[node name="Textbox" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 166.945
+grow_horizontal = 2
+scale = Vector2(1.00555, 0.995217)
+theme_override_styles/panel = SubResource("StyleBoxFlat_rpq08")
+
+[node name="Label" type="Label" parent="Textbox"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.01309)
+theme_override_fonts/font = ExtResource("4_ad1x7")
+theme_override_font_sizes/font_size = 48
+text = "Un pouleto revanchard apparaît devant vous !"
+
+[node name="Ticker" type="Label" parent="Textbox"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.325
+offset_top = -52.385
+offset_right = -4.32495
+offset_bottom = -4.38501
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(1.01493, 0.959808)
+theme_override_fonts/font = ExtResource("4_ad1x7")
+theme_override_font_sizes/font_size = 48
+text = ">"
