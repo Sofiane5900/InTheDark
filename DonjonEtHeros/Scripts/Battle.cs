@@ -46,6 +46,8 @@ public partial class Battle : Control
         }
     }
 
+    private void SetHealth(int CurrentHealth, int MaxHealth) { }
+
     private void CloseActionsPanel()
     {
         ActionsPanel.Visible = true;

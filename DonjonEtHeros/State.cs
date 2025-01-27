@@ -5,4 +5,8 @@ public partial class State : Node
 {
     // public static bool CanMove;
     public string AppleStatus = "";
+
+    public int CurrentHealth = 100;
+    public int MaxHealth = 100;
+    public int Damage = 10;
 }
