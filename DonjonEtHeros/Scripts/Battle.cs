@@ -25,7 +25,7 @@ public partial class Battle : Control
         RunButton.Pressed += HandleButtonPressed;
         Textbox.Visible = false;
         ActionsPanel.Visible = false;
-        DisplayText("Ceci est un test");
+        DisplayText("Un pouleto revanchard apparaît devant vous !");
 
         // On connecte notre signal à nos méthodes
         Connect("textbox_closed", Callable.From(CloseActionsPanel));

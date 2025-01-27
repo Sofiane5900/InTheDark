@@ -255,7 +255,7 @@ grow_vertical = 2
 scale = Vector2(1, 1.01309)
 theme_override_fonts/font = ExtResource("4_ad1x7")
 theme_override_font_sizes/font_size = 48
-text = "Un pouleto revanchard apparaît devant vous !"
+text = "Hello world"
 
 [node name="Ticker" type="Label" parent="Textbox"]
 layout_mode = 1
