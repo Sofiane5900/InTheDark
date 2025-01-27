@@ -34,19 +34,31 @@ offset_right = 1152.0
 offset_bottom = 650.0
 texture = ExtResource("1_2nb6p")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="EnemyContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.375
+offset_top = -98.375
+offset_right = -39.375
+offset_bottom = 3.625
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="ProgressBar" type="ProgressBar" parent="EnemyContainer"]
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
-offset_left = 500.0
-offset_top = 200.0
-offset_right = 691.0
-offset_bottom = 225.0
 theme_override_styles/background = SubResource("StyleBoxFlat_xkl2h")
 theme_override_styles/fill = SubResource("StyleBoxFlat_36txv")
 step = 1.0
 value = 50.0
 show_percentage = false
 
-[node name="Label" type="Label" parent="ProgressBar"]
+[node name="Label" type="Label" parent="EnemyContainer/ProgressBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,21 +69,6 @@ scale = Vector2(1.035, 1.035)
 text = "PV : 50/50"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="EnemyContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -76.0
-offset_top = -124.0
-offset_right = 20.0
-offset_bottom = 3.095
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2, 2)
 
 [node name="Enemy" type="TextureRect" parent="EnemyContainer"]
 layout_mode = 2
