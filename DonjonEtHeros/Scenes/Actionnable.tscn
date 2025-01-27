@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbrf2stt2q55l"]
+[gd_scene load_steps=3 format=3 uid="uid://bbrf2stt2q55l"]
 
-[ext_resource type="Script" path="res://Scripts/Actionnable.cs" id="1_t5wpm"]
+[ext_resource type="Script" path="res://Actionnable.cs" id="1_t5wpm"]
+[ext_resource type="Resource" uid="uid://elkvba0wou71" path="res://Dialogue/Maire.dialogue" id="2_svy4h"]
 
-[node name="Actionnable" type="Area2D"]
+[node name="Actionnable" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 0
 script = ExtResource("1_t5wpm")
+DialogueResource = ExtResource("2_svy4h")

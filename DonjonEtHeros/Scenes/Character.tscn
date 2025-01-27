@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=3 uid="uid://b18mu7lgcfttp"]
 
-[ext_resource type="Script" path="res://Scripts/Character.cs" id="1_5y4fp"]
+[ext_resource type="Script" path="res://Character.cs" id="1_5y4fp"]
 [ext_resource type="Texture2D" uid="uid://dax8ls5fudfsf" path="res://characters.png" id="2_hg7ek"]
-[ext_resource type="Script" path="res://Scripts/Camera2d.cs" id="3_a5jaa"]
+[ext_resource type="Script" path="res://Camera2d.cs" id="3_a5jaa"]
 
 [sub_resource type="Animation" id="Animation_2tto6"]
 length = 0.001
@@ -192,7 +192,6 @@ height = 16.0
 radius = 7.0
 
 [node name="Character2D" type="CharacterBody2D"]
-collision_layer = 2
 script = ExtResource("1_5y4fp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

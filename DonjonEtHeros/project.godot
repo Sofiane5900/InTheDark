@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
-State="*res://State.cs"
 
 [dialogue_manager]
 
@@ -39,7 +38,7 @@ enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://Dialogue/Apple.dialogue")
+locale/translations_pot_files=PackedStringArray("res://Dialogue/Maire.dialogue")
 
 [layer_names]
 

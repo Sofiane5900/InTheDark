@@ -2,17 +2,18 @@
 
 [ext_resource type="Texture2D" uid="uid://bx7yepl4t7juc" path="res://NPC.png" id="1_lx71w"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u4cll"]
-radius = 17.7778
-height = 62.2222
+[sub_resource type="CircleShape2D" id="CircleShape2D_02wi4"]
+radius = 15.1327
 
 [node name="Maire" type="StaticBody2D"]
 scale = Vector2(0.225, 0.225)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.269097)
+position = Vector2(0, 4)
 texture = ExtResource("1_lx71w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -26.6667)
-shape = SubResource("CapsuleShape2D_u4cll")
+position = Vector2(-1, -14)
+shape = SubResource("CircleShape2D_02wi4")
+
+[node name="Actionnable" type="Area2D" parent="."]
