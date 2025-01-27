@@ -13,10 +13,17 @@ public partial class Battle : Control
 
     private ProgressBar PlayerHealthBar;
 
-    private State state;
+    private ProgressBar EnemyHealthBar;
+
+    private State stateScript;
+    private BaseEnemy enemyScript;
+    private Texture enemyTexture;
 
     [Export]
     private Button RunButton;
+
+    [Export]
+    private Resource Enemy;
 
     // Je crée un signal textbox_closed
     [Signal]
@@ -29,9 +36,12 @@ public partial class Battle : Control
         Textbox = GetNode<Panel>("Textbox");
         ActionsPanel = GetNode<Panel>("ActionsPanel");
         TextboxLabel = GetNode<Label>("Textbox/Label");
-        state = (State)GetNode("/root/State");
-        // Player
+        stateScript = (State)GetNode("/root/State");
+        enemyScript = new BaseEnemy();
+        // Player & Ennemy Health Bar
         PlayerHealthBar = GetNode<ProgressBar>("PlayerPanel/PlayerData/ProgressBar");
+        EnemyHealthBar = GetNode<ProgressBar>("EnemyContainer/ProgressBar");
+
         // Buttons
         RunButton = GetNode<Button>("ActionsPanel/Actions/Run");
         RunButton.Pressed += HandleButtonPressed;
@@ -41,7 +51,8 @@ public partial class Battle : Control
 
         // On connecte notre signal à nos méthodes
         Connect("textbox_closed", Callable.From(CloseActionsPanel));
-        SetHealth(PlayerHealthBar, state.CurrentHealth, state.MaxHealth);
+        SetHealth(PlayerHealthBar, stateScript.CurrentHealth, stateScript.MaxHealth);
+        SetHealth(EnemyHealthBar, enemyScript.health, enemyScript.health);
     }
 
     public override void _Input(InputEvent @event)

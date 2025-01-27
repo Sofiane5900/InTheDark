@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://81iq22x6p43k"
-path="res://.godot/imported/02.png-b8a8e789db043798c4630d9c5608deb8.ctex"
+path="res://.godot/imported/pouleto.png-287b719f1e21455a96fcbda785462ca9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/02.png"
-dest_files=["res://.godot/imported/02.png-b8a8e789db043798c4630d9c5608deb8.ctex"]
+source_file="res://Art/pouleto.png"
+dest_files=["res://.godot/imported/pouleto.png-287b719f1e21455a96fcbda785462ca9.ctex"]
 
 [params]
 
