@@ -26,10 +26,7 @@ public partial class Character : CharacterBody2D
         MoveAndSlide();
     }
 
-    public interface IDialogueProvider
-    {
-        void StartDialogue();
-    }
+
 
     private void HandleInput()
     {
@@ -54,8 +51,7 @@ public partial class Character : CharacterBody2D
         _currentVelocity *= _speed;
 
         PlayAnimations();
-        Console.WriteLine(Vector2.Axis.X);
-        Console.WriteLine(Vector2.Axis.Y);
+
     }
 
     // UnhandledInput est une methode de Godot qui permet de gérer les inputs qui n'ont pas été traités par d'autres méthodes
