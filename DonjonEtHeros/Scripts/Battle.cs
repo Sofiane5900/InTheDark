@@ -11,6 +11,10 @@ public partial class Battle : Control
 
     private Label TextboxLabel;
 
+    private ProgressBar PlayerHealthBar;
+
+    private State state;
+
     [Export]
     private Button RunButton;
 
@@ -21,9 +25,14 @@ public partial class Battle : Control
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        // Text & Actions Panel
         Textbox = GetNode<Panel>("Textbox");
         ActionsPanel = GetNode<Panel>("ActionsPanel");
         TextboxLabel = GetNode<Label>("Textbox/Label");
+        state = (State)GetNode("/root/State");
+        // Player
+        PlayerHealthBar = GetNode<ProgressBar>("PlayerPanel/PlayerData/ProgressBar");
+        // Buttons
         RunButton = GetNode<Button>("ActionsPanel/Actions/Run");
         RunButton.Pressed += HandleButtonPressed;
         Textbox.Visible = false;
@@ -32,6 +41,7 @@ public partial class Battle : Control
 
         // On connecte notre signal à nos méthodes
         Connect("textbox_closed", Callable.From(CloseActionsPanel));
+        SetHealth(PlayerHealthBar, state.CurrentHealth, state.MaxHealth);
     }
 
     public override void _Input(InputEvent @event)
@@ -46,7 +56,12 @@ public partial class Battle : Control
         }
     }
 
-    private void SetHealth(int CurrentHealth, int MaxHealth) { }
+    private void SetHealth(ProgressBar progressBar, int currentHealth, int maxHealth)
+    {
+        progressBar.MaxValue = maxHealth;
+        progressBar.Value = currentHealth;
+        progressBar.GetNode<Label>("Label").Text = $"PV: {currentHealth}/{maxHealth}";
+    }
 
     private void CloseActionsPanel()
     {
