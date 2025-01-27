@@ -1,4 +1,6 @@
+using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Godot;
 
 public partial class Battle : Control
@@ -56,11 +58,11 @@ public partial class Battle : Control
         return text;
     }
 
-    private void HandleButtonPressed()
+    private async void HandleButtonPressed()
     {
-        Connect("textbox_closed", Callable.From(HandleButtonPressed));
         DisplayText("Vous avez fui le combat !");
-        Thread.Sleep(2000);
+        await ToSignal(GetTree().CreateTimer(2), "timeout");
+        GetTree().Quit();
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
