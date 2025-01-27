@@ -1,3 +1,4 @@
+using System.Threading;
 using Godot;
 
 public partial class Battle : Control
@@ -25,7 +26,7 @@ public partial class Battle : Control
         RunButton.Pressed += HandleButtonPressed;
         Textbox.Visible = false;
         ActionsPanel.Visible = false;
-        DisplayText("Ceci est un test");
+        DisplayText("Un pouleto revanchard apparaît !");
 
         // On connecte notre signal à nos méthodes
         Connect("textbox_closed", Callable.From(CloseActionsPanel));
@@ -58,7 +59,8 @@ public partial class Battle : Control
     private void HandleButtonPressed()
     {
         Connect("textbox_closed", Callable.From(HandleButtonPressed));
-        DisplayText("Vous avez fui le combat.");
+        DisplayText("Vous avez fui le combat !");
+        Thread.Sleep(2000);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
