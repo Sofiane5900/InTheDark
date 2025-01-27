@@ -8,7 +8,10 @@ public partial class Battle : Control
 
     private Label TextboxLabel;
 
-    // Je crée un signal textbox_cloesd
+    [Export]
+    private Button RunButton;
+
+    // Je crée un signal textbox_closed
     [Signal]
     public delegate void textbox_closedEventHandler();
 
@@ -18,12 +21,14 @@ public partial class Battle : Control
         Textbox = GetNode<Panel>("Textbox");
         ActionsPanel = GetNode<Panel>("ActionsPanel");
         TextboxLabel = GetNode<Label>("Textbox/Label");
+        RunButton = GetNode<Button>("ActionsPanel/Actions/Run");
+        RunButton.Pressed += HandleButtonPressed;
         Textbox.Visible = false;
         ActionsPanel.Visible = false;
         DisplayText("Ceci est un test");
 
-        // On connecte notre signal à notre méthode
-        Connect("textbox_closed", Callable.From(OnSignalEmitted));
+        // On connecte notre signal à nos méthodes
+        Connect("textbox_closed", Callable.From(CloseActionsPanel));
     }
 
     public override void _Input(InputEvent @event)
@@ -33,11 +38,12 @@ public partial class Battle : Control
         if (Input.IsActionPressed("ui_accept") && Textbox.Visible)
         {
             Textbox.Visible = false;
+            // Lorsque que j'appuie sur la touche "ui_accept" j'emet mon signal
             EmitSignal("textbox_closed");
         }
     }
 
-    private void OnSignalEmitted()
+    private void CloseActionsPanel()
     {
         ActionsPanel.Visible = true;
     }
@@ -47,6 +53,12 @@ public partial class Battle : Control
         Textbox.Visible = true;
         TextboxLabel.Text = text;
         return text;
+    }
+
+    private void HandleButtonPressed()
+    {
+        Connect("textbox_closed", Callable.From(HandleButtonPressed));
+        DisplayText("Vous avez fui le combat.");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
