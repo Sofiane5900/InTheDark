@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://0ye1oqa4o4yn"]
+[gd_scene load_steps=13 format=3 uid="uid://0ye1oqa4o4yn"]
 
 [ext_resource type="Texture2D" uid="uid://byrhea24twuq0" path="res://Art/battleback10.png" id="1_2nb6p"]
+[ext_resource type="Script" path="res://Scripts/Battle.cs" id="1_y8yfg"]
+[ext_resource type="FontFile" uid="uid://b6yl0xkbmiuut" path="res://Fonts/NESCyrillic.ttf" id="2_asqxe"]
 [ext_resource type="Texture2D" uid="uid://81iq22x6p43k" path="res://Art/02.png" id="2_r7are"]
+[ext_resource type="FontFile" uid="uid://dlsrghaghjq46" path="res://Fonts/Adventurer.ttf" id="4_ad1x7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xkl2h"]
 bg_color = Color(1, 0, 0.0823529, 1)
@@ -20,6 +23,28 @@ border_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jflto"]
 bg_color = Color(0, 0, 0, 0.592157)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_erdu7"]
+bg_color = Color(0, 0, 0, 0.72549)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2uu43"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lfptc"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rpq08"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
 [node name="Battle" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -27,36 +52,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.998106, 1.0102)
+script = ExtResource("1_y8yfg")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 650.0
 texture = ExtResource("1_2nb6p")
-
-[node name="ProgressBar" type="ProgressBar" parent="."]
-layout_mode = 2
-offset_left = 500.0
-offset_top = 200.0
-offset_right = 691.0
-offset_bottom = 225.0
-theme_override_styles/background = SubResource("StyleBoxFlat_xkl2h")
-theme_override_styles/fill = SubResource("StyleBoxFlat_36txv")
-step = 1.0
-value = 50.0
-show_percentage = false
-
-[node name="Label" type="Label" parent="ProgressBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.035, 1.035)
-text = "PV : 50/50"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="EnemyContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -65,13 +68,35 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -76.0
-offset_top = -124.0
-offset_right = 20.0
-offset_bottom = 3.095
+offset_left = -200.0
+offset_top = -130.045
+offset_bottom = 98.955
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
+
+[node name="ProgressBar" type="ProgressBar" parent="EnemyContainer"]
+custom_minimum_size = Vector2(96, 25)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_xkl2h")
+theme_override_styles/fill = SubResource("StyleBoxFlat_36txv")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="EnemyContainer/ProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.035, 1.035)
+theme_override_fonts/font = ExtResource("2_asqxe")
+theme_override_font_sizes/font_size = 24
+text = "PV : 50/50"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Enemy" type="TextureRect" parent="EnemyContainer"]
 layout_mode = 2
@@ -89,3 +114,163 @@ offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_jflto")
+
+[node name="PlayerData" type="HBoxContainer" parent="PlayerPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.999102, 1.06024)
+alignment = 1
+
+[node name="Label" type="Label" parent="PlayerPanel/PlayerData"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_asqxe")
+theme_override_font_sizes/font_size = 48
+text = "joueur"
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="PlayerPanel/PlayerData"]
+custom_minimum_size = Vector2(96, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_xkl2h")
+theme_override_styles/fill = SubResource("StyleBoxFlat_36txv")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="PlayerPanel/PlayerData/ProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.035, 1.035)
+theme_override_fonts/font = ExtResource("2_asqxe")
+theme_override_font_sizes/font_size = 48
+text = "PV : 50/50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ActionsPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -648.0
+offset_bottom = -557.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_erdu7")
+
+[node name="Actions" type="HBoxContainer" parent="ActionsPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.999107, 0.996082)
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Attack" type="Button" parent="ActionsPanel/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_asqxe")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/hover = SubResource("StyleBoxFlat_2uu43")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2uu43")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lfptc")
+text = "Attaquer"
+
+[node name="Defend" type="Button" parent="ActionsPanel/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_asqxe")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/hover = SubResource("StyleBoxFlat_2uu43")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2uu43")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lfptc")
+text = "defendre"
+
+[node name="Run" type="Button" parent="ActionsPanel/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_asqxe")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/hover = SubResource("StyleBoxFlat_2uu43")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2uu43")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lfptc")
+text = "FUIR"
+
+[node name="Textbox" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 166.945
+grow_horizontal = 2
+scale = Vector2(1.00555, 0.995217)
+theme_override_styles/panel = SubResource("StyleBoxFlat_rpq08")
+
+[node name="Label" type="Label" parent="Textbox"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.01309)
+theme_override_fonts/font = ExtResource("4_ad1x7")
+theme_override_font_sizes/font_size = 48
+text = "Un pouleto revanchard apparaît devant vous !"
+
+[node name="Ticker" type="Label" parent="Textbox"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.325
+offset_top = -52.385
+offset_right = -4.32495
+offset_bottom = -4.38501
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(1.01493, 0.959808)
+theme_override_fonts/font = ExtResource("4_ad1x7")
+theme_override_font_sizes/font_size = 48
+text = ">"

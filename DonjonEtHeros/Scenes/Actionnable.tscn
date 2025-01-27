@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bbrf2stt2q55l"]
 
-[ext_resource type="Script" path="res://Actionnable.cs" id="1_t5wpm"]
+[ext_resource type="Script" path="res://Scripts/Actionnable.cs" id="1_t5wpm"]
 
 [node name="Actionnable" type="Area2D"]
 script = ExtResource("1_t5wpm")
