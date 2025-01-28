@@ -78,7 +78,9 @@ public partial class Battle : Control
         currentEnemyHealth = Enemy.health;
     }
 
-    public override void _Input(InputEvent @event)
+    // TODO : Empecher de spammer la touche "ui_accept" pour fermer le textbox et spam des actions
+
+    public override async void _Input(InputEvent @event)
     {
         base._Input(@event);
 
@@ -86,6 +88,7 @@ public partial class Battle : Control
         {
             Textbox.Visible = false;
             // Lorsque que j'appuie sur la touche "ui_accept" j'emet mon signal
+            await ToSignal(GetTree().CreateTimer(0.3), "timeout");
             EmitSignal("textbox_closed");
         }
     }
@@ -124,14 +127,27 @@ public partial class Battle : Control
         currentEnemyHealth = Math.Max(0, currentEnemyHealth - stateScript.Damage); // On evite que les PV deviennent négatif
         SetHealth(EnemyHealthBar, currentEnemyHealth, Enemy.health);
         AnimationPlayer.Play("enemy_damaged");
-        await ToSignal(GetTree().CreateTimer(1.2), "timeout");
-        EnemyAttack();
+        await ToSignal(AnimationPlayer, "animation_finished");
+        if (currentEnemyHealth == 0)
+        {
+            AnimationPlayer.Play("enemy_death");
+            await ToSignal(AnimationPlayer, "animation_finished");
+            DisplayText($"Vous avez vaincu le {Enemy.name} !");
+            GetTree().Paused = true;
+            await ToSignal(GetTree().CreateTimer(2), "timeout");
+            GetTree().Quit();
+        }
+        else
+        {
+            EnemyAttack();
+        }
     }
 
     private async void HandleDefendButton()
     {
         isDefending = true;
         DisplayText("Vous avez defendu l'ataque de l'ennemi !");
+        await ToSignal(GetTree().CreateTimer(1.2), "timeout");
         ActionsPanel.Visible = false;
         EnemyAttack();
     }
@@ -155,7 +171,7 @@ public partial class Battle : Control
             SetHealth(PlayerHealthBar, currentPlayerHealth, stateScript.MaxHealth);
             // TODO : On pourrait rename cette animation en "player_damaged"
             AnimationPlayer.Play("shake");
-            await ToSignal(GetTree().CreateTimer(1.2), "timeout");
+            await ToSignal(AnimationPlayer, "animation_finished");
         }
     }
 
