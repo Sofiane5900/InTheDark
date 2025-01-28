@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://0ye1oqa4o4yn"]
+[gd_scene load_steps=18 format=3 uid="uid://0ye1oqa4o4yn"]
 
 [ext_resource type="Texture2D" uid="uid://byrhea24twuq0" path="res://Art/battleback10.png" id="1_2nb6p"]
 [ext_resource type="Script" path="res://Scripts/Battle.cs" id="1_y8yfg"]
@@ -77,11 +77,40 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dr4wy"]
+resource_name = "shake"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(8, 8), Vector2(-5, 6), Vector2(5, -4), Vector2(-7, -5), Vector2(4, 5)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ib7fm"]
 _data = {
 "RESET": SubResource("Animation_h2btj"),
-"enemy_damaged": SubResource("Animation_aooh3")
+"enemy_damaged": SubResource("Animation_aooh3"),
+"shake": SubResource("Animation_dr4wy")
 }
 
 [node name="Battle" type="Control" node_paths=PackedStringArray("RunButton", "AttackButton")]
@@ -299,17 +328,17 @@ theme_override_fonts/font = ExtResource("4_ad1x7")
 theme_override_font_sizes/font_size = 48
 text = "Hello world"
 
-[node name="Ticker" type="Label" parent="Textbox"]
+[node name="Ticker" type="Label" parent="Textbox/Label"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -28.325
-offset_top = -52.385
-offset_right = -3.78992
-offset_bottom = -4.38501
+offset_left = -8.32495
+offset_top = -33.3484
+offset_right = 16.2101
+offset_bottom = 14.6516
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(1.01493, 0.959808)
@@ -321,3 +350,6 @@ text = ">"
 libraries = {
 "": SubResource("AnimationLibrary_ib7fm")
 }
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0

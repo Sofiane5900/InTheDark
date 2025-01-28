@@ -114,13 +114,11 @@ public partial class Battle : Control
 
     private async void HandleAttackButton()
     {
-        DisplayText("Vous portez une attaque à l'ennemi !");
+        DisplayText("Vous avez infligé " + stateScript.Damage + " points de dégâts à l'ennemi !");
         ActionsPanel.Visible = false;
         currentEnemyHealth = Math.Max(0, currentEnemyHealth - stateScript.Damage); // On evite que les PV deviennent négatif
         SetHealth(EnemyHealthBar, currentEnemyHealth, Enemy.health);
         AnimationPlayer.Play("enemy_damaged");
-        await ToSignal(GetTree().CreateTimer(1.2), "timeout");
-        DisplayText("Vous avez infligé " + stateScript.Damage + " points de dégâts à l'ennemi !");
         await ToSignal(GetTree().CreateTimer(1.2), "timeout");
     }
 
@@ -130,7 +128,8 @@ public partial class Battle : Control
         ActionsPanel.Visible = false;
         currentPlayerHealth = Math.Max(0, currentPlayerHealth - Enemy.damage); // On evite que les PV deviennent négatif
         SetHealth(PlayerHealthBar, currentPlayerHealth, stateScript.MaxHealth);
-        AnimationPlayer.Play("player_damaged");
+        // TODO : On pourrait renamer cette animation en "player_damaged"
+        AnimationPlayer.Play("shake");
         await ToSignal(GetTree().CreateTimer(1.2), "timeout");
     }
 
