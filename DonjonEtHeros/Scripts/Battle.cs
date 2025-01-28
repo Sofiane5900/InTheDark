@@ -18,6 +18,7 @@ public partial class Battle : Control
 
     private int currentPlayerHealth = 0;
     private int currentEnemyHealth = 0;
+    private bool isDefending = false;
 
     private State stateScript;
 
@@ -25,10 +26,13 @@ public partial class Battle : Control
     private Texture EnemyTexture;
 
     [Export]
-    private Button RunButton;
+    private Button AttackButton;
 
     [Export]
-    private Button AttackButton;
+    private Button DefendButton;
+
+    [Export]
+    private Button RunButton;
 
     [Export]
     private BaseEnemy Enemy;
@@ -57,6 +61,7 @@ public partial class Battle : Control
         // Buttons
         RunButton = GetNode<Button>("ActionsPanel/Actions/Run");
         AttackButton = GetNode<Button>("ActionsPanel/Actions/Attack");
+        DefendButton = GetNode<Button>("ActionsPanel/Actions/Defend");
         RunButton.Pressed += HandleRunButton;
         AttackButton.Pressed += HandleAttackButton;
 
@@ -120,15 +125,31 @@ public partial class Battle : Control
         SetHealth(EnemyHealthBar, currentEnemyHealth, Enemy.health);
         AnimationPlayer.Play("enemy_damaged");
         await ToSignal(GetTree().CreateTimer(1.2), "timeout");
+        EnemyAttack();
+    }
+
+    private async void HandleDefendButton()
+    {
+        isDefending = true;
+        DisplayText("Vous avez defendu l'ataque de l'ennemi !");
+        ActionsPanel.Visible = false;
+        await ToSignal(GetTree().CreateTimer(1.2), "timeout");
+        EnemyAttack();
     }
 
     private async void EnemyAttack()
     {
+        if (isDefending is true)
+        {
+            isDefending = false;
+            Enemy.damage = Enemy.damage / 2;
+            AnimationPlayer.Play("mini_shake");
+        }
         DisplayText("L'ennemi vous attaque !");
         ActionsPanel.Visible = false;
         currentPlayerHealth = Math.Max(0, currentPlayerHealth - Enemy.damage); // On evite que les PV deviennent négatif
         SetHealth(PlayerHealthBar, currentPlayerHealth, stateScript.MaxHealth);
-        // TODO : On pourrait renamer cette animation en "player_damaged"
+        // TODO : On pourrait rename cette animation en "player_damaged"
         AnimationPlayer.Play("shake");
         await ToSignal(GetTree().CreateTimer(1.2), "timeout");
     }
