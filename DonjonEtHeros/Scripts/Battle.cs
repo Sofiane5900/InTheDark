@@ -15,15 +15,22 @@ public partial class Battle : Control
 
     private ProgressBar EnemyHealthBar;
 
+    private int currentPlayerHealth;
+    private int currentEnemyHealth;
+
     private State stateScript;
-    private BaseEnemy enemyScript;
-    private Texture enemyTexture;
+
+    // private BaseEnemy enemyScript;
+    private Texture EnemyTexture;
 
     [Export]
     private Button RunButton;
 
     [Export]
-    private Resource Enemy;
+    private Button AttackButton;
+
+    [Export]
+    private BaseEnemy Enemy;
 
     // Je crée un signal textbox_closed
     [Signal]
@@ -36,27 +43,27 @@ public partial class Battle : Control
         Textbox = GetNode<Panel>("Textbox");
         ActionsPanel = GetNode<Panel>("ActionsPanel");
         TextboxLabel = GetNode<Label>("Textbox/Label");
+        // Scripts
         stateScript = (State)GetNode("/root/State");
-        enemyScript = new BaseEnemy();
-        // Player & Ennemy Health Bar
+        currentPlayerHealth = stateScript.CurrentHealth;
+        currentEnemyHealth = Enemy.health;
+        // Player & Ennemy Nodes
         PlayerHealthBar = GetNode<ProgressBar>("PlayerPanel/PlayerData/ProgressBar");
         EnemyHealthBar = GetNode<ProgressBar>("EnemyContainer/ProgressBar");
-
+        EnemyTexture = GetNode<TextureRect>("EnemyContainer/Enemy").Texture;
         // Buttons
         RunButton = GetNode<Button>("ActionsPanel/Actions/Run");
-        RunButton.Pressed += HandleButtonPressed;
+        AttackButton = GetNode<Button>("ActionsPanel/Actions/Attack");
+        RunButton.Pressed += HandleRunButton;
+
         Textbox.Visible = false;
         ActionsPanel.Visible = false;
-<<<<<<< HEAD
-        DisplayText("Un pouleto revanchard apparaît !");
-=======
-        DisplayText("Un pouleto revanchard apparaît devant vous !");
->>>>>>> develop
+        DisplayText($"Un {Enemy.name} apparaît devant vous !");
 
         // On connecte notre signal à nos méthodes
         Connect("textbox_closed", Callable.From(CloseActionsPanel));
         SetHealth(PlayerHealthBar, stateScript.CurrentHealth, stateScript.MaxHealth);
-        SetHealth(EnemyHealthBar, enemyScript.health, enemyScript.health);
+        SetHealth(EnemyHealthBar, Enemy.health, Enemy.health);
     }
 
     public override void _Input(InputEvent @event)
@@ -90,11 +97,17 @@ public partial class Battle : Control
         return text;
     }
 
-    private async void HandleButtonPressed()
+    private async void HandleRunButton()
     {
         DisplayText("Vous avez fui le combat !");
         await ToSignal(GetTree().CreateTimer(2), "timeout");
         GetTree().Quit();
+    }
+
+    private void HandleAttackButton()
+    {
+        DisplayText("Vous portez une attaque à l'ennemi !");
+        Enemy.health = Math.Max(0, Enemy.health - stateScript.Damage); // On evite que les PV deviennent négatif
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
