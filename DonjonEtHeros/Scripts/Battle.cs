@@ -79,7 +79,6 @@ public partial class Battle : Control
     }
 
     // TODO : Empecher de spammer la touche "ui_accept" pour fermer le textbox et spam des actions
-
     public override async void _Input(InputEvent @event)
     {
         base._Input(@event);

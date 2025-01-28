@@ -93,4 +93,10 @@ public partial class Character : CharacterBody2D
             _animationPlayer.Play("walk_right");
         }
     }
+
+    // public async void StartBattle()
+    // {
+    //     // On récupère la scène de notre jeu
+    //     var BattleScene = GD.Load<PackedScene>("res://Scenes/Battle.tscn");
+    // }
 }
