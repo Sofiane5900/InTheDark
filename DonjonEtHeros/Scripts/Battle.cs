@@ -33,6 +33,8 @@ public partial class Battle : Control
     [Export]
     private BaseEnemy Enemy;
 
+    private AnimationPlayer AnimationPlayer;
+
     // Je crée un signal textbox_closed
     [Signal]
     public delegate void textbox_closedEventHandler();
@@ -50,6 +52,8 @@ public partial class Battle : Control
         PlayerHealthBar = GetNode<ProgressBar>("PlayerPanel/PlayerData/ProgressBar");
         EnemyHealthBar = GetNode<ProgressBar>("EnemyContainer/ProgressBar");
         EnemyTexture = GetNode<TextureRect>("EnemyContainer/Enemy").Texture;
+        AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+
         // Buttons
         RunButton = GetNode<Button>("ActionsPanel/Actions/Run");
         AttackButton = GetNode<Button>("ActionsPanel/Actions/Attack");
@@ -114,6 +118,19 @@ public partial class Battle : Control
         ActionsPanel.Visible = false;
         currentEnemyHealth = Math.Max(0, currentEnemyHealth - stateScript.Damage); // On evite que les PV deviennent négatif
         SetHealth(EnemyHealthBar, currentEnemyHealth, Enemy.health);
+        AnimationPlayer.Play("enemy_damaged");
+        await ToSignal(GetTree().CreateTimer(1.2), "timeout");
+        DisplayText("Vous avez infligé " + stateScript.Damage + " points de dégâts à l'ennemi !");
+        await ToSignal(GetTree().CreateTimer(1.2), "timeout");
+    }
+
+    private async void EnemyAttack()
+    {
+        DisplayText("L'ennemi vous attaque !");
+        ActionsPanel.Visible = false;
+        currentPlayerHealth = Math.Max(0, currentPlayerHealth - Enemy.damage); // On evite que les PV deviennent négatif
+        SetHealth(PlayerHealthBar, currentPlayerHealth, stateScript.MaxHealth);
+        AnimationPlayer.Play("player_damaged");
         await ToSignal(GetTree().CreateTimer(1.2), "timeout");
     }
 
