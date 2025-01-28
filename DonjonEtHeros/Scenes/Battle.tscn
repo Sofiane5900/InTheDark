@@ -47,7 +47,7 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(1, 1, 1, 1)
 
-[node name="Battle" type="Control"]
+[node name="Battle" type="Control" node_paths=PackedStringArray("RunButton", "AttackButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,6 +56,8 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.998106, 1.0102)
 script = ExtResource("1_y8yfg")
+RunButton = NodePath("ActionsPanel/Actions/Run")
+AttackButton = NodePath("ActionsPanel/Actions/Attack")
 Enemy = ExtResource("2_7rj2n")
 
 [node name="Background" type="TextureRect" parent="."]

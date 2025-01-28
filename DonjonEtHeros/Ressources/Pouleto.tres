@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_l2dgb")
-name = "PouletoKFC"
+name = "pouleto revanchard"
 texture = ExtResource("2_xj65o")
 health = 30
 damage = 10

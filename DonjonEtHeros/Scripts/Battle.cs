@@ -15,8 +15,8 @@ public partial class Battle : Control
 
     private ProgressBar EnemyHealthBar;
 
-    private int currentPlayerHealth;
-    private int currentEnemyHealth;
+    private int currentPlayerHealth = 0;
+    private int currentEnemyHealth = 0;
 
     private State stateScript;
 
@@ -45,8 +45,6 @@ public partial class Battle : Control
         TextboxLabel = GetNode<Label>("Textbox/Label");
         // Scripts
         stateScript = (State)GetNode("/root/State");
-        currentPlayerHealth = stateScript.CurrentHealth;
-        currentEnemyHealth = Enemy.health;
         // Player & Ennemy Nodes
         PlayerHealthBar = GetNode<ProgressBar>("PlayerPanel/PlayerData/ProgressBar");
         EnemyHealthBar = GetNode<ProgressBar>("EnemyContainer/ProgressBar");
@@ -55,6 +53,7 @@ public partial class Battle : Control
         RunButton = GetNode<Button>("ActionsPanel/Actions/Run");
         AttackButton = GetNode<Button>("ActionsPanel/Actions/Attack");
         RunButton.Pressed += HandleRunButton;
+        AttackButton.Pressed += HandleAttackButton;
 
         Textbox.Visible = false;
         ActionsPanel.Visible = false;
@@ -64,6 +63,8 @@ public partial class Battle : Control
         Connect("textbox_closed", Callable.From(CloseActionsPanel));
         SetHealth(PlayerHealthBar, stateScript.CurrentHealth, stateScript.MaxHealth);
         SetHealth(EnemyHealthBar, Enemy.health, Enemy.health);
+        currentPlayerHealth = stateScript.CurrentHealth;
+        currentEnemyHealth = Enemy.health;
     }
 
     public override void _Input(InputEvent @event)
@@ -104,10 +105,12 @@ public partial class Battle : Control
         GetTree().Quit();
     }
 
-    private void HandleAttackButton()
+    private async void HandleAttackButton()
     {
         DisplayText("Vous portez une attaque à l'ennemi !");
-        Enemy.health = Math.Max(0, Enemy.health - stateScript.Damage); // On evite que les PV deviennent négatif
+        await ToSignal(GetTree().CreateTimer(1.2), "timeout");
+        currentEnemyHealth = Math.Max(0, currentEnemyHealth - stateScript.Damage); // On evite que les PV deviennent négatif
+        SetHealth(EnemyHealthBar, currentEnemyHealth, Enemy.health);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
