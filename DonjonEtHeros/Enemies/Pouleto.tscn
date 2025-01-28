@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmnsnwujfcc6"]
+
+[ext_resource type="Texture2D" uid="uid://81iq22x6p43k" path="res://Art/pouleto.png" id="1_365x3"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o4op8"]
+radius = 12.0833
+height = 28.4375
+
+[node name="Pouleto" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("1_365x3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.34146)
+scale = Vector2(0.468293, 0.468293)
+shape = SubResource("CapsuleShape2D_o4op8")

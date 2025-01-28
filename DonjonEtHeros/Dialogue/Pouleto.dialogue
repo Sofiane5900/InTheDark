@@ -1,0 +1,13 @@
+~ talk_pouleto_valombre
+Pouleto: *cot cot* Personne ne passe.
+Pouleto: *cot cot* Je suis le gardien du cimtiére.
+- D'accord
+	Hero: Je comprends, adieu alors..
+- Pourquoi ? 
+	Hero: Ah.. c'est embétant, je dois me rendre par ici.
+	Pouleto: *cot cot* C'est mon problème peut étre ? 
+- Insulte
+	Hero: Dégage d'ici poule-mouillé.
+	Pouleto: *COT COT !!*
+	* Le poulet semble en colére...
+=> END

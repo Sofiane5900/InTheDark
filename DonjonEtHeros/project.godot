@@ -39,7 +39,7 @@ enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://Dialogue/Apple.dialogue")
+locale/translations_pot_files=PackedStringArray("res://Dialogue/Apple.dialogue", "res://Dialogue/Pouleto.dialogue")
 
 [layer_names]
 
