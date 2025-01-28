@@ -1,3 +1,6 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Godot;
 
 public partial class Battle : Control
@@ -8,8 +11,19 @@ public partial class Battle : Control
 
     private Label TextboxLabel;
 
+    private ProgressBar PlayerHealthBar;
+
+    private ProgressBar EnemyHealthBar;
+
+    private State stateScript;
+    private BaseEnemy enemyScript;
+    private Texture enemyTexture;
+
     [Export]
     private Button RunButton;
+
+    [Export]
+    private Resource Enemy;
 
     // Je crée un signal textbox_closed
     [Signal]
@@ -18,17 +32,31 @@ public partial class Battle : Control
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        // Text & Actions Panel
         Textbox = GetNode<Panel>("Textbox");
         ActionsPanel = GetNode<Panel>("ActionsPanel");
         TextboxLabel = GetNode<Label>("Textbox/Label");
+        stateScript = (State)GetNode("/root/State");
+        enemyScript = new BaseEnemy();
+        // Player & Ennemy Health Bar
+        PlayerHealthBar = GetNode<ProgressBar>("PlayerPanel/PlayerData/ProgressBar");
+        EnemyHealthBar = GetNode<ProgressBar>("EnemyContainer/ProgressBar");
+
+        // Buttons
         RunButton = GetNode<Button>("ActionsPanel/Actions/Run");
         RunButton.Pressed += HandleButtonPressed;
         Textbox.Visible = false;
         ActionsPanel.Visible = false;
+<<<<<<< HEAD
+        DisplayText("Un pouleto revanchard apparaît !");
+=======
         DisplayText("Un pouleto revanchard apparaît devant vous !");
+>>>>>>> develop
 
         // On connecte notre signal à nos méthodes
         Connect("textbox_closed", Callable.From(CloseActionsPanel));
+        SetHealth(PlayerHealthBar, stateScript.CurrentHealth, stateScript.MaxHealth);
+        SetHealth(EnemyHealthBar, enemyScript.health, enemyScript.health);
     }
 
     public override void _Input(InputEvent @event)
@@ -43,6 +71,13 @@ public partial class Battle : Control
         }
     }
 
+    private void SetHealth(ProgressBar progressBar, int currentHealth, int maxHealth)
+    {
+        progressBar.MaxValue = maxHealth;
+        progressBar.Value = currentHealth;
+        progressBar.GetNode<Label>("Label").Text = $"PV: {currentHealth}/{maxHealth}";
+    }
+
     private void CloseActionsPanel()
     {
         ActionsPanel.Visible = true;
@@ -55,10 +90,11 @@ public partial class Battle : Control
         return text;
     }
 
-    private void HandleButtonPressed()
+    private async void HandleButtonPressed()
     {
-        Connect("textbox_closed", Callable.From(HandleButtonPressed));
-        DisplayText("Vous avez fui le combat.");
+        DisplayText("Vous avez fui le combat !");
+        await ToSignal(GetTree().CreateTimer(2), "timeout");
+        GetTree().Quit();
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

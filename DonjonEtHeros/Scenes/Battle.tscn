@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://0ye1oqa4o4yn"]
+[gd_scene load_steps=14 format=3 uid="uid://0ye1oqa4o4yn"]
 
 [ext_resource type="Texture2D" uid="uid://byrhea24twuq0" path="res://Art/battleback10.png" id="1_2nb6p"]
 [ext_resource type="Script" path="res://Scripts/Battle.cs" id="1_y8yfg"]
+[ext_resource type="Resource" uid="uid://n6hectgsy7uq" path="res://Ressources/Pouleto.tres" id="2_7rj2n"]
 [ext_resource type="FontFile" uid="uid://b6yl0xkbmiuut" path="res://Fonts/NESCyrillic.ttf" id="2_asqxe"]
-[ext_resource type="Texture2D" uid="uid://81iq22x6p43k" path="res://Art/02.png" id="2_r7are"]
+[ext_resource type="Texture2D" uid="uid://81iq22x6p43k" path="res://Art/pouleto.png" id="2_r7are"]
 [ext_resource type="FontFile" uid="uid://dlsrghaghjq46" path="res://Fonts/Adventurer.ttf" id="4_ad1x7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xkl2h"]
@@ -17,6 +18,7 @@ border_color = Color(0, 0, 0, 1)
 bg_color = Color(4.90934e-06, 0.725763, 0.189569, 1)
 border_width_left = 1
 border_width_top = 1
+border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 
@@ -54,6 +56,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.998106, 1.0102)
 script = ExtResource("1_y8yfg")
+Enemy = ExtResource("2_7rj2n")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
