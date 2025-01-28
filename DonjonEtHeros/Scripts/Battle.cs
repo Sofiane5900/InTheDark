@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Tracing;
 using System.Threading;
 using System.Threading.Tasks;
 using Godot;
@@ -100,7 +101,9 @@ public partial class Battle : Control
 
     private async void HandleRunButton()
     {
-        DisplayText("Vous avez fui le combat !");
+        DisplayText("Vous avez fuit le combat !");
+        ActionsPanel.Visible = false;
+        GetTree().Paused = true;
         await ToSignal(GetTree().CreateTimer(2), "timeout");
         GetTree().Quit();
     }
@@ -108,9 +111,10 @@ public partial class Battle : Control
     private async void HandleAttackButton()
     {
         DisplayText("Vous portez une attaque à l'ennemi !");
-        await ToSignal(GetTree().CreateTimer(1.2), "timeout");
+        ActionsPanel.Visible = false;
         currentEnemyHealth = Math.Max(0, currentEnemyHealth - stateScript.Damage); // On evite que les PV deviennent négatif
         SetHealth(EnemyHealthBar, currentEnemyHealth, Enemy.health);
+        await ToSignal(GetTree().CreateTimer(1.2), "timeout");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

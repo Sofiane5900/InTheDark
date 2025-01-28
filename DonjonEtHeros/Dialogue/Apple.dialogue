@@ -20,4 +20,5 @@ Marchande : Bonjour, je vends toute sorte de fruits !
 Marchande : Tenez, gouter moi cette pomme 
 set State.AppleStatus = "has"
 Hero: Ah, c'est vraiment pas mal comme pomme.
+
 => END
