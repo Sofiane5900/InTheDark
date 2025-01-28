@@ -62,8 +62,9 @@ public partial class Battle : Control
         RunButton = GetNode<Button>("ActionsPanel/Actions/Run");
         AttackButton = GetNode<Button>("ActionsPanel/Actions/Attack");
         DefendButton = GetNode<Button>("ActionsPanel/Actions/Defend");
-        RunButton.Pressed += HandleRunButton;
         AttackButton.Pressed += HandleAttackButton;
+        RunButton.Pressed += HandleRunButton;
+        DefendButton.Pressed += HandleDefendButton;
 
         Textbox.Visible = false;
         ActionsPanel.Visible = false;
@@ -103,6 +104,7 @@ public partial class Battle : Control
 
     private string DisplayText(string text)
     {
+        ActionsPanel.Visible = false;
         Textbox.Visible = true;
         TextboxLabel.Text = text;
         return text;
@@ -111,7 +113,6 @@ public partial class Battle : Control
     private async void HandleRunButton()
     {
         DisplayText("Vous avez fuit le combat !");
-        ActionsPanel.Visible = false;
         GetTree().Paused = true;
         await ToSignal(GetTree().CreateTimer(2), "timeout");
         GetTree().Quit();
@@ -120,7 +121,6 @@ public partial class Battle : Control
     private async void HandleAttackButton()
     {
         DisplayText("Vous avez infligé " + stateScript.Damage + " points de dégâts à l'ennemi !");
-        ActionsPanel.Visible = false;
         currentEnemyHealth = Math.Max(0, currentEnemyHealth - stateScript.Damage); // On evite que les PV deviennent négatif
         SetHealth(EnemyHealthBar, currentEnemyHealth, Enemy.health);
         AnimationPlayer.Play("enemy_damaged");
@@ -133,7 +133,6 @@ public partial class Battle : Control
         isDefending = true;
         DisplayText("Vous avez defendu l'ataque de l'ennemi !");
         ActionsPanel.Visible = false;
-        await ToSignal(GetTree().CreateTimer(1.2), "timeout");
         EnemyAttack();
     }
 
@@ -142,16 +141,22 @@ public partial class Battle : Control
         if (isDefending is true)
         {
             isDefending = false;
+            DisplayText("Vous avez reduit l'attaque de l'ennemi de moitié !");
             Enemy.damage = Enemy.damage / 2;
+            currentPlayerHealth = Math.Max(0, currentPlayerHealth - Enemy.damage); // On evite que les PV deviennent négatif
+            SetHealth(PlayerHealthBar, currentPlayerHealth, stateScript.MaxHealth);
+            await ToSignal(GetTree().CreateTimer(1.2), "timeout");
             AnimationPlayer.Play("mini_shake");
         }
-        DisplayText("L'ennemi vous attaque !");
-        ActionsPanel.Visible = false;
-        currentPlayerHealth = Math.Max(0, currentPlayerHealth - Enemy.damage); // On evite que les PV deviennent négatif
-        SetHealth(PlayerHealthBar, currentPlayerHealth, stateScript.MaxHealth);
-        // TODO : On pourrait rename cette animation en "player_damaged"
-        AnimationPlayer.Play("shake");
-        await ToSignal(GetTree().CreateTimer(1.2), "timeout");
+        else
+        {
+            DisplayText("L'ennemi vous attaque !");
+            currentPlayerHealth = Math.Max(0, currentPlayerHealth - Enemy.damage); // On evite que les PV deviennent négatif
+            SetHealth(PlayerHealthBar, currentPlayerHealth, stateScript.MaxHealth);
+            // TODO : On pourrait rename cette animation en "player_damaged"
+            AnimationPlayer.Play("shake");
+            await ToSignal(GetTree().CreateTimer(1.2), "timeout");
+        }
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
