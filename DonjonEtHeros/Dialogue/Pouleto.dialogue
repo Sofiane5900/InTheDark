@@ -12,6 +12,8 @@ if not State.has_met_pouleto:
 		Hero: Dégage d'ici poule-mouillé.
 		Pouleto: *COT COT !!*
 		* Le poulet semble en colére...
+		 do BattleManager.StartBattle("BattleMap", "Pouleto")
+
 	=> END
 	
 	

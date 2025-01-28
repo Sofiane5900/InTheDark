@@ -19,13 +19,10 @@ public partial class BattleManager : Node
             QueueFree();
             return;
         }
+        gameNode = GetTree().Root.GetNode("Valombre") as Node;
     }
 
-    public static async Task StartBattle(
-        string battleScene,
-        string enemyName,
-        BaseEnemy currentEnemy
-    )
+    public static async Task StartBattle(string battleScene, string enemyName)
     {
         PackedScene battleScenePath = GD.Load<PackedScene>($"res://Scenes/{battleScene}.tscn");
         if (battleScenePath is null)
@@ -37,8 +34,6 @@ public partial class BattleManager : Node
         {
             GD.PrintErr($"Enemy {enemyName} not found");
         }
-
-        Instance.CurrentEnemy = currentEnemy;
 
         await Instance?.StartBattleInstance(battleScenePath, enemyPath);
     }
