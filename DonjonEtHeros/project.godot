@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="DonjonEtHeros"
-run/main_scene="res://Scenes/valombre.tscn"
+run/main_scene="res://GameManager.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 State="*res://State.cs"
 BattleManager="*res://BattleManager.cs"
+GameManager="*res://GameManager.cs"
 
 [dialogue_manager]
 
