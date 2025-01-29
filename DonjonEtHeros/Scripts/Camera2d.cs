@@ -19,4 +19,13 @@ public partial class Camera2d : Camera2D
         LimitRight = (int)(mapEnd.X - tileSize);
         LimitBottom = (int)(mapEnd.Y - tileSize);
     }
+
+    public void DisableCamera()
+    {
+        Camera2d characterCamera = GetNode<Camera2d>("Camera2D");
+        if (characterCamera != null)
+        {
+            characterCamera.Enabled = false;
+        }
+    }
 }
