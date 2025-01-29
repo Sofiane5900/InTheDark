@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b18mu7lgcfttp"]
+[gd_scene load_steps=12 format=3 uid="uid://b18mu7lgcfttp"]
 
 [ext_resource type="Script" path="res://Scripts/Character.cs" id="1_5y4fp"]
 [ext_resource type="Texture2D" uid="uid://dax8ls5fudfsf" path="res://characters.png" id="2_hg7ek"]
@@ -186,17 +186,16 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7rdjt"]
-radius = 4.0
-height = 16.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_n5et5"]
-radius = 7.0
+radius = 7.84314
+height = 23.5294
 
 [node name="Character2D" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_5y4fp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.625, 0)
+scale = Vector2(0.883333, 1)
 texture = ExtResource("2_hg7ek")
 hframes = 3
 vframes = 4
@@ -208,7 +207,6 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
 scale = Vector2(0.765, 0.765)
 shape = SubResource("CapsuleShape2D_7rdjt")
 
@@ -223,7 +221,3 @@ script = ExtResource("3_a5jaa")
 [node name="ActionnableFinder" type="Area2D" parent="Direction"]
 collision_layer = 0
 collision_mask = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/ActionnableFinder"]
-position = Vector2(0, 7)
-shape = SubResource("CircleShape2D_n5et5")
