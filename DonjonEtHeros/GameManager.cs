@@ -35,12 +35,12 @@ public partial class GameManager : Node
         if (newScene != null)
         {
             currentScene = newScene.Instantiate();
-            AddChild(currentScene); // Ajout en tant qu'enfant de GameManager
-            GD.Print($"Loading scene : {sceneName}");
+            AddChild(currentScene);
+            GD.Print($"Loaded scene: {sceneName}");
         }
         else
         {
-            GD.PrintErr($"Erreur loading: {sceneName}");
+            GD.PrintErr($"Failed to load scene: {sceneName}");
         }
     }
 }
