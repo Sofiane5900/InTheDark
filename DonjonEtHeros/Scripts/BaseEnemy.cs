@@ -10,7 +10,7 @@ public partial class BaseEnemy : Resource
     public Texture texture = null;
 
     [Export]
-    public int health = 30;
+    public int health = 100;
 
     [Export]
     public int damage = 10;

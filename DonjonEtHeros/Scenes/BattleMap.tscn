@@ -1,14 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://0ye1oqa4o4yn"]
+[gd_scene load_steps=20 format=3 uid="uid://0ye1oqa4o4yn"]
 
-[ext_resource type="Texture2D" uid="uid://byrhea24twuq0" path="res://Art/battleback10.png" id="1_2nb6p"]
-[ext_resource type="Script" path="res://Scripts/Battle.cs" id="1_y8yfg"]
-[ext_resource type="Resource" uid="uid://n6hectgsy7uq" path="res://Ressources/Pouleto.tres" id="2_7rj2n"]
-[ext_resource type="FontFile" uid="uid://b6yl0xkbmiuut" path="res://Fonts/NESCyrillic.ttf" id="2_asqxe"]
-[ext_resource type="Texture2D" uid="uid://81iq22x6p43k" path="res://Art/pouleto.png" id="2_r7are"]
-[ext_resource type="FontFile" uid="uid://dlsrghaghjq46" path="res://Fonts/Adventurer.ttf" id="4_ad1x7"]
+[ext_resource type="Script" path="res://Scripts/Battle.cs" id="1_nyaub"]
+[ext_resource type="Resource" uid="uid://n6hectgsy7uq" path="res://Ressources/Pouleto.tres" id="2_xbqcb"]
+[ext_resource type="Texture2D" uid="uid://byrhea24twuq0" path="res://Art/battleback10.png" id="3_j0c46"]
+[ext_resource type="FontFile" uid="uid://b6yl0xkbmiuut" path="res://Fonts/NESCyrillic.ttf" id="4_wrwyk"]
+[ext_resource type="Texture2D" uid="uid://81iq22x6p43k" path="res://Art/pouleto.png" id="5_bv6ag"]
+[ext_resource type="FontFile" uid="uid://dlsrghaghjq46" path="res://Fonts/Adventurer.ttf" id="6_5qq1n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xkl2h"]
 bg_color = Color(1, 0, 0.0823529, 1)
+border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
@@ -47,7 +48,106 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(1, 1, 1, 1)
 
-[node name="Battle" type="Control"]
+[sub_resource type="Animation" id="Animation_h2btj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemyContainer/Enemy:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_aooh3"]
+resource_name = "enemy_damaged"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemyContainer/Enemy:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7aciy"]
+resource_name = "enemy_death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemyContainer/Enemy:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gcqo1"]
+resource_name = "mini_shake"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2, 2), Vector2(-2, 2), Vector2(3, -2), Vector2(-4, -3), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dr4wy"]
+resource_name = "shake"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(8, 8), Vector2(-5, 6), Vector2(5, -4), Vector2(-7, -5), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ib7fm"]
+_data = {
+"RESET": SubResource("Animation_h2btj"),
+"enemy_damaged": SubResource("Animation_aooh3"),
+"enemy_death": SubResource("Animation_7aciy"),
+"mini_shake": SubResource("Animation_gcqo1"),
+"shake": SubResource("Animation_dr4wy")
+}
+
+[node name="Battle" type="Control" node_paths=PackedStringArray("RunButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,14 +155,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.998106, 1.0102)
-script = ExtResource("1_y8yfg")
-Enemy = ExtResource("2_7rj2n")
+script = ExtResource("1_nyaub")
+RunButton = NodePath("ActionsPanel/Actions/Run")
+Enemy = ExtResource("2_xbqcb")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 650.0
-texture = ExtResource("1_2nb6p")
+texture = ExtResource("3_j0c46")
 
 [node name="EnemyContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -95,7 +196,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.035, 1.035)
-theme_override_fonts/font = ExtResource("2_asqxe")
+theme_override_fonts/font = ExtResource("4_wrwyk")
 theme_override_font_sizes/font_size = 24
 text = "PV : 50/50"
 horizontal_alignment = 1
@@ -103,7 +204,7 @@ vertical_alignment = 1
 
 [node name="Enemy" type="TextureRect" parent="EnemyContainer"]
 layout_mode = 2
-texture = ExtResource("2_r7are")
+texture = ExtResource("5_bv6ag")
 stretch_mode = 3
 
 [node name="PlayerPanel" type="Panel" parent="."]
@@ -133,7 +234,7 @@ alignment = 1
 [node name="Label" type="Label" parent="PlayerPanel/PlayerData"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("2_asqxe")
+theme_override_fonts/font = ExtResource("4_wrwyk")
 theme_override_font_sizes/font_size = 48
 text = "joueur"
 horizontal_alignment = 1
@@ -157,7 +258,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.035, 1.035)
-theme_override_fonts/font = ExtResource("2_asqxe")
+theme_override_fonts/font = ExtResource("4_wrwyk")
 theme_override_font_sizes/font_size = 48
 text = "PV : 50/50"
 horizontal_alignment = 1
@@ -197,7 +298,7 @@ mouse_default_cursor_shape = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_asqxe")
+theme_override_fonts/font = ExtResource("4_wrwyk")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/hover = SubResource("StyleBoxFlat_2uu43")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_2uu43")
@@ -211,7 +312,7 @@ mouse_default_cursor_shape = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_asqxe")
+theme_override_fonts/font = ExtResource("4_wrwyk")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/hover = SubResource("StyleBoxFlat_2uu43")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_2uu43")
@@ -225,7 +326,7 @@ mouse_default_cursor_shape = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_asqxe")
+theme_override_fonts/font = ExtResource("4_wrwyk")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/hover = SubResource("StyleBoxFlat_2uu43")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_2uu43")
@@ -256,24 +357,32 @@ offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, 1.01309)
-theme_override_fonts/font = ExtResource("4_ad1x7")
+theme_override_fonts/font = ExtResource("6_5qq1n")
 theme_override_font_sizes/font_size = 48
 text = "Hello world"
 
-[node name="Ticker" type="Label" parent="Textbox"]
+[node name="Ticker" type="Label" parent="Textbox/Label"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -28.325
-offset_top = -52.385
-offset_right = -4.32495
-offset_bottom = -4.38501
+offset_left = -8.32495
+offset_top = -33.3484
+offset_right = 16.2101
+offset_bottom = 14.6516
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(1.01493, 0.959808)
-theme_override_fonts/font = ExtResource("4_ad1x7")
+theme_override_fonts/font = ExtResource("6_5qq1n")
 theme_override_font_sizes/font_size = 48
 text = ">"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ib7fm")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0

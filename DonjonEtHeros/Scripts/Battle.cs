@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Tracing;
 using System.Threading;
 using System.Threading.Tasks;
 using Godot;
@@ -15,15 +16,28 @@ public partial class Battle : Control
 
     private ProgressBar EnemyHealthBar;
 
+    private int currentPlayerHealth = 0;
+    private int currentEnemyHealth = 0;
+    private bool isDefending = false;
+
     private State stateScript;
-    private BaseEnemy enemyScript;
-    private Texture enemyTexture;
+
+    // private BaseEnemy enemyScript;
+    private Texture EnemyTexture;
+
+    [Export]
+    private Button AttackButton;
+
+    [Export]
+    private Button DefendButton;
 
     [Export]
     private Button RunButton;
 
     [Export]
-    private Resource Enemy;
+    private BaseEnemy Enemy;
+
+    private AnimationPlayer AnimationPlayer;
 
     // Je crée un signal textbox_closed
     [Signal]
@@ -36,30 +50,36 @@ public partial class Battle : Control
         Textbox = GetNode<Panel>("Textbox");
         ActionsPanel = GetNode<Panel>("ActionsPanel");
         TextboxLabel = GetNode<Label>("Textbox/Label");
+        // Scripts
         stateScript = (State)GetNode("/root/State");
-        enemyScript = new BaseEnemy();
-        // Player & Ennemy Health Bar
+        // Player & Ennemy Nodes
         PlayerHealthBar = GetNode<ProgressBar>("PlayerPanel/PlayerData/ProgressBar");
         EnemyHealthBar = GetNode<ProgressBar>("EnemyContainer/ProgressBar");
+        EnemyTexture = GetNode<TextureRect>("EnemyContainer/Enemy").Texture;
+        AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
         // Buttons
         RunButton = GetNode<Button>("ActionsPanel/Actions/Run");
-        RunButton.Pressed += HandleButtonPressed;
+        AttackButton = GetNode<Button>("ActionsPanel/Actions/Attack");
+        DefendButton = GetNode<Button>("ActionsPanel/Actions/Defend");
+        AttackButton.Pressed += HandleAttackButton;
+        RunButton.Pressed += HandleRunButton;
+        DefendButton.Pressed += HandleDefendButton;
+
         Textbox.Visible = false;
         ActionsPanel.Visible = false;
-<<<<<<< HEAD
-        DisplayText("Un pouleto revanchard apparaît !");
-=======
-        DisplayText("Un pouleto revanchard apparaît devant vous !");
->>>>>>> develop
+        DisplayText($"Un {Enemy.name} apparaît devant vous !");
 
         // On connecte notre signal à nos méthodes
         Connect("textbox_closed", Callable.From(CloseActionsPanel));
         SetHealth(PlayerHealthBar, stateScript.CurrentHealth, stateScript.MaxHealth);
-        SetHealth(EnemyHealthBar, enemyScript.health, enemyScript.health);
+        SetHealth(EnemyHealthBar, Enemy.health, Enemy.health);
+        currentPlayerHealth = stateScript.CurrentHealth;
+        currentEnemyHealth = Enemy.health;
     }
 
-    public override void _Input(InputEvent @event)
+    // TODO : Empecher de spammer la touche "ui_accept" pour fermer le textbox et spam des actions
+    public override async void _Input(InputEvent @event)
     {
         base._Input(@event);
 
@@ -67,6 +87,7 @@ public partial class Battle : Control
         {
             Textbox.Visible = false;
             // Lorsque que j'appuie sur la touche "ui_accept" j'emet mon signal
+            await ToSignal(GetTree().CreateTimer(0.3), "timeout");
             EmitSignal("textbox_closed");
         }
     }
@@ -85,16 +106,72 @@ public partial class Battle : Control
 
     private string DisplayText(string text)
     {
+        ActionsPanel.Visible = false;
         Textbox.Visible = true;
         TextboxLabel.Text = text;
         return text;
     }
 
-    private async void HandleButtonPressed()
+    private async void HandleRunButton()
     {
-        DisplayText("Vous avez fui le combat !");
+        DisplayText("Vous avez fuit le combat !");
+        GetTree().Paused = true;
         await ToSignal(GetTree().CreateTimer(2), "timeout");
         GetTree().Quit();
+    }
+
+    private async void HandleAttackButton()
+    {
+        DisplayText("Vous avez infligé " + stateScript.Damage + " points de dégâts à l'ennemi !");
+        currentEnemyHealth = Math.Max(0, currentEnemyHealth - stateScript.Damage); // On evite que les PV deviennent négatif
+        SetHealth(EnemyHealthBar, currentEnemyHealth, Enemy.health);
+        AnimationPlayer.Play("enemy_damaged");
+        await ToSignal(AnimationPlayer, "animation_finished");
+        if (currentEnemyHealth == 0)
+        {
+            AnimationPlayer.Play("enemy_death");
+            await ToSignal(AnimationPlayer, "animation_finished");
+            DisplayText($"Vous avez vaincu le {Enemy.name} !");
+            GetTree().Paused = true;
+            await ToSignal(GetTree().CreateTimer(2), "timeout");
+            GetTree().Quit();
+        }
+        else
+        {
+            EnemyAttack();
+        }
+    }
+
+    private async void HandleDefendButton()
+    {
+        isDefending = true;
+        DisplayText("Vous avez defendu l'ataque de l'ennemi !");
+        await ToSignal(GetTree().CreateTimer(1.2), "timeout");
+        ActionsPanel.Visible = false;
+        EnemyAttack();
+    }
+
+    private async void EnemyAttack()
+    {
+        if (isDefending is true)
+        {
+            isDefending = false;
+            DisplayText("Vous avez reduit l'attaque de l'ennemi de moitié !");
+            Enemy.damage = Enemy.damage / 2;
+            currentPlayerHealth = Math.Max(0, currentPlayerHealth - Enemy.damage); // On evite que les PV deviennent négatif
+            SetHealth(PlayerHealthBar, currentPlayerHealth, stateScript.MaxHealth);
+            await ToSignal(GetTree().CreateTimer(1.2), "timeout");
+            AnimationPlayer.Play("mini_shake");
+        }
+        else
+        {
+            DisplayText("L'ennemi vous attaque !");
+            currentPlayerHealth = Math.Max(0, currentPlayerHealth - Enemy.damage); // On evite que les PV deviennent négatif
+            SetHealth(PlayerHealthBar, currentPlayerHealth, stateScript.MaxHealth);
+            // TODO : On pourrait rename cette animation en "player_damaged"
+            AnimationPlayer.Play("shake");
+            await ToSignal(AnimationPlayer, "animation_finished");
+        }
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

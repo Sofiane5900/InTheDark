@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://ird4el68e0pj"
+path="res://.godot/imported/Pouleto.dialogue-5fc0fcf37e6695382c3cf5e40d20efd9.tres"
+
+[deps]
+
+source_file="res://Dialogue/Pouleto.dialogue"
+dest_files=["res://.godot/imported/Pouleto.dialogue-5fc0fcf37e6695382c3cf5e40d20efd9.tres"]
+
+[params]
+
+defaults=true

@@ -26,8 +26,6 @@ public partial class Character : CharacterBody2D
         MoveAndSlide();
     }
 
-
-
     private void HandleInput()
     {
         _currentVelocity = Vector2.Zero;
@@ -51,14 +49,14 @@ public partial class Character : CharacterBody2D
         _currentVelocity *= _speed;
 
         PlayAnimations();
-
     }
 
     // UnhandledInput est une methode de Godot qui permet de gérer les inputs qui n'ont pas été traités par d'autres méthodes
-    public override void _UnhandledInput(InputEvent @event)
+    public override async void _UnhandledInput(InputEvent @event)
     {
         base._UnhandledInput(@event);
 
+        // TODO : Le personnage doit devenir "idle" quand il parle à un NPC
         if (Input.IsActionJustPressed("ui_accept"))
         {
             Godot.Collections.Array<Area2D> actionnables = _actionnableFinder.GetOverlappingAreas();

@@ -33,6 +33,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_eydj2"]
 resource_name = "idle"
+length = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
