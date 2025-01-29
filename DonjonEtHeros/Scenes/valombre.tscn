@@ -1763,7 +1763,7 @@ size = Vector2(11, 273)
 radius = 26.6667
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5km5d"]
-radius = 7.28011
+radius = 5.0
 
 [node name="Valombre" type="Node2D"]
 position = Vector2(-1, 0)
@@ -1834,5 +1834,5 @@ DialogueResource = ExtResource("9_acfgx")
 DialogueStart = "talk_pouleto_valombre"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pouleto/Actionnable"]
-position = Vector2(0, -2)
+position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_5km5d")

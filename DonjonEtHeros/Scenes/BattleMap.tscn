@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Battle.cs" id="1_nyaub"]
 [ext_resource type="Resource" uid="uid://n6hectgsy7uq" path="res://Ressources/Pouleto.tres" id="2_xbqcb"]
-[ext_resource type="Texture2D" uid="uid://byrhea24twuq0" path="res://Art/battleback10.png" id="3_j0c46"]
+[ext_resource type="Texture2D" uid="uid://mx3bvbfqymnh" path="res://Art/battle_background.jpg" id="3_gvpny"]
 [ext_resource type="FontFile" uid="uid://b6yl0xkbmiuut" path="res://Fonts/NESCyrillic.ttf" id="4_wrwyk"]
 [ext_resource type="Texture2D" uid="uid://81iq22x6p43k" path="res://Art/pouleto.png" id="5_bv6ag"]
 [ext_resource type="FontFile" uid="uid://dlsrghaghjq46" path="res://Fonts/Adventurer.ttf" id="6_5qq1n"]
@@ -13,7 +13,7 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36txv"]
 bg_color = Color(4.90934e-06, 0.725763, 0.189569, 1)
@@ -21,13 +21,13 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
+border_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jflto"]
-bg_color = Color(0, 0, 0, 0.592157)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yn5lh"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_erdu7"]
-bg_color = Color(0, 0, 0, 0.72549)
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2uu43"]
 bg_color = Color(1, 1, 1, 1)
@@ -163,7 +163,7 @@ Enemy = ExtResource("2_xbqcb")
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 650.0
-texture = ExtResource("3_j0c46")
+texture = ExtResource("3_gvpny")
 
 [node name="EnemyContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -217,7 +217,7 @@ offset_top = -89.0
 offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_jflto")
+theme_override_styles/panel = SubResource("StyleBoxFlat_yn5lh")
 
 [node name="PlayerData" type="HBoxContainer" parent="PlayerPanel"]
 layout_mode = 1
@@ -297,7 +297,7 @@ size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_wrwyk")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/hover = SubResource("StyleBoxFlat_2uu43")
@@ -311,7 +311,7 @@ size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.0623823, 0.532636, 0.767249, 1)
 theme_override_fonts/font = ExtResource("4_wrwyk")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/hover = SubResource("StyleBoxFlat_2uu43")
@@ -325,7 +325,7 @@ size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 0.917, 0.17, 1)
 theme_override_fonts/font = ExtResource("4_wrwyk")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/hover = SubResource("StyleBoxFlat_2uu43")
@@ -334,6 +334,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_lfptc")
 text = "FUIR"
 
 [node name="Textbox" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
