@@ -40,7 +40,7 @@ public partial class GameManager : Node
         }
         else
         {
-            GD.PrintErr($"Failed to load scene: {sceneName}");
+            GD.PrintErr($"Impossible de charger la scene : {sceneName}");
         }
     }
 }

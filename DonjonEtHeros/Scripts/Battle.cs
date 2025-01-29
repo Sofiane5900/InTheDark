@@ -76,6 +76,11 @@ public partial class Battle : Control
         SetHealth(EnemyHealthBar, Enemy.health, Enemy.health);
         currentPlayerHealth = stateScript.CurrentHealth;
         currentEnemyHealth = Enemy.health;
+
+        if (Enemy.health == 0)
+        {
+            EnemyDeath();
+        }
     }
 
     // TODO : Empecher de spammer la touche "ui_accept" pour fermer le textbox et spam des actions
@@ -172,6 +177,16 @@ public partial class Battle : Control
             AnimationPlayer.Play("shake");
             await ToSignal(AnimationPlayer, "animation_finished");
         }
+    }
+
+    public async void EnemyDeath()
+    {
+        AnimationPlayer.Play("enemy_death");
+        await ToSignal(AnimationPlayer, "animation_finished");
+        DisplayText($"Vous avez vaincu le {Enemy.name} !");
+        GetTree().Paused = true;
+        await ToSignal(GetTree().CreateTimer(2), "timeout");
+        GetTree().Quit();
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -12,4 +12,7 @@ public partial class State : Node
 
     // has_met variables
     public bool has_met_pouleto = false;
+
+    // death variables
+    public bool pouleto_is_dead = false;
 }
