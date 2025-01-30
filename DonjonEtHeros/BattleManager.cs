@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Godot;
 
@@ -20,14 +19,13 @@ public partial class BattleManager : Node
         else
         {
             QueueFree();
-            return;
         }
     }
 
     public override void _Ready()
     {
         gameNode = GetTree().Root.GetNodeOrNull("GameManager");
-        if (gameNode == null)
+        if (gameNode is null)
         {
             GD.PrintErr("GameManager Node introuvable");
         }
@@ -77,7 +75,7 @@ public partial class BattleManager : Node
         var valombreNode = gameNode.GetNode<Node>("Valombre");
         if (valombreNode != null)
         {
-            valombreNode.SetProcess(false);
+            valombreNode.SetProcess(false); // Process = false
             GD.Print("Valombre scene en pause");
         }
 
@@ -96,6 +94,14 @@ public partial class BattleManager : Node
         {
             GD.PrintErr("EndBattle() - GameManager Node introuvable");
             return;
+        }
+
+        //
+        Node battleMap = gameNode.GetNodeOrNull("BattleMap");
+        if (battleMap != null)
+        {
+            battleMap.QueueFree(); // Supprime complètement BattleMap
+            GD.Print("BattleMap supprimé !");
         }
 
         // Supression de la camera BattleMap
@@ -121,8 +127,8 @@ public partial class BattleManager : Node
         var valombreScene = gameNode.GetNode<Node>("Valombre");
         if (valombreScene is not null)
         {
-            valombreScene.SetProcess(true); // Pause = false
-            GD.Print("Valombre SetProcess(TRUE)");
+            valombreScene.SetProcess(true); // Process = true
+            GD.Print("Valombre scene reprend");
         }
 
         GD.Print("EndBattle() - Retour a Valombre");

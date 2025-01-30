@@ -72,14 +72,4 @@ public partial class GameManager : Node
             GD.PrintErr("Aucune scéne précédente à charger");
         }
     }
-
-    private void PauseScene()
-    {
-        GetTree().Paused = true;
-    }
-
-    private void ResumeScene()
-    {
-        GetTree().Paused = false;
-    }
 }
