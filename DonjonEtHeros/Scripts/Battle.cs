@@ -76,11 +76,6 @@ public partial class Battle : Control
         SetHealth(EnemyHealthBar, Enemy.health, Enemy.health);
         currentPlayerHealth = stateScript.CurrentHealth;
         currentEnemyHealth = Enemy.health;
-
-        if (Enemy.health == 0)
-        {
-            EnemyDeath();
-        }
     }
 
     // TODO : Empecher de spammer la touche "ui_accept" pour fermer le textbox et spam des actions
@@ -134,12 +129,7 @@ public partial class Battle : Control
         await ToSignal(AnimationPlayer, "animation_finished");
         if (currentEnemyHealth == 0)
         {
-            AnimationPlayer.Play("enemy_death");
-            await ToSignal(AnimationPlayer, "animation_finished");
-            DisplayText($"Vous avez vaincu le {Enemy.name} !");
-            GetTree().Paused = true;
-            await ToSignal(GetTree().CreateTimer(2), "timeout");
-            GetTree().Quit();
+            EnemyDeath();
         }
         else
         {
@@ -177,16 +167,23 @@ public partial class Battle : Control
             AnimationPlayer.Play("shake");
             await ToSignal(AnimationPlayer, "animation_finished");
         }
+        GD.Print("Checking if enemy health is zero...");
+        if (Enemy.health == 0)
+        {
+            GD.Print("Enemy health is zero, calling EnemyDeath!");
+            EnemyDeath();
+        }
     }
 
     public async void EnemyDeath()
     {
+        GD.PrintErr("Ennemy DEAD!");
         AnimationPlayer.Play("enemy_death");
         await ToSignal(AnimationPlayer, "animation_finished");
         DisplayText($"Vous avez vaincu le {Enemy.name} !");
-        GetTree().Paused = true;
         await ToSignal(GetTree().CreateTimer(2), "timeout");
-        GetTree().Quit();
+        GD.Print("Calling EndBattle...");
+        BattleManager.Instance.EndBattle();
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -8,22 +8,29 @@ public partial class BattleManager : Node
     private Node gameNode; // Reference a ma Node GameManager
     public BaseEnemy CurrentEnemy { get; private set; }
 
-    public override void _Ready()
+    private string previousSceneName;
+    private Vector2 previousPlayerPosition;
+
+    public override void _EnterTree()
     {
-        // Si l'instance n'existe pas, on la crée
-        if (Instance is null)
+        if (Instance == null)
         {
             Instance = this;
         }
-        // Si une instance existe déjà, on la supprime (on veux qu'il n'y ai qu'une seule instance de BattleManager)
         else
         {
             QueueFree();
             return;
         }
+    }
 
-        // On récupere la Node Root GameManager
-        gameNode = GetTree().Root.GetNode("GameManager");
+    public override void _Ready()
+    {
+        gameNode = GetTree().Root.GetNodeOrNull("GameManager");
+        if (gameNode == null)
+        {
+            GD.PrintErr("GameManager Node introuvable");
+        }
     }
 
     public static async Task StartBattle(string battleScene, string enemyName)
@@ -50,10 +57,12 @@ public partial class BattleManager : Node
 
     private async Task StartBattleInstance(PackedScene battleScene, BaseEnemy enemy)
     {
-        GetTree().Paused = false;
         // Valombre est un enfant de GameManager
         CharacterBody2D player = gameNode.GetNode<CharacterBody2D>("Valombre/Character2D");
 
+        previousSceneName = "Valombre";
+        previousPlayerPosition = player.Position;
+        (gameNode as GameManager)?.SaveSceneState(previousSceneName, previousPlayerPosition);
         // On désactive la camera du joueur
         Camera2D playerCamera = player.GetNode<Camera2D>("Camera2D");
         playerCamera.Enabled = false;
@@ -65,11 +74,11 @@ public partial class BattleManager : Node
         Camera2D battleCamera = battleMap.GetNode<Camera2D>("Camera2D");
         battleCamera.Enabled = true;
 
-        // On supprime la précédente map "Valombre"
-        var valombreNode = gameNode.GetNodeOrNull<Node>("Valombre");
+        var valombreNode = gameNode.GetNode<Node>("Valombre");
         if (valombreNode != null)
         {
-            valombreNode.QueueFree(); // Suppression de la node
+            valombreNode.SetProcess(false);
+            GD.Print("Valombre scene en pause");
         }
 
         // Ajout de la BattleMap a GameManager
@@ -79,5 +88,35 @@ public partial class BattleManager : Node
 
         // fix voidTask error, on a besoin de retourner une Task
         await Task.Delay(1000);
+    }
+
+    public void EndBattle()
+    {
+        if (gameNode == null)
+        {
+            GD.PrintErr("EndBattle() - GameManager Node introuvable");
+            return;
+        }
+
+        // EndBattle() - Retour a Valombre
+        (gameNode as GameManager)?.LoadPreviousScene();
+
+        // Restauration de la position du joueur
+        CharacterBody2D player = gameNode.GetNode<CharacterBody2D>("Valombre/Character2D");
+        if (player is not null)
+        {
+            // Restauration de la camera du joueur
+            Camera2D playerCamera = player.GetNode<Camera2D>("Camera2D");
+            playerCamera.Enabled = true;
+        }
+
+        var valombreScene = gameNode.GetNode<Node>("Valombre");
+        if (valombreScene is not null)
+        {
+            valombreScene.SetProcess(true); // Pause = false
+            GD.Print("Valombre SetProcess(TRUE)");
+        }
+
+        GD.Print("EndBattle() - Retour a Valombre");
     }
 }
