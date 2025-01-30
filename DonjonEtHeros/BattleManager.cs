@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Godot;
 
+// TODO : Rendre le retour à la scène précédente dynamique, en fonction de la scéne actuelle
 public partial class BattleManager : Node
 {
     public static BattleManager Instance { get; private set; }
@@ -96,7 +97,6 @@ public partial class BattleManager : Node
             return;
         }
 
-        //
         Node battleMap = gameNode.GetNodeOrNull("BattleMap");
         if (battleMap != null)
         {

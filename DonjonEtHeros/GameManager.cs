@@ -1,6 +1,8 @@
 using System;
 using Godot;
 
+// TODO : Rendre le retour à la scène précédente dynamique, en fonction de la scéne actuelle
+
 public partial class GameManager : Node
 {
     public static GameManager Instance { get; private set; }
