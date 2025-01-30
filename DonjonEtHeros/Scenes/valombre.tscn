@@ -1768,7 +1768,7 @@ radius = 26.6667
 radius = 5.0
 
 [node name="Valombre" type="Node2D"]
-position = Vector2(8, 0)
+position = Vector2(8, -1)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_bsqos")

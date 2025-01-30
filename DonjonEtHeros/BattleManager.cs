@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 
@@ -57,7 +58,10 @@ public partial class BattleManager : Node
     private async Task StartBattleInstance(PackedScene battleScene, BaseEnemy enemy)
     {
         // Valombre est un enfant de GameManager
-        CharacterBody2D player = gameNode.GetNode<CharacterBody2D>("Valombre/Character2D");
+        var valombreNode = gameNode.GetNodeOrNull<Node>("Valombre");
+        GD.Print(valombreNode); // Vérifie si le nœud existe ou non
+        CharacterBody2D player = valombreNode.GetNodeOrNull<CharacterBody2D>("Character2D");
+        GD.Print(player); // Vérifie si le joueur est bien trouvé
 
         previousSceneName = "Valombre";
         previousPlayerPosition = player.Position;
@@ -74,7 +78,6 @@ public partial class BattleManager : Node
         Camera2D battleCamera = battleMap.GetNode<Camera2D>("Camera2D");
         battleCamera.Enabled = true;
 
-        var valombreNode = gameNode.GetNode<Node>("Valombre");
         if (valombreNode != null)
         {
             valombreNode.SetProcess(false); // Process = false
@@ -90,7 +93,7 @@ public partial class BattleManager : Node
         await Task.Delay(1000);
     }
 
-    public void EndBattle()
+    public async void EndBattle()
     {
         if (gameNode is null)
         {
@@ -98,40 +101,55 @@ public partial class BattleManager : Node
             return;
         }
 
+        // Supprimer BattleMap si elle existe
         Node battleMap = gameNode.GetNodeOrNull("BattleMap");
         if (battleMap != null)
         {
             battleMap.QueueFree(); // Supprime complètement BattleMap
             GD.Print("BattleMap supprimé !");
+
+            // Supprimer la caméra BattleMap
+            Camera2D battleCamera = battleMap.GetNodeOrNull<Camera2D>("Camera2D");
+            if (battleCamera != null)
+            {
+                battleCamera.Enabled = false;
+            }
+            else
+            {
+                GD.PrintErr("Battle camera is null");
+            }
         }
 
-        // Supression de la camera BattleMap
-        Camera2D battleCamera = gameNode.GetNode<Camera2D>("BattleMap/Camera2D");
-        if (battleCamera is null)
+        // On attend une frame avant d'éxécuter le reste du code
+        await ToSignal(GetTree(), "process_frame");
+
+        // On récupère la scène restaurée en cherchant l'enfant de GameNode (qui est une Node)
+        Node activeScene = gameNode.GetChildren().FirstOrDefault(scene => scene is Node);
+        if (activeScene == null)
         {
-            GD.PrintErr("Battle camera is null");
+            GD.PrintErr("Impossible de retrouver la scène restaurée !");
+            return;
         }
-        battleCamera.Enabled = false;
 
-        // EndBattle() - Retour a Valombre
-        (gameNode as GameManager)?.LoadPreviousScene();
+        GD.Print($"Nouvelle scène restaurée détectée : {activeScene.Name}");
 
-        // Restauration de la position du joueur
-        CharacterBody2D player = gameNode.GetNode<CharacterBody2D>("Valombre/Character2D");
-        if (player is not null)
+        // Chercher Character2D dans cette scène
+        CharacterBody2D player = activeScene.GetNodeOrNull<CharacterBody2D>("Character2D");
+        if (player == null)
         {
-            // Restauration de la camera du joueur
-            Camera2D playerCamera = player.GetNode<Camera2D>("Camera2D");
-            playerCamera.Enabled = true;
+            GD.PrintErr("Character2D introuvable dans la scène restaurée !");
         }
-
-        var valombreScene = gameNode.GetNode<Node>("Valombre");
-        if (valombreScene is not null)
+        else
         {
-            valombreScene.SetProcess(true); // Process = true
-            GD.Print("Valombre scene reprend");
-        }
+            GD.Print("Character2D trouvé après restauration !");
+            player.Position = previousPlayerPosition;
 
-        GD.Print("EndBattle() - Retour a Valombre");
+            // Récupération de la caméra du joueur
+            Camera2D playerCamera = player.GetNodeOrNull<Camera2D>("Camera2D");
+            if (playerCamera != null)
+            {
+                playerCamera.Enabled = true;
+            }
+        }
     }
 }

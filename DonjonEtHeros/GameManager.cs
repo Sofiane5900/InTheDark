@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-// TODO : Rendre le retour à la scène précédente dynamique, en fonction de la scéne actuelle
+// TODO : Rendre le retour à la scène précédente dynamique, en fonction de la scène actuelle
 
 public partial class GameManager : Node
 {
@@ -22,15 +22,15 @@ public partial class GameManager : Node
             return;
         }
 
-        // Scéne de depart
+        // Scène de départ
         LoadScene("Valombre");
     }
 
-    public void LoadScene(string sceneName, Vector2? playerPosition = null) // Position de départ en null pour éviter erreur
+    public void LoadScene(string sceneName, Vector2? playerPosition = null)
     {
         if (currentScene != null)
         {
-            currentScene.QueueFree(); // On supprime la scène actuelle quand on en charge une nouvelle
+            currentScene.QueueFree(); // Supprime la scène actuelle
         }
 
         PackedScene newScene = GD.Load<PackedScene>($"res://Scenes/{sceneName}.tscn");
@@ -38,19 +38,39 @@ public partial class GameManager : Node
         {
             currentScene = newScene.Instantiate();
             AddChild(currentScene);
-            GD.Print($"Nouvelle scene : {sceneName}");
+            GD.Print($"Nouvelle scène : {sceneName}");
+
+            // Affiche les nœuds enfants de la scène pour déboguer
+            foreach (Node child in currentScene.GetChildren())
+            {
+                GD.Print($"Enfant trouvé : {child.Name}, chemin : {child.GetPath()}");
+            }
+
+            // Déférer la recherche du joueur pour garantir que la scène est prête
+            CallDeferred(nameof(CheckForPlayer));
 
             // Restaure la position du joueur si elle n'est pas null
-            CharacterBody2D player = currentScene.GetNode<CharacterBody2D>("Character2D");
-            if (player is not null && playerPosition.HasValue)
+            if (playerPosition.HasValue)
             {
-                player.Position = playerPosition.Value;
-                GD.Print($"Position du joueur restauré : {player.Position}");
+                CharacterBody2D player = currentScene.GetNodeOrNull<CharacterBody2D>(
+                    "Valombre/Character2D"
+                );
+                if (player != null)
+                {
+                    player.Position = playerPosition.Value;
+                    GD.Print($"Position du joueur restaurée : {player.Position}");
+                }
+                else
+                {
+                    GD.PrintErr(
+                        "Character2D n'est pas trouvé dans la scène après la restauration."
+                    );
+                }
             }
         }
         else
         {
-            GD.PrintErr($"Impossible de charger la scéne: {sceneName}");
+            GD.PrintErr($"Impossible de charger la scène : {sceneName}");
         }
     }
 
@@ -64,14 +84,28 @@ public partial class GameManager : Node
     public void LoadPreviousScene()
     {
         GD.Print($"LoadPreviousScene(): {previousSceneName}");
-        // Verification string is not null or empty
+        // Vérification si le nom de scène est valide
         if (!string.IsNullOrEmpty(previousSceneName))
         {
             LoadScene(previousSceneName, previousCharacterPosition);
         }
         else
         {
-            GD.PrintErr("Aucune scéne précédente à charger");
+            GD.PrintErr("Aucune scène précédente à charger");
+        }
+    }
+
+    private void CheckForPlayer()
+    {
+        // Vérifie que "Character2D" existe dans la scène
+        CharacterBody2D player = currentScene.GetNodeOrNull<CharacterBody2D>("Character2D");
+        if (player is null)
+        {
+            GD.PrintErr("Character2D n'est toujours pas trouvé dans la scène !");
+        }
+        else
+        {
+            GD.Print("Character2D trouvé !");
         }
     }
 }
