@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://78sgc7bngiwb" path="res://Scenes/Maire.tscn" id="4_dp2yp"]
 [ext_resource type="PackedScene" uid="uid://bbrf2stt2q55l" path="res://Scenes/Actionnable.tscn" id="5_1r1js"]
 [ext_resource type="Resource" uid="uid://elkvba0wou71" path="res://Dialogue/Apple.dialogue" id="6_70q3u"]
-[ext_resource type="PackedScene" uid="uid://bjlfwqpih8sp1" path="res://Scenes/FruitLady.tscn" id="7_50q45"]
+[ext_resource type="PackedScene" path="res://Scenes/FruitLady.tscn" id="7_50q45"]
 [ext_resource type="PackedScene" uid="uid://bmnsnwujfcc6" path="res://Enemies/Pouleto.tscn" id="8_dbwij"]
 [ext_resource type="Resource" uid="uid://ird4el68e0pj" path="res://Dialogue/Pouleto.dialogue" id="9_ftqhw"]
 
