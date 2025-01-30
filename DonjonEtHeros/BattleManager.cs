@@ -92,11 +92,19 @@ public partial class BattleManager : Node
 
     public void EndBattle()
     {
-        if (gameNode == null)
+        if (gameNode is null)
         {
             GD.PrintErr("EndBattle() - GameManager Node introuvable");
             return;
         }
+
+        // Supression de la camera BattleMap
+        Camera2D battleCamera = gameNode.GetNode<Camera2D>("BattleMap/Camera2D");
+        if (battleCamera is null)
+        {
+            GD.PrintErr("Battle camera is null");
+        }
+        battleCamera.Enabled = false;
 
         // EndBattle() - Retour a Valombre
         (gameNode as GameManager)?.LoadPreviousScene();
