@@ -186,8 +186,8 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7rdjt"]
-radius = 6.53595
-height = 13.0719
+radius = 5.22876
+height = 10.4575
 
 [node name="Character2D" type="CharacterBody2D"]
 collision_layer = 2
