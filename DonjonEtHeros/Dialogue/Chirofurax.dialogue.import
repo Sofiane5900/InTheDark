@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://5r2l0nulqyk1"
+path="res://.godot/imported/Chirofurax.dialogue-9f9f24057d9a8db25ed497d9221980f7.tres"
+
+[deps]
+
+source_file="res://Dialogue/Chirofurax.dialogue"
+dest_files=["res://.godot/imported/Chirofurax.dialogue-9f9f24057d9a8db25ed497d9221980f7.tres"]
+
+[params]
+
+defaults=true

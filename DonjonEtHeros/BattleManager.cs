@@ -68,6 +68,7 @@ public partial class BattleManager : Node
 
         // Instance de notre BattleMap
         Battle battleMap = battleScene.Instantiate<Battle>();
+        battleMap.EnemyResource = enemy;
 
         // Activation de la camera BattleMap
         Camera2D battleCamera = battleMap.GetNode<Camera2D>("Camera2D");
@@ -83,7 +84,7 @@ public partial class BattleManager : Node
         // Ajout de la BattleMap a GameManager
         gameNode.AddChild(battleMap);
         battleMap.Name = "BattleMap";
-        GD.Print($"battleMap: {battleMap.Name}, battleScene: {battleScene.ResourceName}");
+        GD.Print($"battleMap: {battleMap.Name}, enemy : {enemy}");
 
         // fix voidTask error, on a besoin de retourner une Task
         await Task.Delay(1000);

@@ -1,0 +1,7 @@
+~ talk_chirofurax_valombre
+* C'est une chauve souris...
+* Elle n'a pas l'air très sourire
+do BattleManager.StartBattle("BattleMap","Chirofurax")
+
+=> END
+

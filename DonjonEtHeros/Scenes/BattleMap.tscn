@@ -1,10 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://0ye1oqa4o4yn"]
+[gd_scene load_steps=18 format=3 uid="uid://0ye1oqa4o4yn"]
 
 [ext_resource type="Script" path="res://Scripts/Battle.cs" id="1_nyaub"]
-[ext_resource type="Resource" uid="uid://n6hectgsy7uq" path="res://Ressources/Pouleto.tres" id="2_xbqcb"]
 [ext_resource type="Texture2D" uid="uid://byrhea24twuq0" path="res://Art/battleback10.png" id="3_i155k"]
 [ext_resource type="FontFile" uid="uid://b6yl0xkbmiuut" path="res://Fonts/NESCyrillic.ttf" id="4_wrwyk"]
-[ext_resource type="Texture2D" uid="uid://81iq22x6p43k" path="res://Art/pouleto.png" id="5_bv6ag"]
 [ext_resource type="FontFile" uid="uid://dlsrghaghjq46" path="res://Fonts/Adventurer.ttf" id="6_5qq1n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xkl2h"]
@@ -53,7 +51,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("EnemyContainer/Enemy:modulate")
+tracks/0/path = NodePath("EnemyContainer/EnemyTexture:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -81,7 +79,7 @@ length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("EnemyContainer/Enemy:modulate")
+tracks/0/path = NodePath("EnemyContainer/EnemyTexture:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -96,7 +94,7 @@ resource_name = "enemy_death"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("EnemyContainer/Enemy:modulate")
+tracks/0/path = NodePath("EnemyContainer/EnemyTexture:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -147,7 +145,7 @@ _data = {
 "shake": SubResource("Animation_dr4wy")
 }
 
-[node name="Battle" type="Control" node_paths=PackedStringArray("RunButton")]
+[node name="Battle" type="Control" node_paths=PackedStringArray("AttackButton", "DefendButton", "RunButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -156,8 +154,9 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.998106, 1.0102)
 script = ExtResource("1_nyaub")
+AttackButton = NodePath("ActionsPanel/Actions/Attack")
+DefendButton = NodePath("ActionsPanel/Actions/Defend")
 RunButton = NodePath("ActionsPanel/Actions/Run")
-Enemy = ExtResource("2_xbqcb")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
@@ -202,9 +201,8 @@ text = "PV : 50/50"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Enemy" type="TextureRect" parent="EnemyContainer"]
+[node name="EnemyTexture" type="TextureRect" parent="EnemyContainer"]
 layout_mode = 2
-texture = ExtResource("5_bv6ag")
 stretch_mode = 3
 
 [node name="PlayerPanel" type="Panel" parent="."]

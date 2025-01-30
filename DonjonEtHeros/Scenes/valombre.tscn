@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cd2peswh5dtwb"]
+[gd_scene load_steps=19 format=3 uid="uid://cd2peswh5dtwb"]
 
 [ext_resource type="Texture2D" uid="uid://n75lrctbdnfx" path="res://Art/Bountiful-Bits-10x10-v-3.1/Colored/Natural.png" id="1_h6ffb"]
 [ext_resource type="Texture2D" uid="uid://5yvn3clfink6" path="res://Art/Bountiful-Bits-10x10-v-3.1/Colored/Civilized.png" id="2_hy06i"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bjlfwqpih8sp1" path="res://Scenes/FruitLady.tscn" id="7_kbxf1"]
 [ext_resource type="PackedScene" uid="uid://bmnsnwujfcc6" path="res://Enemies/Pouleto.tscn" id="8_1ou8i"]
 [ext_resource type="Resource" uid="uid://ird4el68e0pj" path="res://Dialogue/Pouleto.dialogue" id="9_cmb87"]
+[ext_resource type="PackedScene" uid="uid://um31t05aq451" path="res://Enemies/Chirofurax.tscn" id="10_loahy"]
+[ext_resource type="Resource" uid="uid://5r2l0nulqyk1" path="res://Dialogue/Chirofurax.dialogue" id="11_0540w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ppxyd"]
 texture = ExtResource("1_h6ffb")
@@ -1834,5 +1836,19 @@ DialogueResource = ExtResource("9_cmb87")
 DialogueStart = "talk_pouleto_valombre"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pouleto/Actionnable"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_5km5d")
+
+[node name="Chirofurax" parent="." instance=ExtResource("10_loahy")]
+position = Vector2(72, 70)
+
+[node name="Actionnable" parent="Chirofurax" instance=ExtResource("5_f8qwk")]
+position = Vector2(0, 11)
+collision_layer = 16
+collision_mask = 0
+DialogueResource = ExtResource("11_0540w")
+DialogueStart = "talk_chirofurax_valombre"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chirofurax/Actionnable"]
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_5km5d")
