@@ -6,7 +6,13 @@ public partial class Camera2d : Camera2D
 
     public override void _Ready()
     {
-        _tileMap = GetTree().Root.GetNode("Valombre/TileMap") as TileMap; // Je récupère la TileMap (node) de ma scéne "Valombre".
+        _tileMap = GetNodeOrNull<TileMap>("../../TileMap");
+
+        if (_tileMap == null)
+        {
+            GD.PrintErr("Erreur: TileMap introuvable");
+            return;
+        }
         Rect2I usedRect = _tileMap.GetUsedRect(); // Je retourne un rectangle qui englobe toutes les tiles de la TileMap
         Vector2 mapStart = _tileMap.MapToLocal(usedRect.Position); // Je récupère le début de mon rectangle
         Vector2 mapEnd = _tileMap.MapToLocal(usedRect.End); // Je récupère la fin de mon rectangle

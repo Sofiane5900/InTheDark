@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dxjb8ofl1jdky"]
+
+[ext_resource type="Script" path="res://Scripts/BaseEnemy.cs" id="1_pixtk"]
+[ext_resource type="Texture2D" uid="uid://bhtmap4i5g70c" path="res://Art/Fantasy Battlers - Free/x2 size/06b.png" id="2_m8o0y"]
+
+[resource]
+script = ExtResource("1_pixtk")
+name = "Chirofurax"
+texture = ExtResource("2_m8o0y")
+health = 20
+damage = 5

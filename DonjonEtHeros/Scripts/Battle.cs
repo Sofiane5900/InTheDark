@@ -23,7 +23,7 @@ public partial class Battle : Control
     private State stateScript;
 
     // private BaseEnemy enemyScript;
-    private Texture EnemyTexture;
+    private TextureRect EnemyTexture;
 
     [Export]
     private Button AttackButton;
@@ -35,7 +35,7 @@ public partial class Battle : Control
     private Button RunButton;
 
     [Export]
-    private BaseEnemy Enemy;
+    public BaseEnemy EnemyResource;
 
     private AnimationPlayer AnimationPlayer;
 
@@ -55,7 +55,8 @@ public partial class Battle : Control
         // Player & Ennemy Nodes
         PlayerHealthBar = GetNode<ProgressBar>("PlayerPanel/PlayerData/ProgressBar");
         EnemyHealthBar = GetNode<ProgressBar>("EnemyContainer/ProgressBar");
-        EnemyTexture = GetNode<TextureRect>("EnemyContainer/Enemy").Texture;
+        EnemyTexture = GetNode<TextureRect>("EnemyContainer/EnemyTexture");
+        EnemyTexture.Texture = EnemyResource.texture as Texture2D;
         AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
         // Buttons
@@ -68,14 +69,14 @@ public partial class Battle : Control
 
         Textbox.Visible = false;
         ActionsPanel.Visible = false;
-        DisplayText($"Un {Enemy.name} apparaît devant vous !");
+        DisplayText($"Un {EnemyResource.name} apparaît devant vous !");
 
         // On connecte notre signal à nos méthodes
         Connect("textbox_closed", Callable.From(CloseActionsPanel));
         SetHealth(PlayerHealthBar, stateScript.CurrentHealth, stateScript.MaxHealth);
-        SetHealth(EnemyHealthBar, Enemy.health, Enemy.health);
+        SetHealth(EnemyHealthBar, EnemyResource.health, EnemyResource.health);
         currentPlayerHealth = stateScript.CurrentHealth;
-        currentEnemyHealth = Enemy.health;
+        currentEnemyHealth = EnemyResource.health;
     }
 
     // TODO : Empecher de spammer la touche "ui_accept" pour fermer le textbox et spam des actions
@@ -124,17 +125,12 @@ public partial class Battle : Control
     {
         DisplayText("Vous avez infligé " + stateScript.Damage + " points de dégâts à l'ennemi !");
         currentEnemyHealth = Math.Max(0, currentEnemyHealth - stateScript.Damage); // On evite que les PV deviennent négatif
-        SetHealth(EnemyHealthBar, currentEnemyHealth, Enemy.health);
+        SetHealth(EnemyHealthBar, currentEnemyHealth, EnemyResource.health);
         AnimationPlayer.Play("enemy_damaged");
         await ToSignal(AnimationPlayer, "animation_finished");
         if (currentEnemyHealth == 0)
         {
-            AnimationPlayer.Play("enemy_death");
-            await ToSignal(AnimationPlayer, "animation_finished");
-            DisplayText($"Vous avez vaincu le {Enemy.name} !");
-            GetTree().Paused = true;
-            await ToSignal(GetTree().CreateTimer(2), "timeout");
-            GetTree().Quit();
+            EnemyDeath();
         }
         else
         {
@@ -157,8 +153,8 @@ public partial class Battle : Control
         {
             isDefending = false;
             DisplayText("Vous avez reduit l'attaque de l'ennemi de moitié !");
-            Enemy.damage = Enemy.damage / 2;
-            currentPlayerHealth = Math.Max(0, currentPlayerHealth - Enemy.damage); // On evite que les PV deviennent négatif
+            EnemyResource.damage = EnemyResource.damage / 2;
+            currentPlayerHealth = Math.Max(0, currentPlayerHealth - EnemyResource.damage); // On evite que les PV deviennent négatif
             SetHealth(PlayerHealthBar, currentPlayerHealth, stateScript.MaxHealth);
             await ToSignal(GetTree().CreateTimer(1.2), "timeout");
             AnimationPlayer.Play("mini_shake");
@@ -166,12 +162,29 @@ public partial class Battle : Control
         else
         {
             DisplayText("L'ennemi vous attaque !");
-            currentPlayerHealth = Math.Max(0, currentPlayerHealth - Enemy.damage); // On evite que les PV deviennent négatif
+            currentPlayerHealth = Math.Max(0, currentPlayerHealth - EnemyResource.damage); // On evite que les PV deviennent négatif
             SetHealth(PlayerHealthBar, currentPlayerHealth, stateScript.MaxHealth);
             // TODO : On pourrait rename cette animation en "player_damaged"
             AnimationPlayer.Play("shake");
             await ToSignal(AnimationPlayer, "animation_finished");
         }
+        GD.Print("Checking if enemy health is zero...");
+        if (EnemyResource.health == 0)
+        {
+            GD.Print("Enemy health is zero, calling EnemyDeath!");
+            EnemyDeath();
+        }
+    }
+
+    public async void EnemyDeath()
+    {
+        GD.PrintErr("Ennemy DEAD!");
+        AnimationPlayer.Play("enemy_death");
+        await ToSignal(AnimationPlayer, "animation_finished");
+        DisplayText($"Vous avez vaincu le {EnemyResource.name} !");
+        await ToSignal(GetTree().CreateTimer(2), "timeout");
+        GD.Print("Calling EndBattle...");
+        BattleManager.Instance.EndBattle();
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
