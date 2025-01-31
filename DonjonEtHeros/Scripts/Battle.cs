@@ -1,9 +1,8 @@
 using System;
-using System.Diagnostics.Tracing;
-using System.Threading;
-using System.Threading.Tasks;
 using Godot;
 
+// ! Le joueur ne doit pas pouvoir spam entre les actions
+// TODO : Ajouter du delay "ui_accept" pour éviter le spam
 public partial class Battle : Control
 {
     private Panel Textbox;
