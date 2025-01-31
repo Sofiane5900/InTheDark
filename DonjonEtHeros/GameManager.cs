@@ -2,17 +2,18 @@ using System;
 using Godot;
 
 // TODO : Rendre le retour à la scène précédente dynamique, en fonction de la scène actuelle
-
+// ? Il y a toujours des réferences a "Valombre" dans le code
 public partial class GameManager : Node
 {
     public static GameManager Instance { get; private set; }
     private Node currentScene;
     private string previousSceneName;
+
     private Vector2? previousCharacterPosition;
 
     public override void _Ready()
     {
-        if (Instance == null)
+        if (Instance is null)
         {
             Instance = this;
         }
@@ -28,13 +29,13 @@ public partial class GameManager : Node
 
     public void LoadScene(string sceneName, Vector2? playerPosition = null)
     {
-        if (currentScene != null)
+        if (currentScene is not null)
         {
             currentScene.QueueFree(); // Supprime la scène actuelle
         }
 
         PackedScene newScene = GD.Load<PackedScene>($"res://Scenes/{sceneName}.tscn");
-        if (newScene != null)
+        if (newScene is not null)
         {
             currentScene = newScene.Instantiate();
             AddChild(currentScene);
@@ -55,7 +56,7 @@ public partial class GameManager : Node
                 CharacterBody2D player = currentScene.GetNodeOrNull<CharacterBody2D>(
                     "Valombre/Character2D"
                 );
-                if (player != null)
+                if (player is not null)
                 {
                     player.Position = playerPosition.Value;
                     GD.Print($"Position du joueur restaurée : {player.Position}");
@@ -81,19 +82,19 @@ public partial class GameManager : Node
         GD.Print($"Sauvegarde: {sceneName}, position: {characterPosition}");
     }
 
-    public void LoadPreviousScene()
-    {
-        GD.Print($"LoadPreviousScene(): {previousSceneName}");
-        // Vérification si le nom de scène est valide
-        if (!string.IsNullOrEmpty(previousSceneName))
-        {
-            LoadScene(previousSceneName, previousCharacterPosition);
-        }
-        else
-        {
-            GD.PrintErr("Aucune scène précédente à charger");
-        }
-    }
+    // public void LoadPreviousScene()
+    // {
+    //     GD.Print($"LoadPreviousScene(): {previousSceneName}");
+    //     // Vérification si le nom de scène est valide
+    //     if (!string.IsNullOrEmpty(previousSceneName))
+    //     {
+    //         LoadScene(previousSceneName, previousCharacterPosition);
+    //     }
+    //     else
+    //     {
+    //         GD.PrintErr("Aucune scène précédente à charger");
+    //     }
+    // }
 
     private void CheckForPlayer()
     {

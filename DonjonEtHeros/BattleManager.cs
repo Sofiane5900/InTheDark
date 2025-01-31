@@ -2,7 +2,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 
-// TODO : Rendre le retour à la scène précédente dynamique, en fonction de la scéne actuelle
+// ! Parfois, la previousScene n'est pas "paused" correctement
+// TODO : Pause du jeu lors du combat, et reprise après le combat
 public partial class BattleManager : Node
 {
     public static BattleManager Instance { get; private set; }
@@ -14,7 +15,8 @@ public partial class BattleManager : Node
 
     public override void _EnterTree()
     {
-        if (Instance == null)
+        // Singleton
+        if (Instance is null)
         {
             Instance = this;
         }
@@ -78,7 +80,7 @@ public partial class BattleManager : Node
         Camera2D battleCamera = battleMap.GetNode<Camera2D>("Camera2D");
         battleCamera.Enabled = true;
 
-        if (valombreNode != null)
+        if (valombreNode is not null)
         {
             valombreNode.SetProcess(false); // Process = false
             GD.Print("Valombre scene en pause");
@@ -103,14 +105,14 @@ public partial class BattleManager : Node
 
         // Supprimer BattleMap si elle existe
         Node battleMap = gameNode.GetNodeOrNull("BattleMap");
-        if (battleMap != null)
+        if (battleMap is not null)
         {
             battleMap.QueueFree(); // Supprime complètement BattleMap
             GD.Print("BattleMap supprimé !");
 
             // Supprimer la caméra BattleMap
             Camera2D battleCamera = battleMap.GetNodeOrNull<Camera2D>("Camera2D");
-            if (battleCamera != null)
+            if (battleCamera is not null)
             {
                 battleCamera.Enabled = false;
             }
@@ -125,7 +127,7 @@ public partial class BattleManager : Node
 
         // On récupère la scène restaurée en cherchant l'enfant de GameNode (qui est une Node)
         Node activeScene = gameNode.GetChildren().FirstOrDefault(scene => scene is Node);
-        if (activeScene == null)
+        if (activeScene is null)
         {
             GD.PrintErr("Impossible de retrouver la scène restaurée !");
             return;
@@ -133,9 +135,9 @@ public partial class BattleManager : Node
 
         GD.Print($"Nouvelle scène restaurée détectée : {activeScene.Name}");
 
-        // Chercher Character2D dans cette scène
+        // Chercher Character2D dans une scène
         CharacterBody2D player = activeScene.GetNodeOrNull<CharacterBody2D>("Character2D");
-        if (player == null)
+        if (player is null)
         {
             GD.PrintErr("Character2D introuvable dans la scène restaurée !");
         }
@@ -146,7 +148,7 @@ public partial class BattleManager : Node
 
             // Récupération de la caméra du joueur
             Camera2D playerCamera = player.GetNodeOrNull<Camera2D>("Camera2D");
-            if (playerCamera != null)
+            if (playerCamera is not null)
             {
                 playerCamera.Enabled = true;
             }
