@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://0ye1oqa4o4yn"]
 
 [ext_resource type="Script" path="res://Scripts/Battle.cs" id="1_nyaub"]
-[ext_resource type="Texture2D" uid="uid://byrhea24twuq0" path="res://Art/battleback10.png" id="3_i155k"]
+[ext_resource type="Texture2D" uid="uid://mx3bvbfqymnh" path="res://Art/battle_background.jpg" id="2_mut2v"]
 [ext_resource type="FontFile" uid="uid://b6yl0xkbmiuut" path="res://Fonts/NESCyrillic.ttf" id="4_wrwyk"]
 [ext_resource type="FontFile" uid="uid://dlsrghaghjq46" path="res://Fonts/Adventurer.ttf" id="6_5qq1n"]
 
@@ -162,7 +162,7 @@ RunButton = NodePath("ActionsPanel/Actions/Run")
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 650.0
-texture = ExtResource("3_i155k")
+texture = ExtResource("2_mut2v")
 
 [node name="EnemyContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

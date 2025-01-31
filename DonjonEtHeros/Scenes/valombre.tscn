@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cd2peswh5dtwb"]
+[gd_scene load_steps=27 format=3 uid="uid://cd2peswh5dtwb"]
 
 [ext_resource type="Texture2D" uid="uid://n75lrctbdnfx" path="res://Art/Bountiful-Bits-10x10-v-3.1/Colored/Natural.png" id="1_h6ffb"]
 [ext_resource type="Texture2D" uid="uid://5yvn3clfink6" path="res://Art/Bountiful-Bits-10x10-v-3.1/Colored/Civilized.png" id="2_hy06i"]
@@ -14,6 +14,7 @@
 [ext_resource type="Resource" uid="uid://ird4el68e0pj" path="res://Dialogue/Pouleto.dialogue" id="9_cmb87"]
 [ext_resource type="PackedScene" uid="uid://um31t05aq451" path="res://Enemies/Chirofurax.tscn" id="10_loahy"]
 [ext_resource type="Resource" uid="uid://5r2l0nulqyk1" path="res://Dialogue/Chirofurax.dialogue" id="11_0540w"]
+[ext_resource type="PackedScene" uid="uid://dpd51d7wj2we" path="res://Scenes/Garde.tscn" id="15_xp27v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ppxyd"]
 texture = ExtResource("1_h6ffb")
@@ -4175,6 +4176,9 @@ radius = 26.6667
 [sub_resource type="CircleShape2D" id="CircleShape2D_5km5d"]
 radius = 5.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ngmx"]
+radius = 26.6667
+
 [node name="Valombre" type="Node2D"]
 position = Vector2(8, -1)
 
@@ -4260,3 +4264,16 @@ DialogueStart = "talk_chirofurax_valombre"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Chirofurax/Actionnable"]
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_5km5d")
+
+[node name="Garde" parent="." instance=ExtResource("15_xp27v")]
+position = Vector2(88, 182)
+
+[node name="Actionnable" parent="Garde" instance=ExtResource("5_f8qwk")]
+collision_layer = 16
+collision_mask = 0
+DialogueResource = ExtResource("11_0540w")
+DialogueStart = "~ talk_chirofurax_valombre"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Garde/Actionnable"]
+position = Vector2(0, 40)
+shape = SubResource("CircleShape2D_7ngmx")

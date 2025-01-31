@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpd51d7wj2we"]
+
+[ext_resource type="Texture2D" uid="uid://t5gqefutmv1q" path="res://Art/Fantasy Battlers - Free/x2 size/07b.png" id="1_6im2l"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u4cll"]
+radius = 13.3333
+height = 35.5556
+
+[node name="Garde" type="StaticBody2D"]
+scale = Vector2(0.225, 0.225)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.538)
+texture = ExtResource("1_6im2l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_u4cll")
