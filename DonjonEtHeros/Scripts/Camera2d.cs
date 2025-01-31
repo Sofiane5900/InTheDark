@@ -6,6 +6,7 @@ public partial class Camera2d : Camera2D
 
     public override void _Ready()
     {
+        // On récupere la TileMap
         _tileMap = GetNodeOrNull<TileMap>("../../TileMap");
 
         if (_tileMap == null)
