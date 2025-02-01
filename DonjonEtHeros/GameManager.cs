@@ -53,9 +53,7 @@ public partial class GameManager : Node
             // Restaure la position du joueur si elle n'est pas null
             if (playerPosition.HasValue)
             {
-                CharacterBody2D player = currentScene.GetNodeOrNull<CharacterBody2D>(
-                    "Valombre/Character2D"
-                );
+                CharacterBody2D player = currentScene.GetNodeOrNull<CharacterBody2D>("Character2D");
                 if (player is not null)
                 {
                     player.Position = playerPosition.Value;
@@ -82,19 +80,19 @@ public partial class GameManager : Node
         GD.Print($"Sauvegarde: {sceneName}, position: {characterPosition}");
     }
 
-    // public void LoadPreviousScene()
-    // {
-    //     GD.Print($"LoadPreviousScene(): {previousSceneName}");
-    //     // Vérification si le nom de scène est valide
-    //     if (!string.IsNullOrEmpty(previousSceneName))
-    //     {
-    //         LoadScene(previousSceneName, previousCharacterPosition);
-    //     }
-    //     else
-    //     {
-    //         GD.PrintErr("Aucune scène précédente à charger");
-    //     }
-    // }
+    public void LoadPreviousScene()
+    {
+        GD.Print($"LoadPreviousScene(): {previousSceneName}");
+        // Vérification si le nom de scène est valide
+        if (!string.IsNullOrEmpty(previousSceneName))
+        {
+            LoadScene(previousSceneName, previousCharacterPosition);
+        }
+        else
+        {
+            GD.PrintErr("Aucune scène précédente à charger");
+        }
+    }
 
     private void CheckForPlayer()
     {
