@@ -4,6 +4,7 @@ using Godot;
 public partial class State : Node
 {
     public string AppleStatus = "";
+    public string CryptStatus = "";
 
     public int CurrentHealth = 100;
     public int MaxHealth = 100;
@@ -11,7 +12,4 @@ public partial class State : Node
 
     // has_met variables
     public bool has_met_alphonse = false;
-
-    // access variables
-    public string CryptAcces = "";
 }

@@ -4171,7 +4171,6 @@ radius = 26.6667
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p04rt"]
 
 [node name="Valombre" type="Node2D"]
-position = Vector2(8, -1)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_bsqos")
@@ -4217,6 +4216,7 @@ shape = SubResource("CircleShape2D_24sud")
 [node name="SceneTrigger" parent="." instance=ExtResource("10_acwr5")]
 position = Vector2(96, 76)
 collision_mask = 2
+SceneToLoad = "Foret"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTrigger"]
 shape = SubResource("RectangleShape2D_p04rt")
