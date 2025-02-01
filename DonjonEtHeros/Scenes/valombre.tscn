@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bk2byo8grs57c" path="res://Art/Bountiful-Bits-10x10-v-3.1/Colored/Full.png" id="5_8dhn3"]
 [ext_resource type="PackedScene" uid="uid://bbrf2stt2q55l" path="res://Scenes/Actionnable.tscn" id="5_f8qwk"]
 [ext_resource type="Resource" uid="uid://elkvba0wou71" path="res://Dialogue/Maire.dialogue" id="6_h8obk"]
-[ext_resource type="Script" path="res://Scripts/SceneTrigger.cs" id="10_bwjia"]
+[ext_resource type="PackedScene" uid="uid://b4ogqcx118kyg" path="res://Scenes/SceneTrigger.tscn" id="10_acwr5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fqx71"]
 texture = ExtResource("1_h6ffb")
@@ -4168,7 +4168,7 @@ size = Vector2(11, 273)
 [sub_resource type="CircleShape2D" id="CircleShape2D_24sud"]
 radius = 26.6667
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndl1w"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p04rt"]
 
 [node name="Valombre" type="Node2D"]
 position = Vector2(8, -1)
@@ -4181,6 +4181,7 @@ layer_0/tile_data = PackedInt32Array(1, 589827, 15, 65537, 589827, 15, 131073, 5
 
 [node name="Character2D" parent="." instance=ExtResource("3_va6t1")]
 position = Vector2(97, 101)
+collision_layer = 2
 
 [node name="Colissions" type="StaticBody2D" parent="."]
 
@@ -4213,10 +4214,9 @@ DialogueStart = "alphonse_valombre_intro"
 position = Vector2(1.90735e-06, 1.52588e-05)
 shape = SubResource("CircleShape2D_24sud")
 
-[node name="SceneTrigger" type="Area2D" parent="."]
-position = Vector2(96, 71)
-collision_mask = 3
-script = ExtResource("10_bwjia")
+[node name="SceneTrigger" parent="." instance=ExtResource("10_acwr5")]
+position = Vector2(96, 76)
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTrigger"]
-shape = SubResource("RectangleShape2D_ndl1w")
+shape = SubResource("RectangleShape2D_p04rt")

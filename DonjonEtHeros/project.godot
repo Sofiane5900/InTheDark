@@ -45,6 +45,7 @@ locale/translations_pot_files=PackedStringArray("res://Dialogue/Pouleto.dialogue
 
 [layer_names]
 
+2d_physics/layer_4="trigger"
 2d_physics/layer_5="Actionables"
 
 [rendering]

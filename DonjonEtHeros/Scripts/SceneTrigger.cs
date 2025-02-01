@@ -4,24 +4,25 @@ using Godot;
 public partial class SceneTrigger : Area2D
 {
     [Export]
-    private string SceneToLoad = "Foret"; // Nom de la scène à charger
+    private string SceneToLoad = "Foret";
 
     public override void _Ready()
     {
-        // Assure-toi que l'Area2D est bien configuré pour surveiller les objets
-        Monitoring = true; // Active la détection
+        Monitoring = true;
         GD.Print("Trigger prêt !");
+
+        // Connexion correcte en C#
+        BodyEntered += _on_body_entered;
     }
 
-    private void OnBodyEntered(Node body)
+    public void _on_body_entered(Node2D body)
     {
-        // Vérifie si c'est le joueur (CharacterBody2D)
-        if (body is CharacterBody2D player)
+        if (body is CharacterBody2D)
         {
-            GD.Print($"Player détecté : {body.Name}");
-
-            // Charger la scène 'Foret' en téléchargeant la position du joueur
-            GameManager.Instance?.LoadScene(SceneToLoad, player.Position);
+            GD.Print($"Collision détectée avec {body.Name} !");
         }
+
+        // Charge la scène suivante
+        GameManager.Instance.LoadScene(SceneToLoad);
     }
 }
