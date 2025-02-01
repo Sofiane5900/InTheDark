@@ -3,7 +3,6 @@ using Godot;
 
 public partial class State : Node
 {
-    // public static bool CanMove;
     public string AppleStatus = "";
 
     public int CurrentHealth = 100;
@@ -11,8 +10,8 @@ public partial class State : Node
     public int Damage = 10;
 
     // has_met variables
-    public bool has_met_pouleto = false;
+    public bool has_met_alphonse = false;
 
-    // death variables
-    public bool pouleto_is_dead = false;
+    // access variables
+    public string CryptAcces = "";
 }
