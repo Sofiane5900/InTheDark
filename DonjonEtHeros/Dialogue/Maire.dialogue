@@ -2,7 +2,7 @@
 Maire Alphonse: ...
 if State.CryptStatus == "granted":
 	Maire Alphonse : La crypte… J’ai un mauvais pressentiment. Si tu y découvres quelque chose d’étrange, reviens immédiatement me voir.
-elif State.CryptStatus == "":
+else:
 	Maire Alphonse: Ah, te voilà. J’ai quelque chose d’important à te dire.
 	Maire Alphonse: La forêt de Sombrebrise est maudite… Des ombres y rôdent, et maintenant Baptiste, notre bûcheron, a disparu.
 	Maire Alphonse: Sa hache a été retrouvée devant l’ancienne crypte… Celle que nous avons toujours gardée scellée. 
