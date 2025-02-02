@@ -7,9 +7,13 @@ public partial class GameManager : Node
 {
     public static GameManager Instance { get; private set; }
     private Node currentScene;
+    private Map currentMap;
     private string previousSceneName;
+    private CharacterBody2D player;
 
     private Vector2? previousCharacterPosition;
+
+    private float encounterChance = 0f; // "Chance" accumulée
 
     public override void _Ready()
     {
@@ -23,8 +27,46 @@ public partial class GameManager : Node
             return;
         }
 
+        currentMap = currentScene.FindChild("Map") as Map;
+        player = GetTree().Root.GetNode<CharacterBody2D>("Character2D");
+
         // Scène de départ
         LoadScene("Valombre");
+    }
+
+    public override void _Process(double delta)
+    {
+        if (currentMap is null || !currentMap.CanTriggerBattles || player is null)
+        {
+            return; // Pas de combat car une des conditions n'est pas remplie
+        }
+
+        // On vérifie si le joueur bouge
+        if (player.Velocity.Length() > 0)
+        {
+            encounterChance += (float)delta * 10;
+
+            // Si la chance dépasse ou égale 100, on déclenche un combat
+            if (encounterChance >= 100)
+            {
+                StartRandomBattle();
+                encounterChance = 0; // Reset après le combat
+            }
+        }
+    }
+
+    private async void StartRandomBattle()
+    {
+        if (currentMap.PossibleEnemies.Count == 0)
+            return; // Pas d'ennemis ici
+
+        RandomNumberGenerator rng = new RandomNumberGenerator();
+        int index = rng.RandiRange(0, currentMap.PossibleEnemies.Count - 1);
+        string enemyName = currentMap.PossibleEnemies[index];
+
+        GD.Print($"Combat déclenché avec {enemyName} !");
+
+        await BattleManager.StartBattle("BattleMap", enemyName);
     }
 
     public void LoadScene(string sceneName, Vector2? playerPosition = null)
