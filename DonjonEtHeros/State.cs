@@ -12,4 +12,7 @@ public partial class State : Node
 
     // has_met variables
     public bool has_met_alphonse = false;
+
+    // has_seen variables
+    public bool has_seen_symbols_forest = false;
 }
