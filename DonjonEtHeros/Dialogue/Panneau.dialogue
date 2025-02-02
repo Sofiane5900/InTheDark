@@ -1,0 +1,12 @@
+~ panneau_foret_1
+Forêt aux Pins
+Ne pas continuer. Sentiers dangereux au-delà.
+* Il est trop tard pour que je fasse demi-tour.
+=> END
+
+~ panneau_foret_2
+Forêt aux Pins
+†¥§∞∆ψ†⊗††
+* Les signes inscrits ici semblent incompréhensibles...
+set State.has_seen_symbols_forest = true
+=> END

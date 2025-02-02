@@ -1,0 +1,15 @@
+~ alphonse_valombre_intro
+Maire Alphonse: ...
+if State.CryptStatus == "granted":
+	Maire Alphonse : La crypte… J’ai un mauvais pressentiment. Si tu y découvres quelque chose d’étrange, reviens immédiatement me voir.
+else:
+	Maire Alphonse: Ah, te voilà. J’ai quelque chose d’important à te dire.
+	Maire Alphonse: La forêt de Sombrebrise est maudite… Des ombres y rôdent, et maintenant Baptiste, notre bûcheron, a disparu.
+	Maire Alphonse: Sa hache a été retrouvée devant l’ancienne crypte… Celle que nous avons toujours gardée scellée. 
+	Maire Alphonse: Personne d’ici n’ose y mettre un pied. La crypte prend ceux qui s’en approchent… Mais toi, étranger, elle ne te connaît pas encore.
+	- Accepter d’y aller
+		set State.CryptStatus = "granted"
+		Maire Alphonse: Que les esprits aient pitié de toi… Si quelque chose t’appelle, ne lui réponds pas.
+	- Refuser
+		Maire Alphonse: Je ne peux t’en blâmer… Mais les ténèbres avancent. Si tu changes d’avis, reviens avant qu’il ne soit trop tard.
+=> END
