@@ -117,7 +117,8 @@ public partial class Battle : Control
         DisplayText("Vous avez fuit le combat !");
         GetTree().Paused = true;
         await ToSignal(GetTree().CreateTimer(2), "timeout");
-        GetTree().Quit();
+        GetTree().Paused = false;
+        BattleManager.Instance.EndBattle();
     }
 
     private async void HandleAttackButton()
