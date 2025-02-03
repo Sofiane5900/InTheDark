@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class ValombreScene : Node
+public partial class Valombre : Node
 {
     [Export]
     private AudioStream _valombreMusic;

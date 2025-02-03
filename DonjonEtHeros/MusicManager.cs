@@ -1,20 +1,21 @@
 using System;
 using Godot;
 
+// ? Pattern Singleton pour gérer la musique car on ne veut pas que la musique se coupe brutalement
 public partial class MusicManager : Node
 {
-    public static MusicManager Instance;
+    public static MusicManager Instance { get; private set; }
     public AudioStreamPlayer musicPlayer;
 
     public override void _Ready()
     {
         if (Instance is null)
         {
-            QueueFree();
+            Instance = this;
         }
         else
         {
-            Instance = this;
+            QueueFree();
         }
         musicPlayer = new AudioStreamPlayer();
         AddChild(musicPlayer);
