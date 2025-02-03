@@ -94,15 +94,12 @@ public partial class Character : CharacterBody2D
         }
     }
 
-    public async void BlockMovement(float duration = 1.0f)
+    public async void BlockMovement(float duration = 1.0f) // Durée par défaut de 1 seconde
     {
-        GD.Print("🚧 Mouvement bloqué !");
-        _currentVelocity = Vector2.Zero; // Stoppe immédiatement
-        SetPhysicsProcess(false); // Désactive `_PhysicsProcess()`
-
+        _currentVelocity = Vector2.Zero;
+        _animationPlayer.Play("idle");
+        SetPhysicsProcess(false); // Pause
         await ToSignal(GetTree().CreateTimer(duration), "timeout");
-
-        GD.Print("🔓 Mouvement débloqué !");
-        SetPhysicsProcess(true); // Réactive `_PhysicsProcess()`
+        SetPhysicsProcess(true); // Unpause
     }
 }
