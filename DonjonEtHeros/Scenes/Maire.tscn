@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3 uid="uid://78sgc7bngiwb"]
 
-[ext_resource type="Texture2D" uid="uid://bx7yepl4t7juc" path="res://NPC.png" id="1_lx71w"]
+[ext_resource type="Texture2D" uid="uid://bu7x1y72xq6b3" path="res://Art/Maire.png" id="1_qrihk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u4cll"]
 radius = 17.7778
 height = 62.2222
 
 [node name="Maire" type="StaticBody2D"]
-scale = Vector2(0.225, 0.225)
+scale = Vector2(0.2, 0.2)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.269097)
-texture = ExtResource("1_lx71w")
+scale = Vector2(0.25, 0.269)
+texture = ExtResource("1_qrihk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -26.6667)

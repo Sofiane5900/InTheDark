@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4ogqcx118kyg"]
+
+[ext_resource type="Script" path="res://Scripts/SceneTrigger.cs" id="1_edwvr"]
+
+[node name="SceneTrigger" type="Area2D"]
+script = ExtResource("1_edwvr")

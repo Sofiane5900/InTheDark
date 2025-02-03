@@ -1,0 +1,13 @@
+~ blood_1
+* C'est du sang et il est encore frais
+* Je devrais peut-être rentrer chez moi...
+=> END
+
+~ grave_1
+†⧫✩✪† ᴘɪᴇᴇᴇᴏ†
+if State.has_seen_symbols_forest == true:
+	* Encore des symboles ilisibles, je me demande ce qu'il ce passe dans cette foret.
+else:
+	* C'est incompréhensible, ça ne ressemble a aucune autre langue.
+=> END
+
