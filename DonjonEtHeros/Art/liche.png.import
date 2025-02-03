@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dx5eke064rqco"
-path="res://.godot/imported/serpent.png-3cc5da704f07fd2e2de823c4aaa84625.ctex"
+uid="uid://dki027kub2peo"
+path="res://.godot/imported/liche.png-901c8a904f7b9af0c91fcca269a7505d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Fantasy Battlers - Free/serpent.png"
-dest_files=["res://.godot/imported/serpent.png-3cc5da704f07fd2e2de823c4aaa84625.ctex"]
+source_file="res://Art/liche.png"
+dest_files=["res://.godot/imported/liche.png-901c8a904f7b9af0c91fcca269a7505d.ctex"]
 
 [params]
 

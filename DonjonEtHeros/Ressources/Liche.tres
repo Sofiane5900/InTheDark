@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://difc5fhpu73qt"]
+
+[ext_resource type="Script" path="res://Scripts/BaseEnemy.cs" id="1_dm4ii"]
+[ext_resource type="Texture2D" uid="uid://dki027kub2peo" path="res://Art/liche.png" id="2_d8wou"]
+
+[resource]
+script = ExtResource("1_dm4ii")
+name = "Seigneur Liche"
+texture = ExtResource("2_d8wou")
+health = 50
+damage = 20
