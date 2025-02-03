@@ -27,4 +27,7 @@ Vous etes dans la partie Nord de la foret !.
 Vous etes dans la partie sud de la foret !.
 => END
 
+~ paneau_cul_de_sac
+Vous etes dans un cul de sac !
+=> END
 
