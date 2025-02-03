@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://b18mu7lgcfttp" path="res://Scenes/Character.tscn" id="2_j6p8h"]
 [ext_resource type="Texture2D" uid="uid://n75lrctbdnfx" path="res://Art/Bountiful-Bits-10x10-v-3.1/Colored/Natural.png" id="3_mbwyj"]
 [ext_resource type="Texture2D" uid="uid://5yvn3clfink6" path="res://Art/Bountiful-Bits-10x10-v-3.1/Colored/Civilized.png" id="4_5yheo"]
-[ext_resource type="PackedScene" path="res://Enemies/Liche.tscn" id="7_ws1gc"]
-[ext_resource type="PackedScene" uid="uid://bbrf2stt2q55l" path="res://Scenes/Actionnable.tscn" id="8_edwsx"]
+[ext_resource type="PackedScene" uid="uid://jf5862duwgyi" path="res://Enemies/Liche.tscn" id="7_ws1gc"]
+[ext_resource type="Script" path="res://Scripts/BossArea.cs" id="8_ebecx"]
 [ext_resource type="Resource" uid="uid://c4i3m03eidequ" path="res://Dialogue/Liche.dialogue" id="9_inolk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s27hn"]
@@ -3687,7 +3687,8 @@ sources/1 = SubResource("TileSetAtlasSource_c1osl")
 sources/2 = SubResource("TileSetAtlasSource_sdf06")
 sources/3 = SubResource("TileSetAtlasSource_7jc0l")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_k4h4u"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ep2i0"]
+size = Vector2(72, 12)
 
 [node name="Boss" type="Node2D"]
 position = Vector2(0, 4)
@@ -3704,13 +3705,16 @@ layer_0/tile_data = PackedInt32Array(65536, 393219, 6, 65537, 393219, 6, 65538, 
 [node name="Character2D" parent="Map" instance=ExtResource("2_j6p8h")]
 position = Vector2(379, 324)
 
-[node name="Liche" parent="." instance=ExtResource("7_ws1gc")]
-position = Vector2(381, 74)
+[node name="Liche" parent="Map" instance=ExtResource("7_ws1gc")]
+position = Vector2(375, 129)
 
-[node name="Actionnable" parent="Liche" instance=ExtResource("8_edwsx")]
-position = Vector2(0, 18)
-DialogueResource = ExtResource("9_inolk")
-DialogueStart = "discussion_liche"
+[node name="BossArea" type="Area2D" parent="Map"]
+position = Vector2(351, 215)
+collision_mask = 2
+script = ExtResource("8_ebecx")
+BossDialogueResource = ExtResource("9_inolk")
+BossEnemyResource = "Liche"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Liche/Actionnable"]
-shape = SubResource("CircleShape2D_k4h4u")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/BossArea"]
+position = Vector2(24, -4)
+shape = SubResource("RectangleShape2D_ep2i0")

@@ -1,15 +1,7 @@
 ~ alphonse_valombre_intro
 Maire Alphonse: ...
-if State.has_finish_quest_valombre == false:
-	if State.has_given_quest_apple == true:
-		Maire Alphonse: Reviens me voir quand tu auras résolu cette histoire de pomme, j'aurai une autre mission pour toi.
-	else:
-		Maire Alphonse: J’ai besoin de ton aide. Cette histoire de pommes doit être réglée…
-		Maire Alphonse: Agathe est persuadée que Gaspard lui a volé ses pommes, et elle ne veut rien entendre.
-		Maire Alphonse: Nous sommes peu dans ce village, et pourtant, il faut que ce soit eux qui se disputent pour une poignée de fruits !
-		Maire Alphonse: Peux-tu aller voir ce qu’il se passe et tenter d’apaiser les choses ?
-		* Je vais voir ce que je peux faire…
-		set State.has_given_quest_apple = true
+
+#  Étape 1 : Si le joueur a parlé à Agathe et Gaspard, il doit faire un choix (prioritaire)
 if State.has_met_agathe == true && State.has_met_gaspard == true && State.has_finish_quest_valombre == false:
 	Maire Alphonse: Alors, tu as parlé aux deux ? Qui dois-je croire dans cette histoire ?
 	- Agathe dit la vérité
@@ -22,6 +14,21 @@ if State.has_met_agathe == true && State.has_met_gaspard == true && State.has_fi
 		Maire Alphonse: Ça ne m’étonnerait pas… Elle a le sang chaud, et parfois, elle accuse avant d’avoir toutes les réponses.
 		Maire Alphonse: Je vais essayer de lui faire entendre raison.
 		set State.has_finish_quest_valombre = true
+
+#  Étape 2 : Si la quête n'est pas encore terminée, mais que le joueur a déjà reçu la quête des pommes
+elif State.has_finish_quest_valombre == false && State.has_given_quest_apple == true:
+	Maire Alphonse: Reviens me voir quand tu auras résolu cette histoire de pomme, j'aurai une autre mission pour toi.
+
+#  Étape 3 : Si la quête n'a pas encore été donnée
+elif State.has_finish_quest_valombre == false:
+	Maire Alphonse: J’ai besoin de ton aide. Cette histoire de pommes doit être réglée…
+	Maire Alphonse: Agathe est persuadée que Gaspard lui a volé ses pommes, et elle ne veut rien entendre.
+	Maire Alphonse: Nous sommes peu dans ce village, et pourtant, il faut que ce soit eux qui se disputent pour une poignée de fruits !
+	Maire Alphonse: Peux-tu aller voir ce qu’il se passe et tenter d’apaiser les choses ?
+	* Je vais voir ce que je peux faire…
+	set State.has_given_quest_apple = true
+
+#  Étape 4 : Si la première quête est finie, on passe à la crypte
 if State.has_finish_quest_valombre == true:
 	if State.can_enter_forest == true:
 		Maire Alphonse: La crypte… J’ai un mauvais pressentiment. Si tu y découvres quelque chose d’étrange, reviens immédiatement me voir.
@@ -36,4 +43,3 @@ if State.has_finish_quest_valombre == true:
 			set State.has_received_crypt_quest = true
 		else:
 			Maire Alphonse: La crypte t’attend… Sois prudent.
-=> END

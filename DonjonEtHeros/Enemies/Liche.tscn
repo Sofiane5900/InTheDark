@@ -1,14 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ovlsiea6wjos"]
+[gd_scene load_steps=2 format=3 uid="uid://jf5862duwgyi"]
 
 [ext_resource type="Texture2D" uid="uid://dki027kub2peo" path="res://Art/liche.png" id="1_b3i2a"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uia4o"]
-
-[node name="Liche" type="StaticBody2D"]
+[node name="LichBoss" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_b3i2a")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_uia4o")

@@ -10,7 +10,7 @@ public partial class Actionnable : Area2D
     [Export]
     public string DialogueStart = "start";
 
-    private bool isDialogueActive = true;
+    private bool isDialogueActive = false;
 
     public void Action()
     {
@@ -32,20 +32,22 @@ public partial class Actionnable : Area2D
     private void Unpause(Resource dialogueResource)
     {
         // On verifie si l'objet Actionnable a était supprimé ou retiré de la scene
-        // ? IsInstanceValid = Verification de si l'objet est toujours en mémoire
-        // ? IsInsideTree = Vérification de si l'objet est toujours dans l'arbre
+        // IsInstanceValid = Verification de si l'objet Actionnable est toujours en mémoire
+        // IsInsideTree = Vérification de si l'objet Actionnable est toujours dans l'arbre
         if (!IsInstanceValid(this) || !IsInsideTree())
         {
+            GD.PrintErr("⚠Actionnable supprimé, impossible d'unpause !");
             return;
         }
 
         GetTree().Paused = false;
-        isDialogueActive = false; // On rénitialise le bool a sa valeur de défaut
+        isDialogueActive = false; // On rénitialise le boolean
         GD.Print("Reprise du jeu après dialogue.");
     }
 
     public override void _ExitTree()
     {
         DialogueManager.DialogueEnded -= Unpause; // Déconnexion du signal quand l'objet est supprimé
+        GD.Print("🚪 Actionnable supprimé proprement.");
     }
 }

@@ -56,12 +56,24 @@ public partial class Barriere : Area2D
 
     private void Unpause(Resource dialogueResource)
     {
-        GetTree().Paused = false; // Pause
+        if (!IsInstanceValid(this) || !IsInsideTree())
+        {
+            GD.PrintErr("⚠️ Barriere supprimée, Unpause annulé !");
+            return;
+        }
+
+        GetTree().Paused = false; // Unpause
 
         if (GetTree().CurrentScene.HasNode("Character"))
         {
             var player = GetTree().CurrentScene.GetNode<Character>("Character");
             player.BlockMovement(1.5f);
         }
+    }
+
+    public override void _ExitTree()
+    {
+        DialogueManager.DialogueEnded -= Unpause; // On se déconnecte du signal DialogueEnded
+        GD.Print("🚪 Barriere supprimée proprement.");
     }
 }
