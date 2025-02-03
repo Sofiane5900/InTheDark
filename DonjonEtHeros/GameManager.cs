@@ -27,9 +27,6 @@ public partial class GameManager : Node
             return;
         }
 
-        currentMap = currentScene.FindChild("Map") as Map;
-        player = GetTree().Root.GetNode<CharacterBody2D>("Character2D");
-
         // Scène de départ
         LoadScene("Valombre");
     }
@@ -82,6 +79,7 @@ public partial class GameManager : Node
             currentScene = newScene.Instantiate();
             AddChild(currentScene);
             GD.Print($"Nouvelle scène : {sceneName}");
+            currentMap = currentScene.FindChild("Map") as Map;
 
             // Affiche les nœuds enfants de la scène pour déboguer
             foreach (Node child in currentScene.GetChildren())
@@ -95,7 +93,7 @@ public partial class GameManager : Node
             // Restaure la position du joueur si elle n'est pas null
             if (playerPosition.HasValue)
             {
-                CharacterBody2D player = currentScene.GetNodeOrNull<CharacterBody2D>("Character2D");
+                player = currentScene.FindChild("Character2D", true, false) as CharacterBody2D;
                 if (player is not null)
                 {
                     player.Position = playerPosition.Value;
@@ -139,7 +137,7 @@ public partial class GameManager : Node
     private void CheckForPlayer()
     {
         // Vérifie que "Character2D" existe dans la scène
-        CharacterBody2D player = currentScene.GetNodeOrNull<CharacterBody2D>("Character2D");
+        player = currentScene.FindChild("Character2D", true, false) as CharacterBody2D;
         if (player is null)
         {
             GD.PrintErr("Character2D n'est toujours pas trouvé dans la scène !");

@@ -10,7 +10,7 @@ public partial class BattleManager : Node
     private Node gameNode; // Reference a ma Node GameManager
     public BaseEnemy CurrentEnemy { get; private set; }
 
-    private string previousSceneName;
+    private Node previousSceneName;
     private Vector2 previousPlayerPosition;
 
     public override void _EnterTree()
@@ -59,40 +59,59 @@ public partial class BattleManager : Node
 
     private async Task StartBattleInstance(PackedScene battleScene, BaseEnemy enemy)
     {
-        // Valombre est un enfant de GameManager
-        var valombreNode = gameNode.GetNodeOrNull<Node>("Valombre");
-        GD.Print(valombreNode); // Vérifie si le nœud existe ou non
-        CharacterBody2D player = valombreNode.GetNodeOrNull<CharacterBody2D>("Character2D");
-        GD.Print(player); // Vérifie si le joueur est bien trouvé
-
-        previousSceneName = "Valombre";
-        previousPlayerPosition = player.Position;
-        (gameNode as GameManager)?.SaveSceneState(previousSceneName, previousPlayerPosition);
-        // On désactive la camera du joueur
-        Camera2D playerCamera = player.GetNode<Camera2D>("Camera2D");
-        playerCamera.Enabled = false;
-
-        // Instance de notre BattleMap
-        Battle battleMap = battleScene.Instantiate<Battle>();
-        battleMap.EnemyResource = enemy;
-
-        // Activation de la camera BattleMap
-        Camera2D battleCamera = battleMap.GetNode<Camera2D>("Camera2D");
-        battleCamera.Enabled = true;
-
-        if (valombreNode is not null)
+        // Récupérer la scène active actuelle
+        Node currentScene = gameNode.GetChildren().FirstOrDefault(scene => scene is Node);
+        if (currentScene is null)
         {
-            valombreNode.SetProcess(false); // Process = false
-            GD.Print("Valombre scene en pause");
+            GD.PrintErr("Aucune scène active trouvée avant le combat !");
+            return;
         }
 
-        // Ajout de la BattleMap a GameManager
+        // Récupérer le joueur
+        CharacterBody2D player =
+            currentScene.FindChild("Character2D", true, false) as CharacterBody2D;
+        if (player is null)
+        {
+            GD.PrintErr("Impossible de trouver Character2D avant le combat !");
+            return;
+        }
+
+        // Sauvegarde de l'état de la scène avant combat
+        previousPlayerPosition = player.Position;
+        (gameNode as GameManager).SaveSceneState(
+            // On récupere le nom de la scéne via le fichier
+            currentScene.SceneFilePath.GetFile().TrimSuffix(".tscn"),
+            previousPlayerPosition
+        );
+
+        // On désctive la caméra du joueur
+        Camera2D playerCamera = player.GetNodeOrNull<Camera2D>("Camera2D");
+        if (playerCamera is not null)
+        {
+            playerCamera.Enabled = false;
+        }
+
+        // ! ça marche une fois sur trois :(
+        // Pause de la scéne active
+        currentScene.SetProcess(false);
+        GD.Print($"{currentScene.Name} mise en pause");
+
+        // Instancier la BattleMap avec enemy.tres
+        Battle battleMap = battleScene.Instantiate<Battle>();
+        battleMap.EnemyResource = enemy;
         gameNode.AddChild(battleMap);
         battleMap.Name = "BattleMap";
-        GD.Print($"battleMap: {battleMap.Name}, enemy : {enemy}");
 
-        // fix voidTask error, on a besoin de retourner une Task
-        await Task.Delay(1000);
+        // On active la cémera de la battleMap
+        Camera2D battleCamera = battleMap.GetNodeOrNull<Camera2D>("Camera2D");
+        if (battleCamera is not null)
+        {
+            battleCamera.Enabled = true;
+        }
+
+        GD.Print($"Combat commencé sur {battleMap.Name} contre {enemy}");
+
+        await Task.Delay(1000); // J'ai rajouté ça car il faut return une Task, (fix void task blabla)
     }
 
     public async void EndBattle()
@@ -103,55 +122,60 @@ public partial class BattleManager : Node
             return;
         }
 
-        // Supprimer BattleMap si elle existe
+        // On récupere la BattleMap
         Node battleMap = gameNode.GetNodeOrNull("BattleMap");
-        if (battleMap is not null)
-        {
-            battleMap.QueueFree(); // Supprime complètement BattleMap
-            GD.Print("BattleMap supprimé !");
+        // On défini ce qu'est le joueur (un enfant d'une scéne)
+        CharacterBody2D player = FindChild("Character2D") as CharacterBody2D;
 
-            // Supprimer la caméra BattleMap
-            Camera2D battleCamera = battleMap.GetNodeOrNull<Camera2D>("Camera2D");
-            if (battleCamera is not null)
-            {
-                battleCamera.Enabled = false;
-            }
-            else
-            {
-                GD.PrintErr("Battle camera is null");
-            }
+        // On ajoute le joueur a la scéne
+        if (player is not null)
+        {
+            gameNode.AddChild(player);
         }
 
-        // On attend une frame avant d'éxécuter le reste du code
+        // Supression de la BattleMap (car combat fini)
+        if (battleMap is not null)
+        {
+            battleMap.QueueFree();
+            GD.Print("BattleMap supprimée !");
+        }
+
+        // Attendre une frame pour érte sur que la BattleMap est bien supprimée
         await ToSignal(GetTree(), "process_frame");
 
-        // On récupère la scène restaurée en cherchant l'enfant de GameNode (qui est une Node)
-        Node activeScene = gameNode.GetChildren().FirstOrDefault(scene => scene is Node);
-        if (activeScene is null)
+        // Reload the previous scene
+        (gameNode as GameManager)?.LoadPreviousScene();
+
+        // Attendre une frame pour étre sur que la scéne est bien chargée
+        await ToSignal(GetTree(), "process_frame");
+
+        // On récupere la scéne restaurée après le combat, FirstOrDefault requéte LINQ pour trouver le premier élément qui est une Node
+        Node restoredScene = gameNode.GetChildren().FirstOrDefault(scene => scene is Node);
+        if (restoredScene is null)
         {
-            GD.PrintErr("Impossible de retrouver la scène restaurée !");
+            GD.PrintErr("EndBattle() - Impossible de restaurer la scène !");
             return;
         }
 
-        GD.Print($"Nouvelle scène restaurée détectée : {activeScene.Name}");
-
-        // Chercher Character2D dans une scène
-        CharacterBody2D player = activeScene.GetNodeOrNull<CharacterBody2D>("Character2D");
+        // On restaure la position du joueur,
+        player = restoredScene.FindChild("Character2D") as CharacterBody2D;
         if (player is null)
         {
-            GD.PrintErr("Character2D introuvable dans la scène restaurée !");
+            GD.PrintErr("EndBattle() - Character2D introuvable après restauration !");
+            return;
         }
-        else
-        {
-            GD.Print("Character2D trouvé après restauration !");
-            player.Position = previousPlayerPosition;
 
-            // Récupération de la caméra du joueur
-            Camera2D playerCamera = player.GetNodeOrNull<Camera2D>("Camera2D");
-            if (playerCamera is not null)
-            {
-                playerCamera.Enabled = true;
-            }
+        player.Position = previousPlayerPosition;
+
+        // On re-active la caméra du joueur
+        Camera2D playerCamera = player.GetNodeOrNull<Camera2D>("Camera2D");
+        if (playerCamera is not null)
+        {
+            playerCamera.Enabled = true;
         }
+
+        // Et on enleve la pause de la scéne restaurée (l'ancienne currentScene)
+        restoredScene.SetProcess(true);
+        GD.Print($"{restoredScene.Name} réactivée après combat !");
     }
 }
