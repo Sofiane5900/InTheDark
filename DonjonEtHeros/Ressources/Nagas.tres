@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bfdqlkmjyb65"]
+
+[ext_resource type="Script" path="res://Scripts/BaseEnemy.cs" id="1_x8vtq"]
+[ext_resource type="Texture2D" uid="uid://dsitwn8lehbwx" path="res://Art/Hexany's Monster Menagerie/Tiles/Transparent/creature_006.png" id="2_x7m52"]
+
+[resource]
+script = ExtResource("1_x8vtq")
+name = "Nāgas"
+texture = ExtResource("2_x7m52")
+health = 30
+damage = 10

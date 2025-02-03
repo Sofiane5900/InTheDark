@@ -12,6 +12,6 @@ public partial class Map : Node2D
 
     public override void _Ready()
     {
-        GD.Print($"🗺️ Map chargée: {Name}, CanTriggerBattles: {CanTriggerBattles}");
+        GD.Print($"Map chargée: {Name}, CanTriggerBattles: {CanTriggerBattles}");
     }
 }

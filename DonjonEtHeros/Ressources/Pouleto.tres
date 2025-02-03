@@ -1,11 +1,11 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://n6hectgsy7uq"]
 
 [ext_resource type="Script" path="res://Scripts/BaseEnemy.cs" id="1_l2dgb"]
-[ext_resource type="Texture2D" uid="uid://81iq22x6p43k" path="res://Art/pouleto.png" id="2_xj65o"]
+[ext_resource type="Texture2D" uid="uid://hcamqsntwrc3" path="res://Art/Hexany's Monster Menagerie/Tiles/Transparent/creature_008.png" id="2_44kfj"]
 
 [resource]
 script = ExtResource("1_l2dgb")
 name = "Pouleto revanchard"
-texture = ExtResource("2_xj65o")
+texture = ExtResource("2_44kfj")
 health = 30
 damage = 10

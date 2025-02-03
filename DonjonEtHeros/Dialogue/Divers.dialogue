@@ -10,3 +10,4 @@ if State.has_seen_symbols_forest == true:
 else:
 	* C'est incompréhensible, ça ne ressemble a aucune autre langue.
 => END
+
