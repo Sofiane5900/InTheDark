@@ -11,3 +11,20 @@ else:
 	* C'est incompréhensible, ça ne ressemble a aucune autre langue.
 => END
 
+~ drapeau_ouest 
+Vous etes dans la partie Ouest de la foret !.
+=> END
+
+~ drapeu_est
+Vous etes dans la partie Ouest de la foret !.
+=> END
+
+~ drapeau_nord
+Vous etes dans la partie Nord de la foret !.
+=> END
+
+~ drapeau_sud
+Vous etes dans la partie sud de la foret !.
+=> END
+
+
