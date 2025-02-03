@@ -10,21 +10,42 @@ public partial class Actionnable : Area2D
     [Export]
     public string DialogueStart = "start";
 
+    private bool isDialogueActive = true;
+
     public void Action()
     {
-        // On a défini une variable dialogue qui contient une méthode de DialogueManager
-        var dialogue = DialogueManager.ShowDialogueBalloon(DialogueResource, DialogueStart);
-        // On a défini le PROCESS MODE de notre dialogue en "always", meme si notre Tree est paused, le dialogue continue.
-        dialogue.ProcessMode = DialogueManager.ProcessModeEnum.Always;
+        if (isDialogueActive is true)
+        {
+            // un dialogue ne peux pas se lancer deux fois en meme temps
+            return;
+        }
 
+        isDialogueActive = true; // Dialogue en cours
+
+        var dialogue = DialogueManager.ShowDialogueBalloon(DialogueResource, DialogueStart);
+        dialogue.ProcessMode = DialogueManager.ProcessModeEnum.Always; // process always = ne sera jamais en pause
         GetTree().Paused = true; // Pause du jeu
-        // Je connecte ma Méthode Unpause a l'événement DialogueEnded a DialogueEnded
-        DialogueManager.DialogueEnded += Unpause;
-        GD.Print("Actionnable fonctionnelle.");
+        DialogueManager.DialogueEnded += Unpause; // Connexion au signal UnPause
+        GD.Print("Actionnable activé.");
     }
 
     private void Unpause(Resource dialogueResource)
     {
+        // On verifie si l'objet Actionnable a était supprimé ou retiré de la scene
+        // ? IsInstanceValid = Verification de si l'objet est toujours en mémoire
+        // ? IsInsideTree = Vérification de si l'objet est toujours dans l'arbre
+        if (!IsInstanceValid(this) || !IsInsideTree())
+        {
+            return;
+        }
+
         GetTree().Paused = false;
+        isDialogueActive = false; // On rénitialise le bool a sa valeur de défaut
+        GD.Print("Reprise du jeu après dialogue.");
+    }
+
+    public override void _ExitTree()
+    {
+        DialogueManager.DialogueEnded -= Unpause; // Déconnexion du signal quand l'objet est supprimé
     }
 }

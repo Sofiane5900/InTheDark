@@ -3709,7 +3709,6 @@ position = Vector2(381, 74)
 
 [node name="Actionnable" parent="Liche" instance=ExtResource("8_edwsx")]
 position = Vector2(0, 18)
-collision_layer = 17
 DialogueResource = ExtResource("9_inolk")
 DialogueStart = "discussion_liche"
 

@@ -9,7 +9,6 @@ elif State.has_met_agathe == true:
 	Gaspard: Si elle passait autant de temps à surveiller ses arbres qu’à crier au scandale, elle aurait peut-être encore ses pommes.  
 	Gaspard: Mais bon, si ça peut lui faire plaisir, continue ton enquête. Peut-être qu’on finira par savoir ce qui s’est vraiment passé. 
 	set State.has_met_gaspard = true
- 
 else:  
 	Gaspard: Hein ? Quoi ? De quoi tu parles ?  
 	Gaspard: Je vois bien à ta tête que tu es venu m’accuser de quelque chose, mais je ne sais même pas pourquoi.  
@@ -18,5 +17,4 @@ else:
 	Gaspard: Sérieusement, elle croit que je vais risquer ma réputation pour une poignée de fruits ?  
 	Gaspard: T’écoutes qui tu veux, mais moi, j’ai la conscience tranquille.  
 	set State.has_met_gaspard = true
-
 => END  
