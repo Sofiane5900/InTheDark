@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21d1278f-0c31-4b43-ac90-cd761b3970c6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.DonjonEtHaros/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DonjonEtHaros/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/Character.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/Character.tscn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/Unknown.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/Unknown.tscn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/valombre.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/valombre.tscn" afterDir="false" />
-    </list>
+    <list default="true" id="57ab0235-df3d-4faa-8941-bec96d2ad7af" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,27 +13,28 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 6
-}</component>
-  <component name="ProjectId" id="2sCpaDVvs5LeeWSxTNSPYbm0XI1" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2sWL6rpWy7Q4IbyW6ShGBLdvnmA" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/npc&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "feature/entrancemap",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Executable.Player">
     <configuration name="Player GDScript" type="GDSCRIPT_DEBUG_RUN_CONFIGURATION" factoryName="GdScriptRunFactory" show_console_on_std_err="false" show_console_on_std_out="false" port="6006">
       <option name="address" value="127.0.0.1" />
@@ -80,16 +76,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="21d1278f-0c31-4b43-ac90-cd761b3970c6" name="Changes" comment="" />
-      <created>1737969472166</created>
+      <changelist id="57ab0235-df3d-4faa-8941-bec96d2ad7af" name="Changes" comment="" />
+      <created>1738566213174</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1737969472166</updated>
-      <workItem from="1737969474068" duration="1903000" />
-      <workItem from="1738139106900" duration="1231000" />
-      <workItem from="1738225128459" duration="1569000" />
-      <workItem from="1738318652033" duration="41000" />
-      <workItem from="1738322203252" duration="2623000" />
+      <updated>1738566213174</updated>
+      <workItem from="1738566215983" duration="452000" />
     </task>
     <servers />
   </component>
