@@ -21,6 +21,7 @@ DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 State="*res://State.cs"
 BattleManager="*res://BattleManager.cs"
 GameManager="*res://GameManager.cs"
+MusicManager="*res://MusicManager.cs"
 
 [dialogue_manager]
 

@@ -16,6 +16,7 @@ public partial class Actionnable : Area2D
         var dialogue = DialogueManager.ShowDialogueBalloon(DialogueResource, DialogueStart);
         // On a défini le PROCESS MODE de notre dialogue en "always", meme si notre Tree est paused, le dialogue continue.
         dialogue.ProcessMode = DialogueManager.ProcessModeEnum.Always;
+
         GetTree().Paused = true; // Pause du jeu
         // Je connecte ma Méthode Unpause a l'événement DialogueEnded a DialogueEnded
         DialogueManager.DialogueEnded += Unpause;
