@@ -3,8 +3,8 @@ using Godot;
 
 public partial class MusicManager : Node
 {
-    private static MusicManager Instance;
-    private AudioStreamPlayer musicPlayer;
+    public static MusicManager Instance;
+    public AudioStreamPlayer musicPlayer;
 
     public override void _Ready()
     {

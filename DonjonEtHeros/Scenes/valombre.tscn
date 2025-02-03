@@ -1,7 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://cd2peswh5dtwb"]
+[gd_scene load_steps=23 format=3 uid="uid://cd2peswh5dtwb"]
 
 [ext_resource type="Script" path="res://Scripts/Map.cs" id="1_6he37"]
 [ext_resource type="Texture2D" uid="uid://n75lrctbdnfx" path="res://Art/Bountiful-Bits-10x10-v-3.1/Colored/Natural.png" id="1_h6ffb"]
+[ext_resource type="Script" path="res://Valombre.cs" id="1_l1wee"]
 [ext_resource type="Texture2D" uid="uid://5yvn3clfink6" path="res://Art/Bountiful-Bits-10x10-v-3.1/Colored/Civilized.png" id="2_hy06i"]
 [ext_resource type="Texture2D" uid="uid://djtrtlit3pxtb" path="res://Art/Bountiful-Bits-10x10-v-3.1/1-Bit/Civilized.png" id="3_4svfx"]
 [ext_resource type="PackedScene" uid="uid://b18mu7lgcfttp" path="res://Scenes/Character.tscn" id="3_va6t1"]
@@ -4210,6 +4211,7 @@ radius = 26.6667
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p04rt"]
 
 [node name="Valombre" type="Node2D"]
+script = ExtResource("1_l1wee")
 
 [node name="Map" type="Node2D" parent="."]
 script = ExtResource("1_6he37")
