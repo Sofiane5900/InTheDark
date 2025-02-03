@@ -3683,6 +3683,7 @@ sources/2 = SubResource("TileSetAtlasSource_sdf06")
 sources/3 = SubResource("TileSetAtlasSource_7jc0l")
 
 [node name="Boss" type="Node2D"]
+position = Vector2(0, 4)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_kky6i")

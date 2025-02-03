@@ -3910,7 +3910,7 @@ size = Vector2(51, 20)
 [node name="Map" type="Node2D" parent="."]
 script = ExtResource("1_2mv0w")
 CanTriggerBattles = true
-PossibleEnemies = ["Pouleto", "Chirofurax"]
+PossibleEnemies = ["Chirofurax", "Venimor", "Rascaro"]
 
 [node name="TileMap" type="TileMap" parent="Map"]
 tile_set = SubResource("TileSet_02lt1")
