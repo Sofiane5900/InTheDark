@@ -93,4 +93,16 @@ public partial class Character : CharacterBody2D
             _animationPlayer.Play("walk_right");
         }
     }
+
+    public async void BlockMovement(float duration = 1.0f)
+    {
+        GD.Print("🚧 Mouvement bloqué !");
+        _currentVelocity = Vector2.Zero; // Stoppe immédiatement
+        SetPhysicsProcess(false); // Désactive `_PhysicsProcess()`
+
+        await ToSignal(GetTree().CreateTimer(duration), "timeout");
+
+        GD.Print("🔓 Mouvement débloqué !");
+        SetPhysicsProcess(true); // Réactive `_PhysicsProcess()`
+    }
 }
