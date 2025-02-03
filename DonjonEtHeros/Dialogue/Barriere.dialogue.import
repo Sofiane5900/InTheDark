@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://drptoxftlgc7t"
+path="res://.godot/imported/Barriere.dialogue-a6a8237994892758d29ced0cb2dee26e.tres"
+
+[deps]
+
+source_file="res://Dialogue/Barriere.dialogue"
+dest_files=["res://.godot/imported/Barriere.dialogue-a6a8237994892758d29ced0cb2dee26e.tres"]
+
+[params]
+
+defaults=true

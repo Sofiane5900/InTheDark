@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cd2peswh5dtwb"]
+[gd_scene load_steps=27 format=3 uid="uid://cd2peswh5dtwb"]
 
 [ext_resource type="Script" path="res://Scripts/Map.cs" id="1_6he37"]
 [ext_resource type="Texture2D" uid="uid://n75lrctbdnfx" path="res://Art/Bountiful-Bits-10x10-v-3.1/Colored/Natural.png" id="1_h6ffb"]
@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://elkvba0wou71" path="res://Dialogue/Maire.dialogue" id="6_h8obk"]
 [ext_resource type="PackedScene" uid="uid://b4ogqcx118kyg" path="res://Scenes/SceneTrigger.tscn" id="10_acwr5"]
 [ext_resource type="Script" path="res://Scripts/Barriere.cs" id="13_gxp8q"]
+[ext_resource type="Resource" uid="uid://drptoxftlgc7t" path="res://Dialogue/Barriere.dialogue" id="14_q8j66"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fqx71"]
 texture = ExtResource("1_h6ffb")
@@ -4275,6 +4276,8 @@ shape = SubResource("RectangleShape2D_p04rt")
 [node name="Barriere" type="Area2D" parent="."]
 collision_mask = 2
 script = ExtResource("13_gxp8q")
+DialogueResource = ExtResource("14_q8j66")
+DialogueStart = "~ barriere_valombre"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Barriere"]
 position = Vector2(94, 50)

@@ -1,34 +1,67 @@
+using System;
+using DialogueManagerRuntime;
 using Godot;
 
 public partial class Barriere : Area2D
 {
+    [Export]
+    public Resource DialogueResource; //
+
+    [Export]
+    public string DialogueStart = "start";
+
     public override void _Ready()
     {
-        GD.Print("🚧 Barrière prête !");
-        BodyEntered += _on_body_entered;
+        BodyEntered += OnBodyEntered; // Connection au signal body entered de l'Area2D
     }
 
-    private void _on_body_entered(Node body)
+    private void OnBodyEntered(Node body)
     {
-        GD.Print($"📌 Détection : {body.Name}");
-
         if (body is Character player)
         {
-            if (State.Instance is null)
+            // Si l'accès à la forêt est interdit
+            if (State.Instance.can_enter_forest is false)
             {
-                GD.PrintErr("❌ State.Instance est NULL !");
-                return;
-            }
+                GD.Print("Accès interdit !");
 
-            if (State.Instance.can_enter_forest is false) // Vérifie si l'accès est autorisé
-            {
-                GD.Print("❌ Accès interdit à la forêt !");
-                player.BlockMovement(1.5f); // Bloque le joueur 1.5 secondes
+                // On recule le joueur de 10 pixels sur l'axe Y
+                player.MoveAndCollide(new Vector2(0, 10));
+
+                // On lance le dialogue après avoir reculé le joueur
+                StartDialogue();
             }
             else
             {
-                GD.Print("✅ Accès autorisé !");
+                GD.Print("Accès autorisé !");
             }
+        }
+    }
+
+    private void StartDialogue()
+    {
+        if (DialogueResource is null)
+        {
+            // On copie le fonctionnement du script Actionnable.cs
+            var dialogue = DialogueManager.ShowDialogueBalloon(DialogueResource, DialogueStart);
+            dialogue.ProcessMode = DialogueManager.ProcessModeEnum.Always;
+
+            GetTree().Paused = true; // Pause
+            DialogueManager.DialogueEnded += Unpause; // Unpause après la fin du dialogue (signal DialogueEnded)
+        }
+        else
+        {
+            GD.PrintErr("Aucun DialogueResource assigné !");
+        }
+    }
+
+    private void Unpause(Resource dialogueResource)
+    {
+        GetTree().Paused = false; // Pause
+
+        if (GetTree().CurrentScene.HasNode("Character"))
+        {
+            var player = GetTree().CurrentScene.GetNode<Character>("Character");
+            player.BlockMovement(1.5f);
         }
     }
 }
