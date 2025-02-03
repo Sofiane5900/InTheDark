@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://bf5gibyybghlo"
+path="res://.godot/imported/Gaspard.dialogue-f2f877d89f08ca5643f030399155cb78.tres"
+
+[deps]
+
+source_file="res://Dialogue/Gaspard.dialogue"
+dest_files=["res://.godot/imported/Gaspard.dialogue-f2f877d89f08ca5643f030399155cb78.tres"]
+
+[params]
+
+defaults=true

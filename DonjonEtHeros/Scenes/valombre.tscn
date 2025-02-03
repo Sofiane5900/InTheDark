@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cd2peswh5dtwb"]
+[gd_scene load_steps=33 format=3 uid="uid://cd2peswh5dtwb"]
 
 [ext_resource type="Script" path="res://Scripts/Map.cs" id="1_6he37"]
 [ext_resource type="Texture2D" uid="uid://n75lrctbdnfx" path="res://Art/Bountiful-Bits-10x10-v-3.1/Colored/Natural.png" id="1_h6ffb"]
@@ -14,6 +14,10 @@
 [ext_resource type="PackedScene" uid="uid://b4ogqcx118kyg" path="res://Scenes/SceneTrigger.tscn" id="10_acwr5"]
 [ext_resource type="Script" path="res://Scripts/Barriere.cs" id="13_gxp8q"]
 [ext_resource type="Resource" uid="uid://drptoxftlgc7t" path="res://Dialogue/Barriere.dialogue" id="14_q8j66"]
+[ext_resource type="PackedScene" uid="uid://bjlfwqpih8sp1" path="res://Scenes/Agathe.tscn" id="15_xxcdb"]
+[ext_resource type="Resource" uid="uid://hpnpi3tnsth8" path="res://Dialogue/Agathe.dialogue" id="16_xfn5x"]
+[ext_resource type="PackedScene" uid="uid://bcmi11lbagnc0" path="res://Scenes/Gaspard.tscn" id="17_f5oq6"]
+[ext_resource type="Resource" uid="uid://bf5gibyybghlo" path="res://Dialogue/Gaspard.dialogue" id="18_ngjdq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fqx71"]
 texture = ExtResource("1_h6ffb")
@@ -4216,6 +4220,12 @@ size = Vector2(20, 11)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ub371"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_3jhbm"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bcw3x"]
+radius = 25.4951
+
 [node name="Valombre" type="Node2D"]
 script = ExtResource("1_l1wee")
 _valombreMusic = ExtResource("2_h5qs7")
@@ -4277,8 +4287,30 @@ shape = SubResource("RectangleShape2D_p04rt")
 collision_mask = 2
 script = ExtResource("13_gxp8q")
 DialogueResource = ExtResource("14_q8j66")
-DialogueStart = "~ barriere_valombre"
+DialogueStart = "barriere_valombre"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Barriere"]
 position = Vector2(94, 50)
 shape = SubResource("RectangleShape2D_ub371")
+
+[node name="Agathe" parent="." instance=ExtResource("15_xxcdb")]
+position = Vector2(185, 49)
+
+[node name="Actionnable" parent="Agathe" instance=ExtResource("5_f8qwk")]
+position = Vector2(-1, 10)
+DialogueResource = ExtResource("16_xfn5x")
+DialogueStart = "agathe_valombre"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Agathe/Actionnable"]
+shape = SubResource("CircleShape2D_3jhbm")
+
+[node name="Maire" parent="." instance=ExtResource("17_f5oq6")]
+position = Vector2(39, 211)
+
+[node name="Actionnable" parent="Maire" instance=ExtResource("5_f8qwk")]
+position = Vector2(0, 10)
+DialogueResource = ExtResource("18_ngjdq")
+DialogueStart = "gaspard_valombre"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Maire/Actionnable"]
+shape = SubResource("CircleShape2D_bcw3x")

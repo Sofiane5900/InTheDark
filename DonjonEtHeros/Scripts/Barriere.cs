@@ -5,7 +5,7 @@ using Godot;
 public partial class Barriere : Area2D
 {
     [Export]
-    public Resource DialogueResource; //
+    public Resource DialogueResource;
 
     [Export]
     public string DialogueStart = "start";
@@ -39,7 +39,7 @@ public partial class Barriere : Area2D
 
     private void StartDialogue()
     {
-        if (DialogueResource is null)
+        if (DialogueResource is not null)
         {
             // On copie le fonctionnement du script Actionnable.cs
             var dialogue = DialogueManager.ShowDialogueBalloon(DialogueResource, DialogueStart);

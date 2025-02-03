@@ -1,15 +1,37 @@
 ~ alphonse_valombre_intro
 Maire Alphonse: ...
-if State.CryptStatus == "granted":
-	Maire Alphonse : La crypte… J’ai un mauvais pressentiment. Si tu y découvres quelque chose d’étrange, reviens immédiatement me voir.
-else:
-	Maire Alphonse: Ah, te voilà. J’ai quelque chose d’important à te dire.
-	Maire Alphonse: La forêt de Sombrebrise est maudite… Des ombres y rôdent, et maintenant Baptiste, notre bûcheron, a disparu.
-	Maire Alphonse: Sa hache a été retrouvée devant l’ancienne crypte… Celle que nous avons toujours gardée scellée. 
-	Maire Alphonse: Personne d’ici n’ose y mettre un pied. La crypte prend ceux qui s’en approchent… Mais toi, étranger, elle ne te connaît pas encore.
-	- Accepter d’y aller
-		set State.CryptStatus = "granted"
+if State.has_given_quest_apple == true:
+	Maire Alphonse: Reviens me voir quand tu auras résolu cette histoire de pomme, j'aurais une autre mission pour toi.
+if State.has_met_agathe && State.has_met_gaspard == true:
+	Maire Alphonse: Alors, tu as parlé aux deux ? Qui dois-je croire dans cette histoire ?  
+	- Agathe dit la vérité
+		Maire Alphonse: Hm… Si tu penses que Gaspard a volé ces pommes, alors je vais lui demander de s’expliquer.  
+		Maire Alphonse: Dans un village aussi petit, on ne peut pas se permettre ce genre de tensions.  
+		Maire Alphonse: J’espère qu’après ça, Agathe pourra tourner la page.  
+		set State.has_finish_quest_valombre = true
+	- Gaspard dit la vérité
+		Maire Alphonse: Donc selon toi, Agathe s’est peut-être emballée un peu vite ?  
+		Maire Alphonse: Ça ne m’étonnerait pas… Elle a le sang chaud, et parfois, elle accuse avant d’avoir toutes les réponses.  
+		Maire Alphonse: Je vais essayer de lui faire entendre raison.  
+		set State.has_finish_quest_valombre = true
+
+else: 
+	Maire Alphonse : J’ai besoin de ton aide. Cette histoire de pommes doit être réglée…  
+	Maire Alphonse : Agathe est persuadée que Gérard lui a volé ses pommes, et elle ne veut rien entendre.  
+	Maire Alphonse : Nous sommes peu dans ce village, et pourtant, il faut que ce soit eux qui se disputent pour une poignée de fruits !  
+	Maire Alphonse : Peux-tu aller voir ce qu’il se passe et tenter d’apaiser les choses ?  
+	* Je vais voir ce que je peux faire…  
+	set State.has_given_quest_apple = true
+if State.has_finish_quest_valombre == true 
+	if State.can_enter_forest == true:
+		Maire Alphonse : La crypte… J’ai un mauvais pressentiment. Si tu y découvres quelque chose d’étrange, reviens immédiatement me voir.
+	else:
+		Maire Alphonse: Ah, te voilà. J’ai quelque chose d’important à te dire.
+		Maire Alphonse: La forêt de Sombrebrise est maudite… Des ombres y rôdent, et maintenant Baptiste, notre bûcheron, a disparu.
+		Maire Alphonse: Sa hache a été retrouvée devant l’ancienne crypte… Celle que nous avons toujours gardée scellée. 
+		Maire Alphonse: Personne d’ici n’ose y mettre un pied. La crypte prend ceux qui s’en approchent… Mais toi, étranger, elle ne te connaît pas encore.
 		Maire Alphonse: Que les esprits aient pitié de toi… Si quelque chose t’appelle, ne lui réponds pas.
-	- Refuser
-		Maire Alphonse: Je ne peux t’en blâmer… Mais les ténèbres avancent. Si tu changes d’avis, reviens avant qu’il ne soit trop tard.
+		set State.can_enter_forest  = true
+
+		
 => END
