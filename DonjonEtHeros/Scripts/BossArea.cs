@@ -60,21 +60,23 @@ public partial class BossArea : Area2D
         StartBossDialogue();
     }
 
-    private async Task MovePlayerToBoss(Vector2 target)
+    private async Task MovePlayerToBoss(Vector2 target) // target = position du boss
     {
-        float speed = 20f; // ✅ Une vitesse plus raisonnable maintenant que delta n'interfère pas
-        float threshold = 0.05f; // ✅ Réduction du seuil pour un arrêt plus précis
+        float speed = 20f;
+        float distanceStop = 0.05f;
 
-        GD.Print(" Déplacement du joueur vers le boss...");
+        GD.Print("deplacement du joueur vers le boss");
 
-        while (player.Position.DistanceTo(target) > threshold)
+        // Tant que le joueur n'est pas à la position du boss
+        while (player.Position.DistanceTo(target) > distanceStop)
         {
-            player.Position = player.Position.MoveToward(target, speed / 60f); // ✅ Ajustement du mouvement pour 60 FPS
+            // ? 20 / 60 = 0.33 donc le joueur se déplace de 0.33 pixels par frame
+            player.Position = player.Position.MoveToward(target, speed / 60f); // 60 FPS
 
-            await Task.Delay(16); // ✅ On attend une frame (16ms pour 60 FPS)
+            await Task.Delay(16);
         }
 
-        GD.Print("🦸 Le joueur est en position !");
+        GD.Print(" Le joueur est en position !");
     }
 
     private void StartBossDialogue()
@@ -106,13 +108,13 @@ public partial class BossArea : Area2D
     {
         if (!IsInstanceValid(this) || !IsInsideTree())
         {
-            GD.PrintErr("⚠ BossArea supprimée, impossible d'unpause !");
+            GD.PrintErr(" BossArea suprimé impossible de reprendre le jeu !");
             return;
         }
 
         GetTree().Paused = false;
         isDialogueActive = false; //  On renitialise le bool
-        GD.Print("🔄 Reprise du jeu après dialogue.");
+        GD.Print(" Reprise du jeu après dialogue.");
 
         //  On démarre le combat après le dialogue
         StartBattle();
