@@ -64,6 +64,11 @@ public partial class Battle : Control
         DefendButton = GetNode<Button>("ActionsPanel/Actions/Defend");
         AttackButton.Pressed += HandleAttackButton;
         RunButton.Pressed += HandleRunButton;
+        if (EnemyResource.name == "Seigneur Liche")
+        {
+            RunButton.Disabled = true;
+        }
+        GD.Print($"👿 Nom de l'ennemi actuel : {EnemyResource.name}");
         DefendButton.Pressed += HandleDefendButton;
 
         Textbox.Visible = false;
