@@ -160,7 +160,7 @@ RunButton = NodePath("ActionsPanel/Actions/Run")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 1152.0
+offset_right = 1280.0
 offset_bottom = 650.0
 texture = ExtResource("2_mut2v")
 
@@ -268,8 +268,8 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -648.0
-offset_bottom = -557.0
+offset_top = -691.46
+offset_bottom = -600.46
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_erdu7")

@@ -1,9 +1,9 @@
 ~ agathe_valombre
 if State.has_met_agathe == true: 
-	Agathe: Je t’ai déjà tout dit, Gérard est un voleur, point final.  
+	Agathe: Je t’ai déjà tout dit, Gaspard est un voleur, point final.  
 else:
 	Agathe: Ah, enfin quelqu'un qui va m’écouter !  
-	Agathe: Cet escroc de Gérard m’a volé mes pommes, j’en suis certaine !  
+	Agathe: Cet escroc de Gaspard m’a volé mes pommes, j’en suis certaine !  
 	Agathe: Hier encore, elles étaient sur mon arbre, et ce matin, plus rien !  
 	Agathe: Et devine qui est le seul à avoir une tarte aux pommes toute fraîche chez lui ? 
 	Agathe: Je suis allée lui demander des explications, mais il nie tout en bloc !
