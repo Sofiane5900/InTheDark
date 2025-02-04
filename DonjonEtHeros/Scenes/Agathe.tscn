@@ -1,16 +1,17 @@
 [gd_scene load_steps=3 format=3 uid="uid://bjlfwqpih8sp1"]
 
-[ext_resource type="Texture2D" uid="uid://c20criqa85bbs" path="res://FruitNPC.png" id="1_eui4x"]
+[ext_resource type="Texture2D" uid="uid://dee1ks3bx2dh8" path="res://Art/agathe.png" id="1_eguli"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gd6q0"]
-radius = 5.0
-height = 18.0
+radius = 3.0
+height = 12.0
 
-[node name="FruitLady" type="StaticBody2D"]
+[node name="Agathe" type="StaticBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.555556, 0.53125)
-texture = ExtResource("1_eui4x")
+scale = Vector2(0.003, 0.003)
+texture = ExtResource("1_eguli")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 2)
 shape = SubResource("CapsuleShape2D_gd6q0")

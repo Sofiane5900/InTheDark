@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dd244ve3a2ouq"]
+
+[ext_resource type="Script" path="res://Scripts/BaseEnemy.cs" id="1_vts0n"]
+[ext_resource type="Texture2D" uid="uid://7awdtpdjkhq5" path="res://Art/Fantasy Battlers - Free/x2 size/04.png" id="2_f6ict"]
+
+[resource]
+script = ExtResource("1_vts0n")
+name = "Rascaro"
+texture = ExtResource("2_f6ict")
+health = 25
+damage = 10

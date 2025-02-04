@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://clhlq7gr7rkne"]
+
+[ext_resource type="Script" path="res://Scripts/BaseEnemy.cs" id="1_8x8av"]
+[ext_resource type="Texture2D" uid="uid://d28o6x8ud1qn0" path="res://Art/Fantasy Battlers - Free/x2 size/08.png" id="2_ykpa7"]
+
+[resource]
+script = ExtResource("1_8x8av")
+name = "Spectracier"
+texture = ExtResource("2_ykpa7")
+health = 30
+damage = 15

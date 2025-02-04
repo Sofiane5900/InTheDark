@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://Scripts/Actionnable.cs" id="1_t5wpm"]
 
 [node name="Actionnable" type="Area2D"]
+collision_layer = 17
 script = ExtResource("1_t5wpm")

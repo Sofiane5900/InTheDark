@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://4ib6d5phb8hi"]
+
+[ext_resource type="Script" path="res://Scripts/BaseEnemy.cs" id="1_bvtf8"]
+[ext_resource type="Texture2D" uid="uid://dx5eke064rqco" path="res://Art/serpent.png" id="2_bsjeq"]
+
+[resource]
+script = ExtResource("1_bvtf8")
+name = "Venimor des forets"
+texture = ExtResource("2_bsjeq")
+health = 15
+damage = 5

@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://hpnpi3tnsth8"
+path="res://.godot/imported/Agathe.dialogue-0756f3e7f2e12de8cd3fb57e825536fb.tres"
+
+[deps]
+
+source_file="res://Dialogue/Agathe.dialogue"
+dest_files=["res://.godot/imported/Agathe.dialogue-0756f3e7f2e12de8cd3fb57e825536fb.tres"]
+
+[params]
+
+defaults=true

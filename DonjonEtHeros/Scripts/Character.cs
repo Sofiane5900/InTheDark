@@ -93,4 +93,13 @@ public partial class Character : CharacterBody2D
             _animationPlayer.Play("walk_right");
         }
     }
+
+    public async void BlockMovement(float duration = 1.0f) // Durée par défaut de 1 seconde
+    {
+        _currentVelocity = Vector2.Zero;
+        _animationPlayer.Play("idle");
+        SetPhysicsProcess(false); // Pause
+        await ToSignal(GetTree().CreateTimer(duration), "timeout");
+        SetPhysicsProcess(true); // Unpause
+    }
 }

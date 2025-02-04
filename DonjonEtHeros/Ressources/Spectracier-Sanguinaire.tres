@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://caq4nctfmw2pf"]
+
+[ext_resource type="Script" path="res://Scripts/BaseEnemy.cs" id="1_duul8"]
+[ext_resource type="Texture2D" uid="uid://t5gqefutmv1q" path="res://Art/Fantasy Battlers - Free/x2 size/07b.png" id="2_xs6r6"]
+
+[resource]
+script = ExtResource("1_duul8")
+name = "Spectracier Sanguin"
+texture = ExtResource("2_xs6r6")
+health = 20
+damage = 18

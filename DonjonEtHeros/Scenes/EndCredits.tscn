@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2j34r4kj3rdl"]
+
+[ext_resource type="Script" path="res://Scripts/EndCredits.cs" id="1_5h6g7"]
+[ext_resource type="Texture2D" uid="uid://cgdy7dysjrr10" path="res://Art/credits_background.png" id="1_gf3w8"]
+[ext_resource type="FontFile" uid="uid://cyor4edh0d5wq" path="res://Fonts/DTM-Sans.otf" id="2_8pubb"]
+
+[node name="EndCredits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5h6g7")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_gf3w8")
+
+[node name="CreditsText" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 141.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_8pubb")
+theme_override_font_sizes/font_size = 36
+text = "Donovan
+Bafode 
+Sofiane
+Sarah (création d'assets)
+"
+horizontal_alignment = 1
+
+[node name="CreditsText4" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -238.0
+offset_top = -89.0
+offset_right = 296.0
+offset_bottom = 238.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_8pubb")
+theme_override_font_sizes/font_size = 22
+text = "Après la chute du Seigneur Liche, Valombre retrouva enfin la paix.
+
+Les habitants sortirent de chez eux, les champs refleurirent, et la vie reprit son cours.
+Baptiste, le bûcheron disparu, fut retrouvé en forêt, amaigri mais en pleine forme.
+Gaspard et Agathe finirent par se marier, mettant fin à leur querelle.
+
+Maire Alphonse, fidèle à lui-même, trouva de nouvelles taxes à inventer.
+Quant à la Liche… Certains disent qu’elle tient désormais une boulangerie, mais personne n’a vérifié.
+
+Et ainsi, Valombre continua son histoire."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
