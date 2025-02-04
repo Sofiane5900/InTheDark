@@ -42,14 +42,14 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -238.0
-offset_top = -89.0
-offset_right = 296.0
-offset_bottom = 238.0
+offset_left = -275.0
+offset_top = -81.0
+offset_right = 259.0
+offset_bottom = 246.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_8pubb")
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 28
 text = "Après la chute du Seigneur Liche, Valombre retrouva enfin la paix.
 
 Les habitants sortirent de chez eux, les champs refleurirent, et la vie reprit son cours.
@@ -57,8 +57,6 @@ Baptiste, le bûcheron disparu, fut retrouvé en forêt, amaigri mais en pleine 
 Gaspard et Agathe finirent par se marier, mettant fin à leur querelle.
 
 Maire Alphonse, fidèle à lui-même, trouva de nouvelles taxes à inventer.
-Quant à la Liche… Certains disent qu’elle tient désormais une boulangerie, mais personne n’a vérifié.
-
 Et ainsi, Valombre continua son histoire."
 horizontal_alignment = 1
 vertical_alignment = 1

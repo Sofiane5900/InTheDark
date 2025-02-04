@@ -55,10 +55,12 @@ public partial class GameManager : Node
     private async void StartRandomBattle()
     {
         if (currentMap.PossibleEnemies.Count == 0)
-            return; // Pas d'ennemis ici
+        {
+            return; // Pas d'ennemis ici, tableau vide
+        }
 
-        RandomNumberGenerator rng = new RandomNumberGenerator();
-        int index = rng.RandiRange(0, currentMap.PossibleEnemies.Count - 1);
+        RandomNumberGenerator random = new RandomNumberGenerator();
+        int index = random.RandiRange(0, currentMap.PossibleEnemies.Count - 1);
         string enemyName = currentMap.PossibleEnemies[index];
 
         GD.Print($"Combat déclenché avec {enemyName} !");
@@ -68,20 +70,23 @@ public partial class GameManager : Node
 
     public void LoadScene(string sceneName, Vector2? playerPosition = null)
     {
+        // ? Je supprime l'ancienne scène si elle existe
         if (currentScene is not null)
         {
-            currentScene.QueueFree(); // Supprime la scène actuelle
+            currentScene.QueueFree(); // QueueFree() supprime une Node à la fin d'une frame
         }
 
+        // ? J'ajoute une nouvelle scene
         PackedScene newScene = GD.Load<PackedScene>($"res://Scenes/{sceneName}.tscn");
         if (newScene is not null)
         {
+            // ? La scéne est instanciée dans la node globale GameManager
             currentScene = newScene.Instantiate();
-            AddChild(currentScene);
+            AddChild(currentScene); // Ajout dans la node globale GameManager
             GD.Print($"Nouvelle scène : {sceneName}");
             currentMap = currentScene.FindChild("Map") as Map;
 
-            // Affiche les nœuds enfants de la scène pour déboguer
+            // Affiche les nœuds enfants de la scène pour debug
             foreach (Node child in currentScene.GetChildren())
             {
                 GD.Print($"Enfant trouvé : {child.Name}, chemin : {child.GetPath()}");
@@ -137,6 +142,7 @@ public partial class GameManager : Node
     private void CheckForPlayer()
     {
         // Vérifie que "Character2D" existe dans la scène
+        // TODO : Faire des rercherche sur recusrsive et owned
         player = currentScene.FindChild("Character2D", true, false) as CharacterBody2D;
         if (player is null)
         {

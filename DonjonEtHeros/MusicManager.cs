@@ -10,6 +10,7 @@ public partial class MusicManager : Node
         if (Instance is null)
         {
             Instance = this;
+            ProcessMode = ProcessModeEnum.Always; // Priorité sur la pause
             _musicPlayer = new AudioStreamPlayer();
             AddChild(_musicPlayer);
         }
