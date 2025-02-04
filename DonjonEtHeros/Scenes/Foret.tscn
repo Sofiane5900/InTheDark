@@ -1,6 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://ckn6dlbqnglr0"]
+[gd_scene load_steps=25 format=3 uid="uid://ckn6dlbqnglr0"]
 
 [ext_resource type="Script" path="res://Scripts/Map.cs" id="1_2mv0w"]
+[ext_resource type="Script" path="res://Scripts/Foret.cs" id="1_snnoe"]
+[ext_resource type="AudioStream" uid="uid://cw1ojw8w0ac13" path="res://Musiques/foret.ogg" id="2_tck6v"]
 [ext_resource type="Texture2D" uid="uid://5yvn3clfink6" path="res://Art/Bountiful-Bits-10x10-v-3.1/Colored/Civilized.png" id="2_yu0kc"]
 [ext_resource type="Texture2D" uid="uid://djtrtlit3pxtb" path="res://Art/Bountiful-Bits-10x10-v-3.1/1-Bit/Civilized.png" id="3_4o0a5"]
 [ext_resource type="Texture2D" uid="uid://numb78yja7py" path="res://Art/natural.tres" id="4_t3122"]
@@ -606,6 +608,7 @@ texture_region_size = Vector2i(10, 10)
 10:5/0 = 0
 11:5/0 = 0
 12:5/0 = 0
+12:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5, -5, 5, -5, 5, 5, -5, 5)
 13:5/0 = 0
 14:5/0 = 0
 15:5/0 = 0
@@ -3906,6 +3909,8 @@ radius = 7.0
 size = Vector2(51, 20)
 
 [node name="Foret" type="Node2D"]
+script = ExtResource("1_snnoe")
+_foretMusic = ExtResource("2_tck6v")
 
 [node name="Map" type="Node2D" parent="."]
 script = ExtResource("1_2mv0w")

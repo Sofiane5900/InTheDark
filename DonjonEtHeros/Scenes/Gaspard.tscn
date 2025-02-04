@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bcmi11lbagnc0"]
 
-[ext_resource type="Texture2D" uid="uid://bu7x1y72xq6b3" path="res://Art/Maire.png" id="1_seuv3"]
+[ext_resource type="Texture2D" uid="uid://tebrttu4qqt6" path="res://Art/gaspard.png" id="1_54k8u"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u4cll"]
 radius = 17.7778
@@ -11,7 +11,7 @@ scale = Vector2(0.2, 0.2)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.269)
-texture = ExtResource("1_seuv3")
+texture = ExtResource("1_54k8u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -26.6667)
