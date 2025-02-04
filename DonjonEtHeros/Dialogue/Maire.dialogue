@@ -1,23 +1,26 @@
 ~ alphonse_valombre_intro
 Maire Alphonse: ...
 
-#  Étape 1 : Si le joueur a parlé à Agathe et Gaspard, il doit faire un choix (prioritaire)
+#  Étape 1 : Si le joueur a parlé à Agathe et Gaspard, il doit faire un choix 
 if State.has_met_agathe == true && State.has_met_gaspard == true && State.has_finish_quest_valombre == false:
 	Maire Alphonse: Alors, tu as parlé aux deux ? Qui dois-je croire dans cette histoire ?
 	- Agathe dit la vérité
 		Maire Alphonse: Hm… Si tu penses que Gaspard a volé ces pommes, alors je vais lui demander de s’expliquer.
 		Maire Alphonse: Dans un village aussi petit, on ne peut pas se permettre ce genre de tensions.
 		Maire Alphonse: J’espère qu’après ça, Agathe pourra tourner la page.
+		Maire Alphonse: Toute cette histoire m’a fait perdre un temps précieux… Je vais peut-être devoir envisager une taxe pour compenser ces perturbations.
 		set State.has_finish_quest_valombre = true
 	- Gaspard dit la vérité
 		Maire Alphonse: Donc selon toi, Agathe s’est peut-être emballée un peu vite ?
 		Maire Alphonse: Ça ne m’étonnerait pas… Elle a le sang chaud, et parfois, elle accuse avant d’avoir toutes les réponses.
 		Maire Alphonse: Je vais essayer de lui faire entendre raison.
+		Maire Alphonse: Avec toutes ces querelles, l'économie du marché local en souffre… Peut-être qu’une taxe sur les disputes excessives ne serait pas une mauvaise idée.
 		set State.has_finish_quest_valombre = true
 
 #  Étape 2 : Si la quête n'est pas encore terminée, mais que le joueur a déjà reçu la quête des pommes
 elif State.has_finish_quest_valombre == false && State.has_given_quest_apple == true:
 	Maire Alphonse: Reviens me voir quand tu auras résolu cette histoire de pomme, j'aurai une autre mission pour toi.
+	Maire Alphonse: D'ailleurs, les marchands commencent à se plaindre… Ils demandent une régulation sur le commerce des pommes. Encore une affaire à gérer.
 
 #  Étape 3 : Si la quête n'a pas encore été donnée
 elif State.has_finish_quest_valombre == false:
@@ -25,6 +28,7 @@ elif State.has_finish_quest_valombre == false:
 	Maire Alphonse: Agathe est persuadée que Gaspard lui a volé ses pommes, et elle ne veut rien entendre.
 	Maire Alphonse: Nous sommes peu dans ce village, et pourtant, il faut que ce soit eux qui se disputent pour une poignée de fruits !
 	Maire Alphonse: Peux-tu aller voir ce qu’il se passe et tenter d’apaiser les choses ?
+	Maire Alphonse: Si cette histoire continue, je vais finir par devoir réglementer les fruits vendus sur le marché…
 	* Je vais voir ce que je peux faire…
 	set State.has_given_quest_apple = true
 
@@ -32,13 +36,15 @@ elif State.has_finish_quest_valombre == false:
 if State.has_finish_quest_valombre == true:
 	if State.can_enter_forest == true:
 		Maire Alphonse: La crypte… J’ai un mauvais pressentiment. Si tu y découvres quelque chose d’étrange, reviens immédiatement me voir.
+		Maire Alphonse: Avec tout ce qui se passe, je commence à me demander si on ne devrait pas imposer une taxe pour l’entretien des ruines… Enfin, ce n’est pas la priorité.
 	else:
 		if State.has_received_crypt_quest == false:
 			Maire Alphonse: Ah, te voilà. J’ai quelque chose d’important à te dire.
-			Maire Alphonse: La forêt de Sombrebrise est maudite… Des ombres y rôdent, et maintenant Baptiste, notre bûcheron, a disparu.
+			Maire Alphonse: La Forêt au pins est maudite… Des ombres y rôdent, et maintenant Baptiste, notre bûcheron, a disparu.
 			Maire Alphonse: Sa hache a été retrouvée devant l’ancienne crypte… Celle que nous avons toujours gardée scellée.
 			Maire Alphonse: Personne d’ici n’ose y mettre un pied. La crypte prend ceux qui s’en approchent… Mais toi, étranger, elle ne te connaît pas encore.
 			Maire Alphonse: Que les esprits aient pitié de toi… Si quelque chose t’appelle, ne lui réponds pas.
+			Maire Alphonse: D'ailleurs, si ces histoires de malédictions continuent, il faudra peut-être penser à une contribution spéciale pour la protection du village...
 			set State.can_enter_forest = true
 			set State.has_received_crypt_quest = true
 		else:

@@ -188,8 +188,16 @@ public partial class Battle : Control
         await ToSignal(AnimationPlayer, "animation_finished");
         DisplayText($"Vous avez vaincu le {EnemyResource.name} !");
         await ToSignal(GetTree().CreateTimer(2), "timeout");
-        GD.Print("Calling EndBattle...");
-        BattleManager.Instance.EndBattle();
+        if (EnemyResource.name == "Seigneur Liche")
+        {
+            GD.Print("🎬 Lancement des crédits...");
+            GetTree().ChangeSceneToFile("res://Scenes/EndCredits.tscn"); // Lance la scène de fin
+        }
+        else
+        {
+            GD.Print("Calling EndBattle...");
+            BattleManager.Instance.EndBattle();
+        }
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
