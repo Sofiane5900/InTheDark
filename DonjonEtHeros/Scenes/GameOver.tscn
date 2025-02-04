@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://v0a24grfi8uh"]
+
+[ext_resource type="Texture2D" uid="uid://cgdy7dysjrr10" path="res://Art/credits_background.png" id="1_k0naw"]
+[ext_resource type="Script" path="res://Scripts/GameOver.cs" id="1_s76ti"]
+[ext_resource type="FontFile" uid="uid://cyor4edh0d5wq" path="res://Fonts/DTM-Sans.otf" id="2_vee0s"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s76ti")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_k0naw")
+
+[node name="GameOverText" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -215.0
+offset_top = -94.5
+offset_right = 215.0
+offset_bottom = 94.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_vee0s")
+theme_override_font_sizes/font_size = 36
+text = "Game Over !
+
+Tu as fait éxpres de mourrir c'est ça ?
+C'est presque impossible de mourrir avec l'équilibrage donc..."
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]

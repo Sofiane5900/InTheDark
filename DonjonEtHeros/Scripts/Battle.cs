@@ -154,30 +154,40 @@ public partial class Battle : Control
 
     private async void EnemyAttack()
     {
-        if (isDefending is true)
+        int actualDamage = EnemyResource.damage; // On garde la valeur originale
+
+        if (isDefending)
         {
             isDefending = false;
-            DisplayText("Vous avez reduit l'attaque de l'ennemi de moitié !");
-            EnemyResource.damage = EnemyResource.damage / 2;
-            currentPlayerHealth = Math.Max(0, currentPlayerHealth - EnemyResource.damage); // On evite que les PV deviennent négatif
-            SetHealth(PlayerHealthBar, currentPlayerHealth, stateScript.MaxHealth);
+            DisplayText("Vous avez réduit l'attaque de l'ennemi de moitié !");
+            actualDamage /= 2; // Réduction temporaire des dégâts
+
             await ToSignal(GetTree().CreateTimer(1.2), "timeout");
             AnimationPlayer.Play("mini_shake");
         }
         else
         {
             DisplayText("L'ennemi vous attaque !");
-            currentPlayerHealth = Math.Max(0, currentPlayerHealth - EnemyResource.damage); // On evite que les PV deviennent négatif
-            SetHealth(PlayerHealthBar, currentPlayerHealth, stateScript.MaxHealth);
-            // TODO : On pourrait rename cette animation en "player_damaged"
             AnimationPlayer.Play("shake");
             await ToSignal(AnimationPlayer, "animation_finished");
         }
-        GD.Print("Checking if enemy health is zero...");
+
+        // On applique les dégats sans modifier la valeur originale
+        currentPlayerHealth = Math.Max(0, currentPlayerHealth - actualDamage);
+        SetHealth(PlayerHealthBar, currentPlayerHealth, stateScript.MaxHealth);
+
+        GD.Print("Vérification des PV de l'ennemi...");
         if (EnemyResource.health == 0)
         {
-            GD.Print("Enemy health is zero, calling EnemyDeath!");
+            GD.Print("L'ennemi est mort ! Je lance EnemyDeath()");
             EnemyDeath();
+        }
+
+        GD.Print("Vérification des PV du joueur...");
+        if (currentPlayerHealth == 0)
+        {
+            GD.Print("Le joueur est mort ! Je lance PlayerDeath()");
+            PlayerDeath();
         }
     }
 
@@ -198,6 +208,15 @@ public partial class Battle : Control
             GD.Print("Calling EndBattle...");
             BattleManager.Instance.EndBattle();
         }
+    }
+
+    public async void PlayerDeath()
+    {
+        GD.PrintErr("Player DEAD!");
+        await ToSignal(AnimationPlayer, "animation_finished");
+        DisplayText("Vous avez été vaincu !");
+        await ToSignal(GetTree().CreateTimer(2), "timeout");
+        GetTree().ChangeSceneToFile("res://Scenes/GameOver.tscn");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

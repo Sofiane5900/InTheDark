@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using Godot;
 
-public partial class EndCredits : Control
+public partial class GameOver : Control
 {
     [Export]
-    public float DisplayTime = 15f; // Temps avant fermeture des creditrs float = secondes
+    public float DisplayTime = 5f; // Temps avant fermeture des creditrs float = secondes
 
     public override async void _Ready()
     {
